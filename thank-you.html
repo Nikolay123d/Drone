@@ -1,76 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Продажа дронов — Прага и по Чехии</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Продажа дронов</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f8f8f8; padding: 20px; }
-    h1, h2 { text-align: center; }
-    img { max-width: 100%; display: block; margin: 0 auto; border-radius: 10px; }
-    form { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: 20px auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    label { display: block; margin-top: 15px; font-weight: bold; }
-    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
-    .hidden { display: none; }
-    button { background: green; color: white; padding: 10px 20px; margin-top: 20px; border: none; border-radius: 5px; cursor: pointer; }
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2b2e4a;
+    }
+    img {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .info {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-top: 15px;
+    }
+    .info strong {
+      color: green;
+    }
+    select, input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .bank {
+      display: none;
+      background: #eef;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+    .contact-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .contact-link a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Продаю новые дроны</h1>
+    <img src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Супер-дрон по акции">
 
-  <h1>🔥 Новый дрон по акции — всего 899 крон!</h1>
-  <h2>🚚 Самовывоз по Праге или доставка по Чехии</h2>
-  <img src="https://www.imghippo.com/i/iuV7540EtQ.png" alt="Дрон по акции" />
+    <div class="info">
+      ✅ <strong>Полностью новый и рабочий</strong>, как показано на видео.<br><br>
 
-  <form action="https://getform.io/f/bgdlekoa" method="POST">
-    <label>Имя и фамилия / Jméno a příjmení</label>
-    <input type="text" name="name" required />
+      🚗 <strong>Если вы из Праги</strong> — самовывоз возможен без предоплаты.<br>
+      📦 В другие города — пишите, обсудим доставку.<br><br>
 
-    <label>Электронная почта / Email</label>
-    <input type="email" name="email" required />
-
-    <label>Номер телефона / Telefonní číslo</label>
-    <input type="tel" name="phone" required />
-
-    <label>Вы из Праги? / Jste z Prahy?</label>
-    <select name="from_prague" id="from_prague" required onchange="toggleDeliveryFields()">
-      <option value="">Выберите / Vyberte</option>
-      <option value="yes">Да / Ano</option>
-      <option value="no">Нет / Ne</option>
-    </select>
-
-    <div id="delivery_fields" class="hidden">
-      <label>Город / Město</label>
-      <input type="text" name="city" />
-
-      <label>Адрес / Adresa</label>
-      <input type="text" name="address" />
-
-      <label>Хотите доставку? / Chcete doručení?</label>
-      <select name="delivery_choice">
-        <option value="">Выберите / Vyberte</option>
-        <option value="yes">Да / Ano</option>
-        <option value="no">Нет / Ne</option>
-      </select>
-
-      <p><strong>💳 Для доставки необходимо перевести предоплату 250 крон на счёт:</strong><br/>
-        Číslo účtu / Номер счёта: <b>354037257/0300</b> (ČSOB)<br/>
-        Оплата проверяется мгновенно, отправка в течение дня или на следующий день.
-      </p>
+      ✉️ <strong>Пишите в сообщения</strong> или указывайте в комментариях к заказу!
     </div>
 
-    <label>Комментарий / Komentář</label>
-    <textarea name="message" placeholder="Например, хочу самовывоз в Праге..."></textarea>
+    <hr>
 
-    <button type="submit">📨 Отправить заявку / Odeslat objednávku</button>
-  </form>
+    <div class="info">
+      ✅ <strong>Kompletně nový a funkční</strong>, jak je ukázáno na videu.<br><br>
+
+      🚗 <strong>Pokud jste z Prahy</strong> – osobní odběr možný bez zálohy.<br>
+      📦 Do jiných měst – napište, dohodneme se na doručení.<br><br>
+
+      ✉️ <strong>Napište do zprávy</strong> nebo uveďte v komentáři k objednávce.
+    </div>
+
+    <hr>
+
+    <label for="delivery">Выберите доставку / Zvolte doručení:</label>
+    <select id="delivery" onchange="showBank()">
+      <option value="praha">Самовывоз из Праги / Osobní odběr Praha</option>
+      <option value="other">Доставка в другой город / Doručení do jiného města</option>
+    </select>
+
+    <div id="bankInfo" class="bank">
+      💳 <strong>Предоплата: 250 крон</strong><br>
+      Číslo účtu (ČSOB): <strong>123456789/0300</strong><br>
+      📦 Отправляем через Zásilkovna в течение дня или на следующий.
+    </div>
+
+    <hr>
+
+    <label>📞 Номер телефона / Telefonní číslo:</label>
+    <input type="text" placeholder="Введите номер / Zadejte číslo">
+
+    <label>📧 Email:</label>
+    <input type="email" placeholder="Введите email / Zadejte email">
+
+    <div class="contact-link">
+      🔗 <a href="https://postimg.cc/tY8DnVYk" target="_blank">Связаться со мной / Kontaktujte mě</a>
+    </div>
+  </div>
 
   <script>
-    function toggleDeliveryFields() {
-      const pragueSelect = document.getElementById('from_prague');
-      const deliveryFields = document.getElementById('delivery_fields');
-      deliveryFields.classList.toggle('hidden', pragueSelect.value === 'yes');
+    function showBank() {
+      const select = document.getElementById("delivery");
+      const bank = document.getElementById("bankInfo");
+      if (select.value === "other") {
+        bank.style.display = "block";
+      } else {
+        bank.style.display = "none";
+      }
     }
   </script>
-
 </body>
 </html>
