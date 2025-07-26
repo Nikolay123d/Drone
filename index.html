@@ -6,108 +6,70 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
+      background: #f4f4f4;
       text-align: center;
+      padding: 20px;
     }
-
-    h1 {
-      background-color: #222;
+    .header {
+      background: #111;
       color: #fff;
-      padding: 20px;
-      font-size: 26px;
+      padding: 15px;
+      font-size: 24px;
     }
-
-    .promo {
-      color: red;
-      font-weight: bold;
-      margin: 15px 0;
-    }
-
     form {
-      background-color: #fff;
+      background: #fff;
       padding: 20px;
-      margin: auto;
-      width: 100%;
-      max-width: 500px;
+      margin-top: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      display: inline-block;
       text-align: left;
     }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-
     input, textarea, select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
+      margin-top: 10px;
+      margin-bottom: 20px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-
     button {
-      background-color: green;
-      color: white;
-      padding: 12px 20px;
+      background-color: #28a745;
+      color: #fff;
+      padding: 10px 25px;
       border: none;
       border-radius: 5px;
-      font-size: 16px;
       cursor: pointer;
     }
-
-    button:hover {
-      background-color: darkgreen;
-    }
-
-    #extra-fields {
-      display: none;
-      background: #f9f9f9;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    #note {
-      display: none;
-      background: #fff3cd;
-      padding: 10px;
-      border: 1px solid #ffeeba;
-      color: #856404;
+    .note {
       margin-top: 15px;
-      border-radius: 5px;
+      font-size: 14px;
+      color: #444;
     }
-
-    img {
-      margin: 15px 0;
-      max-width: 100%;
-      border-radius: 10px;
+    .hidden {
+      display: none;
     }
   </style>
-
   <script>
-    function handleCityChange(value) {
-      const extra = document.getElementById('extra-fields');
-      const note = document.getElementById('note');
-
-      if (value === 'no') {
-        extra.style.display = 'block';
-        note.style.display = 'block';
+    function checkCity() {
+      const city = document.getElementById("city").value;
+      const note = document.getElementById("note");
+      if (city === "no") {
+        note.classList.remove("hidden");
       } else {
-        extra.style.display = 'none';
-        note.style.display = 'none';
+        note.classList.add("hidden");
       }
     }
   </script>
 </head>
 <body>
 
-  <h1>🔥 Успей купить за 899 крон!</h1>
-  <img src="https://cdn.pixabay.com/photo/2016/11/29/01/17/drone-1866742_1280.jpg" alt="Drone Promo">
+  <div class="header">
+    🔥 Успей купить за 899 крон!
+  </div>
 
-  <form action="https://getform.io/f/bgdlekoa" method="POST">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Drone_with_camera_05.jpg" alt="Drone Promo" width="100%" style="max-width: 600px; margin-top: 15px;">
+
+  <form action="send.php" method="POST">
     <label>Имя / Jméno:</label>
     <input type="text" name="name" required>
 
@@ -115,38 +77,25 @@
     <input type="email" name="email" required>
 
     <label>Номер телефона / Telefonní číslo:</label>
-    <input type="tel" name="phone" required>
+    <input type="text" name="phone" required>
 
     <label>Вы из Праги? / Jste z Prahy?</label>
-    <select name="from_prague" onchange="handleCityChange(this.value)" required>
+    <select name="from_prague" id="city" onchange="checkCity()" required>
       <option value="">Выберите / Vyberte</option>
       <option value="yes">Да / Ano</option>
       <option value="no">Нет / Ne</option>
     </select>
 
-    <div id="extra-fields">
-      <label>Город / Město:</label>
-      <input type="text" name="city">
-
-      <label>Адрес / Adresa:</label>
-      <input type="text" name="address">
-
-      <label>Имя и Фамилия / Jméno a příjmení:</label>
-      <input type="text" name="fullname">
-    </div>
-
     <label>Сообщение / Zpráva:</label>
     <textarea name="message" rows="4"></textarea>
 
-    <div id="note">
-      💳 Пожалуйста, оплатите <b>предоплату 250 крон</b> на счёт:<br>
-      <b>354037257/0300</b><br>
-      Все оплаты сканируются мгновенно. Наши сотрудники работают 24/7.
-      <br><br>
-      🏙 Если вы из Праги, возможен самовывоз. Напишите это в комментарии.
+    <div id="note" class="note hidden">
+      💳 Пожалуйста, оплатите <strong>предоплату 250 крон</strong> на счёт<br>
+      <strong>358403728/0300</strong><br>
+      Всё будет зафиксировано автоматически. Наши сотрудники работают 24/7.<br>
+      🏠 Если вы **не из Праги**, оформление с самовывозом невозможно — напишите это в комментарии.
     </div>
 
-    <br>
     <button type="submit">Отправить / Odeslat</button>
   </form>
 
