@@ -1,128 +1,98 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Продажа дронов</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Продажа дрона</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
     }
     .container {
-      max-width: 500px;
-      margin: 30px auto;
-      background: #fff;
+      max-width: 600px;
+      background-color: #fff;
+      margin: 20px auto;
       padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1 {
+    h2 {
       text-align: center;
-      color: #2b2e4a;
     }
     img {
       width: 100%;
-      border-radius: 12px;
-    }
-    .info {
-      font-size: 16px;
-      line-height: 1.6;
-      margin-top: 15px;
-    }
-    .info strong {
-      color: green;
-    }
-    select, input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .bank {
-      display: none;
-      background: #eef;
-      padding: 10px;
-      margin-top: 15px;
       border-radius: 10px;
     }
-    .contact-link {
-      margin-top: 20px;
-      text-align: center;
+    label {
+      display: block;
+      margin-top: 10px;
     }
-    .contact-link a {
-      text-decoration: none;
-      color: #0077cc;
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
       font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .info {
+      margin-top: 20px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Продаю новые дроны</h1>
-    <img src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Супер-дрон по акции">
+    <h2>Дрон полностью новый и рабочий (viz video)<br>Drone je zcela nový a funkční (viz video)</h2>
+    <img src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Drone">
+
+    <form>
+      <label>Телефон / Telefon:</label>
+      <input type="text" name="phone" required>
+
+      <label>Email:</label>
+      <input type="email" name="email" required>
+
+      <label>Способ доставки / Způsob doručení:</label>
+      <select name="delivery" id="delivery">
+        <option value="pickup">Самовывоз (Прага) / Osobní odběr (Praha)</option>
+        <option value="delivery">Доставка через Zásilkovna (250 Kč) / Doručení Zásilkovnou (250 Kč)</option>
+      </select>
+
+      <label>Комментарий к заказу / Komentář k objednávce:</label>
+      <textarea name="comment"></textarea>
+
+      <button type="submit">Оформить заказ / Odeslat objednávku</button>
+    </form>
 
     <div class="info">
-      ✅ <strong>Полностью новый и рабочий</strong>, как показано на видео.<br><br>
+      <p><strong>Если вы из Праги:</strong> самовывоз без предоплаты — просто укажите это в комментарии.<br>
+      <strong>Pokud jste z Prahy:</strong> osobní odběr bez zálohy – napište to do komentáře.</p>
 
-      🚗 <strong>Если вы из Праги</strong> — самовывоз возможен без предоплаты.<br>
-      📦 В другие города — пишите, обсудим доставку.<br><br>
+      <p><strong>Если вы из другого города:</strong> доставка через Zásilkovna. Необходимо перевести 250 Kč предоплаты на банковский счёт:<br>
+      <strong>Pokud jste z jiného města:</strong> doručení Zásilkovnou. Požadujeme zálohu 250 Kč na účet:</p>
 
-      ✉️ <strong>Пишите в сообщения</strong> или указывайте в комментариях к заказу!
+      <p><strong>Číslo účtu / Номер счёта (ČSOB):</strong><br>
+      <code>354037257/0300</code></p>
     </div>
 
-    <hr>
-
-    <div class="info">
-      ✅ <strong>Kompletně nový a funkční</strong>, jak je ukázáno na videu.<br><br>
-
-      🚗 <strong>Pokud jste z Prahy</strong> – osobní odběr možný bez zálohy.<br>
-      📦 Do jiných měst – napište, dohodneme se na doručení.<br><br>
-
-      ✉️ <strong>Napište do zprávy</strong> nebo uveďte v komentáři k objednávce.
-    </div>
-
-    <hr>
-
-    <label for="delivery">Выберите доставку / Zvolte doručení:</label>
-    <select id="delivery" onchange="showBank()">
-      <option value="praha">Самовывоз из Праги / Osobní odběr Praha</option>
-      <option value="other">Доставка в другой город / Doručení do jiného města</option>
-    </select>
-
-    <div id="bankInfo" class="bank">
-      💳 <strong>Предоплата: 250 крон</strong><br>
-      Číslo účtu (ČSOB): <strong>123456789/0300</strong><br>
-      📦 Отправляем через Zásilkovna в течение дня или на следующий.
-    </div>
-
-    <hr>
-
-    <label>📞 Номер телефона / Telefonní číslo:</label>
-    <input type="text" placeholder="Введите номер / Zadejte číslo">
-
-    <label>📧 Email:</label>
-    <input type="email" placeholder="Введите email / Zadejte email">
-
-    <div class="contact-link">
-      🔗 <a href="https://postimg.cc/tY8DnVYk" target="_blank">Связаться со мной / Kontaktujte mě</a>
-    </div>
+    <p style="text-align:center; margin-top: 15px;">
+      <a href="https://postimg.cc/tY8DnVYk" target="_blank">Связь со мной / Kontakt na mě</a>
+    </p>
   </div>
-
-  <script>
-    function showBank() {
-      const select = document.getElementById("delivery");
-      const bank = document.getElementById("bankInfo");
-      if (select.value === "other") {
-        bank.style.display = "block";
-      } else {
-        bank.style.display = "none";
-      }
-    }
-  </script>
 </body>
 </html>
