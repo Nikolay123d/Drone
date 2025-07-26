@@ -2,21 +2,23 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Супер-дрон</title>
+  <title>Супер-дрон по акции</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; text-align: center; }
-    .top-bar { background: black; color: white; padding: 15px; font-size: 22px; }
-    img { width: 90%; max-width: 600px; margin: 20px auto; display: block; }
-    form { background: white; padding: 20px; margin: 20px auto; max-width: 500px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: left; }
-    label { display: block; margin-top: 10px; }
-    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
-    .submit { background: green; color: white; margin-top: 15px; cursor: pointer; border: none; }
-    .payment-info { margin-top: 15px; color: red; display: none; }
+    .top-bar { background: #000; color: white; padding: 20px; font-size: 26px; }
+    .sub-bar { color: red; font-size: 22px; margin: 10px 0; }
+    img { width: 100%; max-width: 700px; height: auto; margin: 0 auto; display: block; }
+    form { background: #fff; padding: 20px; margin: 20px auto; max-width: 550px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.1); text-align: left; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; }
+    .submit { background: green; color: white; padding: 12px; margin-top: 20px; cursor: pointer; border: none; font-size: 16px; border-radius: 6px; }
+    .info-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin-top: 20px; border-radius: 6px; }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">🔥 Успей купить за 899 крон!</div>
+  <div class="top-bar">🚁 Супер-дрон по акции!</div>
+  <div class="sub-bar">🔥 Успей купить за 899 крон!</div>
 
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/DJI_Mavic_2_Pro.jpg/800px-DJI_Mavic_2_Pro.jpg" alt="Drone Promo">
 
@@ -34,29 +36,39 @@
     </label>
 
     <label>Вы из Праги? / Jste z Prahy?
-      <select id="isPraha" onchange="togglePayment()">
+      <select id="isPraha" onchange="toggleDeliveryNote()">
         <option value="yes">Да / Ano</option>
         <option value="no">Нет / Ne</option>
       </select>
     </label>
 
-    <label>Сообщение / Zpráva:
-      <textarea name="message"></textarea>
+    <label>Адрес (если нужен): / Adresa:
+      <input type="text" name="address">
     </label>
 
-    <button type="submit" class="submit">Отправить / Odeslat</button>
+    <label>Комментарий / Komentář:
+      <textarea name="comment" rows="4"></textarea>
+    </label>
 
-    <div class="payment-info" id="paymentBox">
-      💳 Пожалуйста, оплатите предоплату 250 крон на счёт:<br>
-      <b>354037257/0300</b>
+    <button type="submit" class="submit">Отправить заказ / Odeslat objednávku</button>
+
+    <div class="info-box" id="deliveryNote" style="display:none;">
+      💬 Если вы не из Праги, возможен <b>самовывоз в Праге</b> — <u>без предоплаты</u>!  
+      <br>Просто напишите в комментарии, если хотите приехать и забрать товар лично.
     </div>
   </form>
 
+  <div class="info-box">
+    ✅ Дрон <b>полностью новый</b> и <b>рабочий</b>, как показано на видео!
+    <br>Предоплата — всего <b>250 крон</b> (для доставки).
+    <br><b>Счёт для оплаты:</b> 354037257 / 0300
+  </div>
+
   <script>
-    function togglePayment() {
+    function toggleDeliveryNote() {
       const select = document.getElementById("isPraha");
-      const paymentBox = document.getElementById("paymentBox");
-      paymentBox.style.display = (select.value === "no") ? "block" : "none";
+      const box = document.getElementById("deliveryNote");
+      box.style.display = (select.value === "no") ? "block" : "none";
     }
   </script>
 
