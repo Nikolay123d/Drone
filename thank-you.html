@@ -2,11 +2,55 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Спасибо!</title>
+  <title>Форма связи</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+    }
+    .form-box {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background: #00aaff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #008ecc;
+    }
+  </style>
 </head>
 <body>
-  <h1>Спасибо!</h1>
-  <p>Ваше сообщение успешно отправлено.</p>
-  <a href="index.html">Назад</a>
+  <div class="form-box">
+    <h2>Свяжитесь с нами / Kontaktujte nás</h2>
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
+      <label>Имя / Jméno</label>
+      <input type="text" name="name" required>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Сообщение / Zpráva</label>
+      <textarea name="message" rows="5" required></textarea>
+
+      <button type="submit">Отправить / Odeslat</button>
+    </form>
+  </div>
 </body>
-</html>
+        </html>
