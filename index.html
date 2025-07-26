@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -20,9 +19,9 @@
     #order-form-popup {
       display: none;
       position: fixed;
-      top: 10%;
+      top: 5%;
       right: 5%;
-      width: 40%;
+      width: 90%;
       max-width: 400px;
       background: white;
       padding: 20px;
@@ -30,6 +29,8 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       border-radius: 10px;
       animation: fadeIn 1s ease forwards;
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
     @keyframes fadeIn {
@@ -55,11 +56,10 @@
 <body>
 
 <header>
-  <h1>🔥 Акция! Новый дрон всего за 899 CZK 🔥</h1>
+  <h1>🔥 Новый дрон всего за 899 CZK 🔥</h1>
   <img src="https://i.imghippo.com/files/iuV7540EtQ.png" alt="Главное фото дрона">
 </header>
 
-<section class="drone"><img src="https://i.imghippo.com/files/wga7885qo.jpeg"><p>Мощный и компактный дрон с HD-камерой. 📷 Идеален для съёмок природы.</p></section>
 <section class="drone"><img src="https://i.imghippo.com/files/ItQG8214lQY.jpg"><p>Лёгкий и манёвренный, легко управляется даже новичками. 🎮</p></section>
 <section class="drone"><img src="https://i.imghippo.com/files/kdp7335DbU.jpeg"><p>Стабилизация полёта и автопилот — для уверенного полёта. ✈️</p></section>
 <section class="drone"><img src="https://i.imghippo.com/files/GA7973iw.webp"><p>Поддержка GPS и автоматического возврата. 📍</p></section>
@@ -67,7 +67,7 @@
 
 <!-- Всплывающее окно -->
 <div id="order-form-popup">
-  <h2>🛒 Оформление заказа / Objednávka</h2>
+  <h2>🛒 Заказ / Objednávka</h2>
   <form action="https://getform.io/f/bgdlekoa" method="POST">
     <label>Имя / Jméno</label>
     <input type="text" name="name" required>
@@ -89,10 +89,11 @@
       <label>Город / Město</label>
       <input type="text" name="city">
 
-      <label>Адрес / Adresa</label>
+      <label>Адрес доставки / Adresa</label>
       <textarea name="address" rows="3"></textarea>
 
-      <p class="note">💳 Предоплата 250 CZK на счёт ČSOB: <br><strong>354037257/0300</strong></p>
+      <p class="note">📦 Доставка через Zásilkovna осуществляется после предоплаты 250 CZK.</p>
+      <p class="note">💳 Счёт ČSOB для предоплаты: <strong>354037257/0300</strong></p>
     </div>
 
     <label>Комментарий / Poznámka</label>
@@ -102,13 +103,12 @@
   </form>
 
   <p class="note">
-    Если вы из Праги — возможен самовывоз без предоплаты.<br>
-    Pokud jste z Prahy — možný osobní odběr bez zálohy.
+    Из Праги — самовывоз без предоплаты. <br>
+    Z Prahy — osobní odběr bez zálohy.
   </p>
 </div>
 
 <script>
-  // Плавное появление блоков
   const drones = document.querySelectorAll('.drone');
   window.addEventListener('scroll', () => {
     drones.forEach(d => {
@@ -119,12 +119,10 @@
     });
   });
 
-  // Показываем всплывающую форму через 5 секунд
   setTimeout(() => {
     document.getElementById('order-form-popup').style.display = 'block';
   }, 5000);
 
-  // Показывать поля если не из Праги
   document.getElementById('fromPrague').addEventListener('change', function () {
     document.getElementById('nonPragueFields').style.display = this.value === 'Нет' ? 'block' : 'none';
   });
