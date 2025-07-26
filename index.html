@@ -6,150 +6,138 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #fff;
-      margin: 0;
-      padding: 0;
+      background-color: #f4f4f4;
+      padding: 20px;
       text-align: center;
     }
-    header {
-      background-color: #111;
+
+    h1 {
+      background-color: #222;
       color: #fff;
-      padding: 20px 0;
-      font-size: 24px;
+      padding: 20px;
+      font-size: 26px;
     }
+
     .promo {
       color: red;
       font-weight: bold;
-      font-size: 20px;
-      margin: 10px 0;
+      margin: 15px 0;
     }
+
     form {
-      width: 90%;
-      max-width: 400px;
-      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      margin: auto;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
       text-align: left;
     }
+
     label {
-      font-weight: bold;
       display: block;
-      margin-top: 10px;
+      margin: 10px 0 5px;
     }
+
     input, textarea, select {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
+      padding: 10px;
+      margin-bottom: 15px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
+
     button {
-      margin-top: 15px;
-      background-color: #28a745;
+      background-color: green;
       color: white;
+      padding: 12px 20px;
       border: none;
-      padding: 10px 20px;
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
     }
-    .promo-img {
-      width: 100%;
-      max-width: 400px;
+
+    button:hover {
+      background-color: darkgreen;
     }
-    .highlight {
-      color: green;
-      font-weight: bold;
-      margin: 10px 0;
+
+    #extra-fields {
+      display: none;
+      background: #f8f8f8;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .note {
+      background: #fff3cd;
+      padding: 10px;
+      border: 1px solid #ffeeba;
+      color: #856404;
+      margin-top: 15px;
+      border-radius: 5px;
     }
   </style>
-</head>
-<body>
-
-  <header>🚀 Супер-дрон по акции!<br>🔥 Успей купить за 899 крон!</header>
-  <img src="https://i.imgur.com/F62FjIU.png" alt="Drone Promo" class="promo-img">
-
-  <form action="https://getform.io/f/bgdlekoa" method="POST">
-    <label>Имя / Jméno</label>
-    <input type="text" name="name" required>
-
-    <label>Email</label>
-    <input type="email" name="email" required>
-
-    <label>Номер телефона / Telefonní číslo</label>
-    <input type="text" name="phone" required>
-
-    <label>Вы из Праги? / Jste z Prahy?</label>
-    <select name="from_prague" onchange="checkCity(this.value)">
-      <option>Выберите / Vyberte</option>
-      <option>Да / Ano</option>
-      <option>Нет / Ne</option>
-    </select>
-
-    <div id="pickupNotice" style="display: none; color: green; font-weight: bold;">
-      🚶‍♂️ Возможен самовывоз — напишите в комментарии к заказу.<br>
-      🚶‍♀️ Možný osobní odběr — napište do poznámky k objednávce.
-    </div>
-
-    <div id="cityField" style="display:none;">
-      <label>Откуда вы? / Z jakého města jste?</label>
-      <input type="text" name="city">
-    </div>
-
-    <div id="deliveryField" style="display:none;">
-      <label>Хотите доставку? / Chcete doručení?</label>
-      <select name="delivery" onchange="checkDelivery(this.value)">
-        <option>Выберите / Vyberte</option>
-        <option>Да / Ano</option>
-        <option>Нет / Ne</option>
-      </select>
-    </div>
-
-    <div id="deliveryDetails" style="display:none;">
-      <label>Введите адрес доставки / Zadejte adresu doručení</label>
-      <input type="text" name="delivery_address" placeholder="Адрес, ФИО и индекс / Adresa, celé jméno a PSČ">
-      <p class="highlight">💳 Пожалуйста, переведите оплату на счёт: <strong>354037257/0300</strong><br>
-      Все оплаты сканируются мгновенно, наши сотрудники работают 24/7.</p>
-    </div>
-
-    <label>Сообщение / Zpráva</label>
-    <textarea name="message" rows="4" placeholder="Ваш комментарий..."></textarea>
-
-    <button type="submit">Отправить / Odeslat</button>
-  </form>
 
   <script>
-    function checkCity(value) {
-      const cityField = document.getElementById("cityField");
-      const deliveryField = document.getElementById("deliveryField");
-      const deliveryDetails = document.getElementById("deliveryDetails");
-      const pickupNotice = document.getElementById("pickupNotice");
-
-      if (value.includes("Нет")) {
-        cityField.style.display = "block";
-        deliveryField.style.display = "block";
-        deliveryDetails.style.display = "none";
-        pickupNotice.style.display = "none";
-      } else if (value.includes("Да")) {
-        cityField.style.display = "none";
-        deliveryField.style.display = "none";
-        deliveryDetails.style.display = "none";
-        pickupNotice.style.display = "block";
+    function handleCityChange(value) {
+      const extra = document.getElementById('extra-fields');
+      if (value === 'no') {
+        extra.style.display = 'block';
       } else {
-        cityField.style.display = "none";
-        deliveryField.style.display = "none";
-        deliveryDetails.style.display = "none";
-        pickupNotice.style.display = "none";
-      }
-    }
-
-    function checkDelivery(value) {
-      const deliveryDetails = document.getElementById("deliveryDetails");
-      if (value.includes("Да")) {
-        deliveryDetails.style.display = "block";
-      } else {
-        deliveryDetails.style.display = "none";
+        extra.style.display = 'none';
       }
     }
   </script>
+</head>
+<body>
+
+  <h1>🚀 Супер-дрон по акции!<br>🔥 Успей купить за 899 крон!</h1>
+  <img src="https://cdn.pixabay.com/photo/2016/11/29/01/17/drone-1866742_1280.jpg" alt="Drone Promo" width="300">
+
+  <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <label>Имя / Jméno:</label>
+    <input type="text" name="name" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Номер телефона / Telefonní číslo:</label>
+    <input type="tel" name="phone" required>
+
+    <label>Вы из Праги? / Jste z Prahy?</label>
+    <select name="from_prague" onchange="handleCityChange(this.value)" required>
+      <option value="">Выберите / Vyberte</option>
+      <option value="yes">Да / Ano</option>
+      <option value="no">Нет / Ne</option>
+    </select>
+
+    <div id="extra-fields">
+      <label>Город / Město:</label>
+      <input type="text" name="city">
+
+      <label>Адрес / Adresa:</label>
+      <input type="text" name="address">
+
+      <label>Имя и Фамилия / Jméno a příjmení:</label>
+      <input type="text" name="fullname">
+    </div>
+
+    <label>Сообщение / Zpráva:</label>
+    <textarea name="message" rows="4"></textarea>
+
+    <div class="note">
+      💳 Пожалуйста, оплатите <b>предоплату 250 крон</b> на счёт:<br>
+      <b>354037257/0300</b><br>
+      Все оплаты сканируются мгновенно. Наши сотрудники работают 24/7.
+      <br><br>
+      🏙 Если вы из Праги, возможен самовывоз. Напишите это в комментарии.
+    </div>
+
+    <br>
+    <button type="submit">Отправить / Odeslat</button>
+  </form>
 
 </body>
 </html>
