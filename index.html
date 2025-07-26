@@ -1,94 +1,155 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Промо: Дрон за 899 крон!</title>
+  <meta charset="UTF-8">
+  <title>Супер-дрон по акции!</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
+      background-color: #fff;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
     header {
-      background: #222;
+      background-color: #111;
       color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    .hero {
-      padding: 30px;
-      text-align: center;
-    }
-    .hero img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 15px;
+      padding: 20px 0;
+      font-size: 24px;
     }
     .promo {
-      font-size: 24px;
-      color: #d11111;
-      margin: 20px 0;
+      color: red;
       font-weight: bold;
+      font-size: 20px;
+      margin: 10px 0;
     }
     form {
-      max-width: 500px;
-      margin: 0 auto;
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px #ccc;
+      width: 90%;
+      max-width: 400px;
+      margin: 20px auto;
+      text-align: left;
     }
-    form label {
+    label {
+      font-weight: bold;
       display: block;
-      margin-top: 15px;
+      margin-top: 10px;
     }
-    form input, form textarea {
+    input, textarea, select {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       margin-top: 5px;
       border-radius: 5px;
-      border: 1px solid #999;
+      border: 1px solid #ccc;
     }
-    form button {
-      margin-top: 20px;
-      background: #0a8f08;
+    button {
+      margin-top: 15px;
+      background-color: #28a745;
       color: white;
       border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
+      padding: 10px 20px;
+      border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
     }
-    form button:hover {
-      background: #066f05;
+    .promo-img {
+      width: 100%;
+      max-width: 400px;
+    }
+    .highlight {
+      color: green;
+      font-weight: bold;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>🛸 Супер-дрон по акции!</h1>
-</header>
+  <header>🚀 Супер-дрон по акции!<br>🔥 Успей купить за 899 крон!</header>
+  <img src="https://i.imgur.com/F62FjIU.png" alt="Drone Promo" class="promo-img">
 
-<div class="hero">
-  <img src="A_promotional_digital_photograph_advertisement_fea.png" alt="Drone Promo">
-  <div class="promo">🔥 Успей купить за 899 крон!</div>
-</div>
+  <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <label>Имя / Jméno</label>
+    <input type="text" name="name" required>
 
-<form action="https://getform.io/f/bgdlekoa" method="POST">
-  <label>Имя / Jméno:</label>
-  <input type="text" name="name" required>
+    <label>Email</label>
+    <input type="email" name="email" required>
 
-  <label>Email:</label>
-  <input type="email" name="email" required>
+    <label>Номер телефона / Telefonní číslo</label>
+    <input type="text" name="phone" required>
 
-  <label>Сообщение / Zpráva:</label>
-  <textarea name="message" rows="5" required></textarea>
+    <label>Вы из Праги? / Jste z Prahy?</label>
+    <select name="from_prague" onchange="checkCity(this.value)">
+      <option>Выберите / Vyberte</option>
+      <option>Да / Ano</option>
+      <option>Нет / Ne</option>
+    </select>
 
-  <button type="submit">Отправить / Odeslat</button>
-</form>
+    <div id="pickupNotice" style="display: none; color: green; font-weight: bold;">
+      🚶‍♂️ Возможен самовывоз — напишите в комментарии к заказу.<br>
+      🚶‍♀️ Možný osobní odběr — napište do poznámky k objednávce.
+    </div>
+
+    <div id="cityField" style="display:none;">
+      <label>Откуда вы? / Z jakého města jste?</label>
+      <input type="text" name="city">
+    </div>
+
+    <div id="deliveryField" style="display:none;">
+      <label>Хотите доставку? / Chcete doručení?</label>
+      <select name="delivery" onchange="checkDelivery(this.value)">
+        <option>Выберите / Vyberte</option>
+        <option>Да / Ano</option>
+        <option>Нет / Ne</option>
+      </select>
+    </div>
+
+    <div id="deliveryDetails" style="display:none;">
+      <label>Введите адрес доставки / Zadejte adresu doručení</label>
+      <input type="text" name="delivery_address" placeholder="Адрес, ФИО и индекс / Adresa, celé jméno a PSČ">
+      <p class="highlight">💳 Пожалуйста, переведите оплату на счёт: <strong>354037257/0300</strong><br>
+      Все оплаты сканируются мгновенно, наши сотрудники работают 24/7.</p>
+    </div>
+
+    <label>Сообщение / Zpráva</label>
+    <textarea name="message" rows="4" placeholder="Ваш комментарий..."></textarea>
+
+    <button type="submit">Отправить / Odeslat</button>
+  </form>
+
+  <script>
+    function checkCity(value) {
+      const cityField = document.getElementById("cityField");
+      const deliveryField = document.getElementById("deliveryField");
+      const deliveryDetails = document.getElementById("deliveryDetails");
+      const pickupNotice = document.getElementById("pickupNotice");
+
+      if (value.includes("Нет")) {
+        cityField.style.display = "block";
+        deliveryField.style.display = "block";
+        deliveryDetails.style.display = "none";
+        pickupNotice.style.display = "none";
+      } else if (value.includes("Да")) {
+        cityField.style.display = "none";
+        deliveryField.style.display = "none";
+        deliveryDetails.style.display = "none";
+        pickupNotice.style.display = "block";
+      } else {
+        cityField.style.display = "none";
+        deliveryField.style.display = "none";
+        deliveryDetails.style.display = "none";
+        pickupNotice.style.display = "none";
+      }
+    }
+
+    function checkDelivery(value) {
+      const deliveryDetails = document.getElementById("deliveryDetails");
+      if (value.includes("Да")) {
+        deliveryDetails.style.display = "block";
+      } else {
+        deliveryDetails.style.display = "none";
+      }
+    }
+  </script>
 
 </body>
 </html>
