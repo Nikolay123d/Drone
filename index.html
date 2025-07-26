@@ -1,147 +1,133 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Продажа нового дрона</title>
+  <meta charset="UTF-8">
+  <title>Продажа дронов</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-    }
-    .image {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .desc {
-      font-size: 18px;
-      margin-top: 15px;
-    }
-    .popup-form {
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header, section, footer { max-width: 800px; margin: auto; padding: 20px; }
+    header img { width: 100%; border-radius: 10px; }
+    h1 { text-align: center; color: #333; }
+
+    .drone { margin: 40px 0; opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .drone.visible { opacity: 1; transform: translateY(0); }
+    .drone img { width: 100%; border-radius: 10px; }
+    .drone p { font-size: 1rem; color: #444; margin-top: 10px; }
+
+    /* Всплывающая форма */
+    #order-form-popup {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    .popup-content {
+      top: 10%;
+      right: 5%;
+      width: 40%;
+      max-width: 400px;
       background: white;
       padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
       border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
+      animation: fadeIn 1s ease forwards;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    label { display: block; margin-top: 10px; font-weight: bold; }
     input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
+      width: 100%; padding: 8px; margin-top: 5px;
+      border: 1px solid #ccc; border-radius: 5px;
     }
     button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
+      margin-top: 15px; padding: 10px 20px;
+      background: #2196F3; color: white; border: none;
+      border-radius: 5px; cursor: pointer;
     }
-    button:hover {
-      background-color: #45a049;
-    }
-    .close-btn {
-      float: right;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    .info {
-      font-size: 15px;
-      color: #444;
-      margin-bottom: 10px;
+    .note {
+      font-size: 0.85rem; color: #555; margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>🚀 Продажа нового дрона</h1>
-  <img class="image" src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Дрон" />
+<header>
+  <h1>🔥 Акция! Новый дрон всего за 899 CZK 🔥</h1>
+  <img src="https://i.imghippo.com/files/iuV7540EtQ.png" alt="Главное фото дрона">
+</header>
 
-  <div class="desc">
-    🌟 <strong>Современный смарт-дрон по суперцене!</strong><br/>
-    📷 Снимает в HD, управляется со смартфона, складывается и легко помещается в сумку.<br/>
-    💨 Идеален для путешествий, съёмки природы и блогинга.<br/>
-    🎁 Только сейчас — за 899 крон!
-  </div>
-</div>
+<section class="drone"><img src="https://i.imghippo.com/files/wga7885qo.jpeg"><p>Мощный и компактный дрон с HD-камерой. 📷 Идеален для съёмок природы.</p></section>
+<section class="drone"><img src="https://i.imghippo.com/files/ItQG8214lQY.jpg"><p>Лёгкий и манёвренный, легко управляется даже новичками. 🎮</p></section>
+<section class="drone"><img src="https://i.imghippo.com/files/kdp7335DbU.jpeg"><p>Стабилизация полёта и автопилот — для уверенного полёта. ✈️</p></section>
+<section class="drone"><img src="https://i.imghippo.com/files/GA7973iw.webp"><p>Поддержка GPS и автоматического возврата. 📍</p></section>
+<section class="drone"><img src="https://i.imghippo.com/files/NUU9932JRE.jpg"><p>Отличный подарок для детей и взрослых! 🎁</p></section>
 
-<!-- Всплывающая форма -->
-<div id="popup" class="popup-form">
-  <div class="popup-content">
-    <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <h2>📦 Оформить заказ / Objednat</h2>
+<!-- Всплывающее окно -->
+<div id="order-form-popup">
+  <h2>🛒 Оформление заказа / Objednávka</h2>
+  <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <label>Имя / Jméno</label>
+    <input type="text" name="name" required>
 
-      <label>📞 Телефон / Telefon:</label>
-      <input type="text" name="Телефон" required placeholder="+420..."/>
+    <label>Email</label>
+    <input type="email" name="email" required>
 
-      <label>📧 Email:</label>
-      <input type="email" name="Email" required placeholder="example@email.com"/>
+    <label>Телефон / Telefon</label>
+    <input type="text" name="phone" required>
 
-      <label>🚚 Способ доставки / Způsob doručení:</label>
-      <select name="Доставка" id="delivery" onchange="togglePaymentInfo(this)">
-        <option value="Самовывоз из Праги">Самовывоз из Праги / Osobní odběr v Praze</option>
-        <option value="Zásilkovna">Доставка через Zásilkovna</option>
-      </select>
+    <label>Вы из Праги? / Jste z Prahy?</label>
+    <select name="from_prague" id="fromPrague" required>
+      <option value="">-- Выбрать / Vybrat --</option>
+      <option value="Да">Да / Ano</option>
+      <option value="Нет">Нет / Ne</option>
+    </select>
 
-      <div id="payment-info" style="display:none;">
-        <div class="info">
-          💳 Предоплата 250 крон на счёт ČSOB: <b>354037257/0300</b><br/>
-          📦 Отправка в течение 1 дня после оплаты.
-        </div>
-      </div>
+    <div id="nonPragueFields" style="display:none;">
+      <label>Город / Město</label>
+      <input type="text" name="city">
 
-      <label>💬 Комментарий / Komentář:</label>
-      <textarea name="Комментарий" rows="3" placeholder="Например: хочу доставку в..."></textarea>
+      <label>Адрес / Adresa</label>
+      <textarea name="address" rows="3"></textarea>
 
-      <button type="submit">✅ Оформить заказ</button>
-    </form>
-  </div>
+      <p class="note">💳 Предоплата 250 CZK на счёт ČSOB: <br><strong>354037257/0300</strong></p>
+    </div>
+
+    <label>Комментарий / Poznámka</label>
+    <textarea name="comment" rows="2"></textarea>
+
+    <button type="submit">Оформить заказ / Odeslat</button>
+  </form>
+
+  <p class="note">
+    Если вы из Праги — возможен самовывоз без предоплаты.<br>
+    Pokud jste z Prahy — možný osobní odběr bez zálohy.
+  </p>
 </div>
 
 <script>
-  // Показать форму через 5 секунд
+  // Плавное появление блоков
+  const drones = document.querySelectorAll('.drone');
+  window.addEventListener('scroll', () => {
+    drones.forEach(d => {
+      const rect = d.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        d.classList.add('visible');
+      }
+    });
+  });
+
+  // Показываем всплывающую форму через 5 секунд
   setTimeout(() => {
-    document.getElementById("popup").style.display = "flex";
+    document.getElementById('order-form-popup').style.display = 'block';
   }, 5000);
 
-  function togglePaymentInfo(select) {
-    const paymentDiv = document.getElementById("payment-info");
-    if (select.value === "Zásilkovna") {
-      paymentDiv.style.display = "block";
-    } else {
-      paymentDiv.style.display = "none";
-    }
-  }
+  // Показывать поля если не из Праги
+  document.getElementById('fromPrague').addEventListener('change', function () {
+    document.getElementById('nonPragueFields').style.display = this.value === 'Нет' ? 'block' : 'none';
+  });
 </script>
 
 </body>
