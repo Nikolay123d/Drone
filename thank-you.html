@@ -1,120 +1,58 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Дрон по акции / Akční dron</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nový dron na prodej</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
     }
     .container {
-      max-width: 600px;
-      margin: 40px auto;
+      max-width: 700px;
+      margin: auto;
       background: #fff;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 {
-      color: #333;
-      font-size: 24px;
-    }
-    label {
-      margin-top: 15px;
-      font-weight: bold;
-      display: block;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      margin-top: 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .info-box {
-      margin-top: 15px;
-      padding: 10px;
-      background: #e9ffe9;
-      border-left: 5px solid #28a745;
-    }
-    .hidden {
-      display: none;
+      color: #0073e6;
     }
     img {
       width: 100%;
-      border-radius: 10px;
+      height: auto;
+      border-radius: 8px;
       margin-bottom: 20px;
+    }
+    .note {
+      background: #e0f7e0;
+      border-left: 6px solid #4CAF50;
+      padding: 10px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <img src="https://www.imghippo.com/i/iuV7540EtQ.png" alt="Dron">
-    <h1>🔥 Дрон по акции – только 250 Kč предоплата! / Akční dron – pouze záloha 250 Kč!</h1>
-    <p>
-      ✅ Полностью новый и рабочий дрон / Zcela nový a funkční dron.<br>
-      ✅ Возможен самовывоз в Праге — предоплата не нужна / Osobní odběr v Praze – bez zálohy.<br>
-      ✅ Не из Праги? Мы доставим! / Nejste z Prahy? Zašleme na adresu!
-    </p>
+    <h1>Prodám nový dron</h1>
 
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <label>Имя и фамилия / Jméno a příjmení:</label>
-      <input type="text" name="fullname" required>
+    <img src="https://i.imghippo.com/files/iuV7540EtQ.png" alt="Dron">
 
-      <label>Email:</label>
-      <input type="email" name="email" required>
-
-      <label>Телефон / Telefon:</label>
-      <input type="text" name="phone" required>
-
-      <label>Вы из Праги? / Jste z Prahy?</label>
-      <select id="fromPrague" name="fromPrague" onchange="toggleDeliveryFields()">
-        <option value="">Выберите / Vyberte</option>
-        <option value="yes">Да / Ano</option>
-        <option value="no">Нет / Ne</option>
-      </select>
-
-      <div id="deliveryFields" class="hidden">
-        <label>Ваш город / Vaše město:</label>
-        <input type="text" name="city">
-
-        <label>Полный адрес / Kompletní adresa:</label>
-        <textarea name="address" rows="3"></textarea>
-
-        <div class="info-box">
-          Пожалуйста, переведите предоплату <strong>250 Kč</strong> на счёт:<br>
-          <strong>354037257/0300</strong><br>
-          Оплата сканируется мгновенно, наши сотрудники работают 24/7.<br>
-          <em>Předejte prosím zálohu 250 Kč na účet 354037257/0300. Platby se zpracovávají okamžitě, naši zaměstnanci pracují 24/7.</em>
-        </div>
-      </div>
-
-      <label>Комментарий к заказу / Komentář k objednávce:</label>
-      <textarea name="comments" placeholder="Например: хочу самовывоз в Праге / Např. osobní odběr v Praze..."></textarea>
-
-      <button type="submit">Оформить заказ / Odeslat objednávku</button>
-    </form>
+    <p>Dron je zcela nový, plně funkční, jak je vidět na videu.</p>
+    <p>Možnost osobního odběru <strong>bez jakékoli zálohy</strong> přímo v Praze!</p>
+    <p>Pokud nejste z Prahy – napište do komentáře k objednávce a domluvíme se. Dron můžeme odeslat.</p>
+    
+    <div class="note">
+      📦 Osobní odběr dostupný v Praze<br>
+      💰 Bez zálohy při osobním odběru<br>
+      🆕 Zcela nový a funkční dron
+    </div>
   </div>
 
-  <script>
-    function toggleDeliveryFields() {
-      const selected = document.getElementById('fromPrague').value;
-      const delivery = document.getElementById('deliveryFields');
-      delivery.className = selected === 'no' ? '' : 'hidden';
-    }
-  </script>
 </body>
 </html>
