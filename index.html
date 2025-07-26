@@ -1,174 +1,203 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дрон за 899 крон</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Продажа дронов</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #ece9e6, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+      background: #0e0e0e;
+      color: white;
       overflow-x: hidden;
     }
-    header {
+
+    .image-section {
+      position: relative;
+      width: 100%;
+      height: 70vh;
       text-align: center;
-      padding: 20px;
-      font-size: 1.6rem;
-      font-weight: bold;
-      background-color: #fff;
     }
-    .hero img {
-      width: 100vw;
-      height: 100vh;
+
+    .image-section img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      display: block;
     }
-    .photo-section {
+
+    .caption {
+      position: absolute;
+      bottom: 5%;
+      width: 100%;
       text-align: center;
-      padding: 40px 10px;
+      font-size: 1em;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 0;
     }
-    .photo-section img {
-      max-width: 100%;
-      height: 90vh;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-    .photo-caption {
-      margin-top: 10px;
-      font-size: 1rem;
-      color: #333;
-    }
-    #orderButton {
+
+    .order-btn {
       position: fixed;
-      bottom: 20px;
+      top: 20px;
       right: 20px;
-      background-color: red;
+      background: #f00;
       color: white;
+      padding: 12px 20px;
       border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
+      border-radius: 30px;
+      font-size: 16px;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      z-index: 999;
     }
-    #orderForm {
+
+    .popup {
       display: none;
       position: fixed;
       top: 10%;
       right: 5%;
       width: 90%;
       max-width: 400px;
-      background-color: white;
+      background: #1b1b1b;
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-      z-index: 9999;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      z-index: 1000;
     }
-    #orderForm input,
-    #orderForm textarea,
-    #orderForm select {
+
+    .popup h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .popup label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .popup input,
+    .popup textarea,
+    .popup select {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
     }
-    #closeForm {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 18px;
+
+    .popup button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
     }
-    .payment-info {
-      background: #f3f3f3;
-      padding: 10px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 0.95rem;
-      margin-top: 10px;
+
+    .close-popup {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
     }
-    .payment-info b {
-      font-size: 1.1rem;
-      color: darkred;
+
+    #bankDetails {
+      margin-top: 10px;
+      color: #ffcc00;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header>🔥 Успей купить за 899 крон!</header>
 
-  <div class="hero">
-    <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Главное изображение">
-  </div>
+<!-- Кнопка вызова -->
+<button class="order-btn" onclick="togglePopup()">Оформить заказ</button>
 
-  <div class="photo-section">
-    <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Фото дрона 2">
-    <div class="photo-caption">Компактный и мощный — дрон, который удивит каждого.</div>
-  </div>
-  <div class="photo-section">
-    <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Фото дрона 3">
-    <div class="photo-caption">Поддержка 4K видеосъемки, идеален для блогеров и путешествий.</div>
-  </div>
-  <div class="photo-section">
-    <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Фото дрона 4">
-    <div class="photo-caption">Долгий полет и точная стабилизация для съёмки с воздуха.</div>
-  </div>
+<!-- Всплывающее окно -->
+<div class="popup" id="popupForm">
+  <span class="close-popup" onclick="togglePopup()">✖</span>
+  <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <h2>Оформление заказа / Objednávka</h2>
 
-  <button id="orderButton">🛒</button>
+    <label>Email:</label>
+    <input type="email" name="email" required>
 
-  <div id="orderForm">
-    <span id="closeForm">✖</span>
-    <form>
-      <label>Имя / Jmélo:</label>
-      <input type="text" name="name" required>
+    <label>Телефон:</label>
+    <input type="text" name="phone" required>
 
-      <label>Email:</label>
-      <input type="email" name="email" required>
+    <label>Вы из Праги? / Jste z Prahy?</label>
+    <select name="isFromPrague" id="pragueSelect" onchange="handlePragueChange(this)">
+      <option value="yes">Да / Ano</option>
+      <option value="no">Нет / Ne</option>
+    </select>
 
-      <label>Телефон для связи:</label>
-      <input type="tel" name="phone" required>
+    <div id="notFromPragueFields" style="display:none;">
+      <label>Ваш город / Město:</label>
+      <input type="text" name="city">
 
-      <label>Сообщение / Zpráva:</label>
-      <textarea name="message"></textarea>
-
-      <label>Вы из Праги? / Jste z Prahy?</label>
-      <select id="citySelect">
-        <option>Да / Ano</option>
-        <option>Нет / Ne</option>
-      </select>
-
-      <div id="deliveryBlock" style="display:none;">
-        <label>Пожалуйста, укажите ваш адрес доставки / Prosím uveďte dodací adresu:</label>
-        <input type="text" name="address">
+      <div id="bankDetails">
+        Предоплата: <strong>250 Kč</strong><br>
+        Счёт для оплаты: <strong>354037257/0300 (ČSOB)</strong><br>
+        Отправка Zásilkovna в течение дня.
       </div>
+    </div>
 
-      <label>Хотели бы доставку? / Chcete mít doručení objednávky?</label>
-      <textarea name="delivery"></textarea>
+    <label>Комментарий:</label>
+    <textarea name="comment" rows="3"></textarea>
 
-      <div class="payment-info">
-        <p>💸 Сумма предоплаты: <b>250 Kč</b></p>
-        <p>📩 <b>Číslo účtu:</b> 354037257/0300 (ČSOB)</p>
-      </div>
+    <button type="submit">Оформить заказ</button>
+  </form>
+</div>
 
-      <button type="submit">Оформить заказ</button>
-    </form>
-  </div>
+<!-- Фото дронов с описаниями -->
+<div class="image-section">
+  <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Дрон 1">
+  <div class="caption">🛸 Компактный дрон с отличной стабилизацией. / Kompaktní dron se stabilizací.</div>
+</div>
 
-  <script>
-    document.getElementById("orderButton").onclick = function () {
-      document.getElementById("orderForm").style.display = "block";
-    };
-    document.getElementById("closeForm").onclick = function () {
-      document.getElementById("orderForm").style.display = "none";
-    };
-    document.getElementById("citySelect").addEventListener("change", function () {
-      const value = this.value;
-      document.getElementById("deliveryBlock").style.display = (value.includes("Нет") || value.includes("Ne")) ? "block" : "none";
-    });
-  </script>
+<div class="image-section">
+  <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Дрон 2">
+  <div class="caption">🎥 Съёмка в 4K, идеально для путешествий. / 4K kamera, ideální pro cestování.</div>
+</div>
+
+<div class="image-section">
+  <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Дрон 3">
+  <div class="caption">🚁 Устойчив к ветру, дальность до 1 км. / Odolný vůči větru, dosah až 1 km.</div>
+</div>
+
+<div class="image-section">
+  <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Дрон 4">
+  <div class="caption">✨ Подходит для новичков и профи. / Vhodný pro začátečníky i pokročilé.</div>
+</div>
+
+<!-- Скрипты -->
+<script>
+  function togglePopup() {
+    const popup = document.getElementById("popupForm");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  }
+
+  function handlePragueChange(select) {
+    const extraFields = document.getElementById("notFromPragueFields");
+    extraFields.style.display = (select.value === "no") ? "block" : "none";
+  }
+
+  // Показывать всплывающее окно через 5 секунд
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById("popupForm").style.display = "block";
+    }, 5000);
+  });
+</script>
+
 </body>
 </html>
