@@ -1,98 +1,106 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Продажа дрона</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
+      padding: 20px;
+      background: #f4f4f4;
+      color: #333;
       max-width: 600px;
-      background-color: #fff;
-      margin: 20px auto;
+      margin: auto;
+    }
+    img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    form {
+      background: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h2 {
-      text-align: center;
-    }
-    img {
-      width: 100%;
-      border-radius: 10px;
-    }
     label {
       display: block;
-      margin-top: 10px;
+      margin-top: 15px;
+      font-weight: bold;
     }
-    input, select, textarea, button {
+    input, select, textarea {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-top: 5px;
-      border: 1px solid #ccc;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
     button {
-      background-color: #28a745;
+      background: #4CAF50;
       color: white;
-      font-weight: bold;
-      margin-top: 15px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #218838;
-    }
-    .info {
-      margin-top: 20px;
-      background: #f9f9f9;
+    .delivery-info {
+      margin-top: 15px;
       padding: 10px;
-      border-radius: 5px;
+      background: #e0f7fa;
+      border-left: 4px solid #00796b;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Дрон полностью новый и рабочий (viz video)<br>Drone je zcela nový a funkční (viz video)</h2>
-    <img src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Drone">
 
-    <form>
-      <label>Телефон / Telefon:</label>
-      <input type="text" name="phone" required>
+  <h2>🛸 Продажа нового дрона</h2>
+  <img src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Фото дрона" />
 
-      <label>Email:</label>
-      <input type="email" name="email" required>
+  <p><strong>Дрон полностью новый и рабочий</strong>, как показано на фото и видео. Возможен самовывоз или доставка.</p>
 
-      <label>Способ доставки / Způsob doručení:</label>
-      <select name="delivery" id="delivery">
-        <option value="pickup">Самовывоз (Прага) / Osobní odběr (Praha)</option>
-        <option value="delivery">Доставка через Zásilkovna (250 Kč) / Doručení Zásilkovnou (250 Kč)</option>
-      </select>
+  <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <label>📞 Телефон / Telefon:</label>
+    <input type="text" name="phone" required />
 
-      <label>Комментарий к заказу / Komentář k objednávce:</label>
-      <textarea name="comment"></textarea>
+    <label>📧 Email:</label>
+    <input type="email" name="email" required />
 
-      <button type="submit">Оформить заказ / Odeslat objednávku</button>
-    </form>
+    <label>🚚 Способ доставки / Způsob doručení:</label>
+    <select name="delivery" id="deliveryMethod" onchange="toggleInfo()" required>
+      <option value="">Выберите / Vyberte</option>
+      <option value="praha">Самовывоз по Праге / Osobní odběr v Praze</option>
+      <option value="zasilkovna">Доставка через Zásilkovna</option>
+    </select>
 
-    <div class="info">
-      <p><strong>Если вы из Праги:</strong> самовывоз без предоплаты — просто укажите это в комментарии.<br>
-      <strong>Pokud jste z Prahy:</strong> osobní odběr bez zálohy – napište to do komentáře.</p>
-
-      <p><strong>Если вы из другого города:</strong> доставка через Zásilkovna. Необходимо перевести 250 Kč предоплаты на банковский счёт:<br>
-      <strong>Pokud jste z jiného města:</strong> doručení Zásilkovnou. Požadujeme zálohu 250 Kč na účet:</p>
-
-      <p><strong>Číslo účtu / Номер счёта (ČSOB):</strong><br>
-      <code>354037257/0300</code></p>
+    <div class="delivery-info" id="paymentInfo">
+      <p><strong>Если вы не из Праги:</strong><br>
+      Предоплата 250 Kč на счёт ČSOB: <br>
+      <strong>354037257/0300</strong><br>
+      После оплаты — отправка в течение дня или на следующий день через Zásilkovna.</p>
     </div>
 
-    <p style="text-align:center; margin-top: 15px;">
-      <a href="https://postimg.cc/tY8DnVYk" target="_blank">Связь со мной / Kontakt na mě</a>
-    </p>
-  </div>
+    <label>💬 Комментарий к заказу / Komentář k objednávce:</label>
+    <textarea name="comment" rows="4"></textarea>
+
+    <button type="submit">📦 Оформить заказ / Odeslat objednávku</button>
+  </form>
+
+  <script>
+    function toggleInfo() {
+      const delivery = document.getElementById("deliveryMethod").value;
+      const infoBox = document.getElementById("paymentInfo");
+      if (delivery === "zasilkovna") {
+        infoBox.style.display = "block";
+      } else {
+        infoBox.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 </html>
