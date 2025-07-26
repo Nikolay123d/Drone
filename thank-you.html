@@ -3,192 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Продажа дронов</title>
+  <title>Дрон за 899 крон</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #e0f7fa, #fff);
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      overflow-x: hidden;
     }
-
     header {
-      background-color: #fff;
+      text-align: center;
       padding: 20px;
-      text-align: center;
-      font-size: 22px;
+      font-size: 1.6rem;
       font-weight: bold;
-      color: red;
+      background-color: #fff;
     }
-
-    .image-section {
-      text-align: center;
-    }
-
-    .image-section img {
-      width: 100%;
-      max-height: 400px;
+    .hero img {
+      width: 100vw;
+      height: 100vh;
       object-fit: cover;
+      display: block;
     }
-
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .gallery img {
-      width: 90%;
-      max-width: 600px;
-      margin: 20px 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
-
-    .photo-caption {
-      font-size: 16px;
-      color: #444;
+    .photo-section {
       text-align: center;
+      padding: 40px 10px;
     }
-
-    .order-button {
+    .photo-section img {
+      max-width: 100%;
+      height: 90vh;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .photo-caption {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #333;
+    }
+    #orderButton {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background-color: red;
-      color: #fff;
+      color: white;
       border: none;
       border-radius: 50%;
       width: 60px;
       height: 60px;
-      font-size: 28px;
+      font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
-
-    .order-form {
+    #orderForm {
       display: none;
       position: fixed;
       top: 10%;
       right: 5%;
       width: 90%;
-      max-width: 350px;
-      background: #fff;
+      max-width: 400px;
+      background-color: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      z-index: 1000;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      z-index: 9999;
     }
-
-    .order-form input,
-    .order-form textarea,
-    .order-form select {
+    #orderForm input,
+    #orderForm textarea,
+    #orderForm select {
       width: 100%;
-      margin-bottom: 10px;
       padding: 10px;
-      border-radius: 5px;
+      margin: 10px 0;
+      font-size: 1rem;
       border: 1px solid #ccc;
+      border-radius: 8px;
     }
-
-    .order-form .close-btn {
+    #closeForm {
       position: absolute;
-      top: 5px;
-      right: 10px;
+      top: 10px;
+      right: 15px;
       font-size: 18px;
-      background: none;
-      border: none;
       cursor: pointer;
     }
-
-    @media (max-width: 600px) {
-      .order-form {
-        top: 5%;
-        right: 5%;
-        width: 70%;
-        font-size: 14px;
-      }
+    .payment-info {
+      background: #f3f3f3;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+    .payment-info b {
+      font-size: 1.1rem;
+      color: darkred;
     }
   </style>
 </head>
 <body>
-  <header>
-    🔥 Успей купить за 899 крон!
-  </header>
+  <header>🔥 Успей купить за 899 крон!</header>
 
-  <div class="image-section">
-    <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Главное фото дрона">
+  <div class="hero">
+    <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Главное изображение">
   </div>
 
-  <div class="gallery">
-    <div>
-      <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Дрон в действии">
-      <div class="photo-caption">Дрон с HD-камерой и стабилизацией</div>
-    </div>
-    <div>
-      <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Компактный дрон">
-      <div class="photo-caption">Компактный и лёгкий для путешествий</div>
-    </div>
-    <div>
-      <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Пульт управления дрона">
-      <div class="photo-caption">Интуитивно понятное управление</div>
-    </div>
+  <div class="photo-section">
+    <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Фото дрона 2">
+    <div class="photo-caption">Компактный и мощный — дрон, который удивит каждого.</div>
+  </div>
+  <div class="photo-section">
+    <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Фото дрона 3">
+    <div class="photo-caption">Поддержка 4K видеосъемки, идеален для блогеров и путешествий.</div>
+  </div>
+  <div class="photo-section">
+    <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Фото дрона 4">
+    <div class="photo-caption">Долгий полет и точная стабилизация для съёмки с воздуха.</div>
   </div>
 
-  <button class="order-button" onclick="showForm()">🛒</button>
+  <button id="orderButton">🛒</button>
 
-  <form class="order-form" action="https://getform.io/f/bgdlekoa" method="POST" id="orderForm">
-    <button type="button" class="close-btn" onclick="hideForm()">&times;</button>
-    <label>Имя / Jmélo:</label>
-    <input type="text" name="name" required>
+  <div id="orderForm">
+    <span id="closeForm">✖</span>
+    <form>
+      <label>Имя / Jmélo:</label>
+      <input type="text" name="name" required>
 
-    <label>Email:</label>
-    <input type="email" name="email" required>
+      <label>Email:</label>
+      <input type="email" name="email" required>
 
-    <label>Сообщение / Zpráva:</label>
-    <textarea name="message"></textarea>
+      <label>Телефон для связи:</label>
+      <input type="tel" name="phone" required>
 
-    <label>Вы из Праги? / Jste z Prahy?</label>
-    <select name="from_prague" onchange="toggleDeliveryInfo(this)">
-      <option value="yes">Да / Ano</option>
-      <option value="no">Нет / Ne</option>
-    </select>
+      <label>Сообщение / Zpráva:</label>
+      <textarea name="message"></textarea>
 
-    <div id="deliverySection" style="display: none;">
-      <label>Пожалуйста, укажите ваш адрес доставки / Prosím uveďte dodací adresu:</label>
-      <input type="text" name="address">
+      <label>Вы из Праги? / Jste z Prahy?</label>
+      <select id="citySelect">
+        <option>Да / Ano</option>
+        <option>Нет / Ne</option>
+      </select>
 
-      <label>Хотели бы доставку заказа? / Chcete mít doručení objednávky?</label>
+      <div id="deliveryBlock" style="display:none;">
+        <label>Пожалуйста, укажите ваш адрес доставки / Prosím uveďte dodací adresu:</label>
+        <input type="text" name="address">
+      </div>
+
+      <label>Хотели бы доставку? / Chcete mít doručení objednávky?</label>
       <textarea name="delivery"></textarea>
 
-      <p><strong>prosím pošlete</strong> platbu na tento účet: <br><strong>354037257/0300 (ČSOB)</strong></p>
-    </div>
+      <div class="payment-info">
+        <p>💸 Сумма предоплаты: <b>250 Kč</b></p>
+        <p>📩 <b>Číslo účtu:</b> 354037257/0300 (ČSOB)</p>
+      </div>
 
-    <button type="submit">Оформить заказ</button>
-  </form>
+      <button type="submit">Оформить заказ</button>
+    </form>
+  </div>
 
   <script>
-    function showForm() {
-      document.getElementById('orderForm').style.display = 'block';
-    }
-
-    function hideForm() {
-      document.getElementById('orderForm').style.display = 'none';
-    }
-
-    function toggleDeliveryInfo(select) {
-      const section = document.getElementById('deliverySection');
-      if (select.value === 'no') {
-        section.style.display = 'block';
-      } else {
-        section.style.display = 'none';
-      }
-    }
-
-    setTimeout(showForm, 5000);
+    document.getElementById("orderButton").onclick = function () {
+      document.getElementById("orderForm").style.display = "block";
+    };
+    document.getElementById("closeForm").onclick = function () {
+      document.getElementById("orderForm").style.display = "none";
+    };
+    document.getElementById("citySelect").addEventListener("change", function () {
+      const value = this.value;
+      document.getElementById("deliveryBlock").style.display = (value.includes("Нет") || value.includes("Ne")) ? "block" : "none";
+    });
   </script>
 </body>
-        </html>
+</html>
