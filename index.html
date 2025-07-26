@@ -2,102 +2,63 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Супер-дрон по акции!</title>
+  <title>Супер-дрон</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      text-align: center;
-      padding: 20px;
-    }
-    .header {
-      background: #111;
-      color: #fff;
-      padding: 15px;
-      font-size: 24px;
-    }
-    form {
-      background: #fff;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      text-align: left;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #28a745;
-      color: #fff;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .note {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #444;
-    }
-    .hidden {
-      display: none;
-    }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; text-align: center; }
+    .top-bar { background: black; color: white; padding: 15px; font-size: 22px; }
+    img { width: 90%; max-width: 600px; margin: 20px auto; display: block; }
+    form { background: white; padding: 20px; margin: 20px auto; max-width: 500px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: left; }
+    label { display: block; margin-top: 10px; }
+    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+    .submit { background: green; color: white; margin-top: 15px; cursor: pointer; border: none; }
+    .payment-info { margin-top: 15px; color: red; display: none; }
   </style>
-  <script>
-    function checkCity() {
-      const city = document.getElementById("city").value;
-      const note = document.getElementById("note");
-      if (city === "no") {
-        note.classList.remove("hidden");
-      } else {
-        note.classList.add("hidden");
-      }
-    }
-  </script>
 </head>
 <body>
 
-  <div class="header">
-    🔥 Успей купить за 899 крон!
-  </div>
+  <div class="top-bar">🔥 Успей купить за 899 крон!</div>
 
-  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Drone_with_camera_05.jpg" alt="Drone Promo" width="100%" style="max-width: 600px; margin-top: 15px;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/DJI_Mavic_2_Pro.jpg/800px-DJI_Mavic_2_Pro.jpg" alt="Drone Promo">
 
-  <form action="send.php" method="POST">
-    <label>Имя / Jméno:</label>
-    <input type="text" name="name" required>
+  <form>
+    <label>Имя / Jméno:
+      <input type="text" name="name" required>
+    </label>
 
-    <label>Email:</label>
-    <input type="email" name="email" required>
+    <label>Email:
+      <input type="email" name="email" required>
+    </label>
 
-    <label>Номер телефона / Telefonní číslo:</label>
-    <input type="text" name="phone" required>
+    <label>Номер телефона / Telefonní číslo:
+      <input type="tel" name="phone" required>
+    </label>
 
-    <label>Вы из Праги? / Jste z Prahy?</label>
-    <select name="from_prague" id="city" onchange="checkCity()" required>
-      <option value="">Выберите / Vyberte</option>
-      <option value="yes">Да / Ano</option>
-      <option value="no">Нет / Ne</option>
-    </select>
+    <label>Вы из Праги? / Jste z Prahy?
+      <select id="isPraha" onchange="togglePayment()">
+        <option value="yes">Да / Ano</option>
+        <option value="no">Нет / Ne</option>
+      </select>
+    </label>
 
-    <label>Сообщение / Zpráva:</label>
-    <textarea name="message" rows="4"></textarea>
+    <label>Сообщение / Zpráva:
+      <textarea name="message"></textarea>
+    </label>
 
-    <div id="note" class="note hidden">
-      💳 Пожалуйста, оплатите <strong>предоплату 250 крон</strong> на счёт<br>
-      <strong>358403728/0300</strong><br>
-      Всё будет зафиксировано автоматически. Наши сотрудники работают 24/7.<br>
-      🏠 Если вы **не из Праги**, оформление с самовывозом невозможно — напишите это в комментарии.
+    <button type="submit" class="submit">Отправить / Odeslat</button>
+
+    <div class="payment-info" id="paymentBox">
+      💳 Пожалуйста, оплатите предоплату 250 крон на счёт:<br>
+      <b>354037257/0300</b>
     </div>
-
-    <button type="submit">Отправить / Odeslat</button>
   </form>
+
+  <script>
+    function togglePayment() {
+      const select = document.getElementById("isPraha");
+      const paymentBox = document.getElementById("paymentBox");
+      paymentBox.style.display = (select.value === "no") ? "block" : "none";
+    }
+  </script>
 
 </body>
 </html>
