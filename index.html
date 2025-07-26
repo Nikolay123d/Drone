@@ -2,105 +2,147 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Продажа дрона</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Продажа нового дрона</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f4f4f4;
-      color: #333;
-      max-width: 600px;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
       margin: auto;
-    }
-    img {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 10px;
-    }
-    form {
-      background: #fff;
       padding: 20px;
-      border-radius: 10px;
+      background: white;
+      border-radius: 15px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    label {
-      display: block;
+    h1 {
+      text-align: center;
+    }
+    .image {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .desc {
+      font-size: 18px;
       margin-top: 15px;
-      font-weight: bold;
+    }
+    .popup-form {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
     }
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
+      margin-top: 8px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
     }
     button {
-      background: #4CAF50;
+      background-color: #4CAF50;
       color: white;
-      padding: 10px 20px;
-      margin-top: 20px;
       border: none;
-      border-radius: 5px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
     }
-    .delivery-info {
-      margin-top: 15px;
-      padding: 10px;
-      background: #e0f7fa;
-      border-left: 4px solid #00796b;
-      display: none;
+    button:hover {
+      background-color: #45a049;
+    }
+    .close-btn {
+      float: right;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .info {
+      font-size: 15px;
+      color: #444;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-  <h2>🛸 Продажа нового дрона</h2>
-  <img src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Фото дрона" />
+<div class="container">
+  <h1>🚀 Продажа нового дрона</h1>
+  <img class="image" src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Дрон" />
 
-  <p><strong>Дрон полностью новый и рабочий</strong>, как показано на фото и видео. Возможен самовывоз или доставка.</p>
+  <div class="desc">
+    🌟 <strong>Современный смарт-дрон по суперцене!</strong><br/>
+    📷 Снимает в HD, управляется со смартфона, складывается и легко помещается в сумку.<br/>
+    💨 Идеален для путешествий, съёмки природы и блогинга.<br/>
+    🎁 Только сейчас — за 899 крон!
+  </div>
+</div>
 
-  <form action="https://getform.io/f/bgdlekoa" method="POST">
-    <label>📞 Телефон / Telefon:</label>
-    <input type="text" name="phone" required />
+<!-- Всплывающая форма -->
+<div id="popup" class="popup-form">
+  <div class="popup-content">
+    <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
+      <h2>📦 Оформить заказ / Objednat</h2>
 
-    <label>📧 Email:</label>
-    <input type="email" name="email" required />
+      <label>📞 Телефон / Telefon:</label>
+      <input type="text" name="Телефон" required placeholder="+420..."/>
 
-    <label>🚚 Способ доставки / Způsob doručení:</label>
-    <select name="delivery" id="deliveryMethod" onchange="toggleInfo()" required>
-      <option value="">Выберите / Vyberte</option>
-      <option value="praha">Самовывоз по Праге / Osobní odběr v Praze</option>
-      <option value="zasilkovna">Доставка через Zásilkovna</option>
-    </select>
+      <label>📧 Email:</label>
+      <input type="email" name="Email" required placeholder="example@email.com"/>
 
-    <div class="delivery-info" id="paymentInfo">
-      <p><strong>Если вы не из Праги:</strong><br>
-      Предоплата 250 Kč на счёт ČSOB: <br>
-      <strong>354037257/0300</strong><br>
-      После оплаты — отправка в течение дня или на следующий день через Zásilkovna.</p>
-    </div>
+      <label>🚚 Способ доставки / Způsob doručení:</label>
+      <select name="Доставка" id="delivery" onchange="togglePaymentInfo(this)">
+        <option value="Самовывоз из Праги">Самовывоз из Праги / Osobní odběr v Praze</option>
+        <option value="Zásilkovna">Доставка через Zásilkovna</option>
+      </select>
 
-    <label>💬 Комментарий к заказу / Komentář k objednávce:</label>
-    <textarea name="comment" rows="4"></textarea>
+      <div id="payment-info" style="display:none;">
+        <div class="info">
+          💳 Предоплата 250 крон на счёт ČSOB: <b>354037257/0300</b><br/>
+          📦 Отправка в течение 1 дня после оплаты.
+        </div>
+      </div>
 
-    <button type="submit">📦 Оформить заказ / Odeslat objednávku</button>
-  </form>
+      <label>💬 Комментарий / Komentář:</label>
+      <textarea name="Комментарий" rows="3" placeholder="Например: хочу доставку в..."></textarea>
 
-  <script>
-    function toggleInfo() {
-      const delivery = document.getElementById("deliveryMethod").value;
-      const infoBox = document.getElementById("paymentInfo");
-      if (delivery === "zasilkovna") {
-        infoBox.style.display = "block";
-      } else {
-        infoBox.style.display = "none";
-      }
+      <button type="submit">✅ Оформить заказ</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Показать форму через 5 секунд
+  setTimeout(() => {
+    document.getElementById("popup").style.display = "flex";
+  }, 5000);
+
+  function togglePaymentInfo(select) {
+    const paymentDiv = document.getElementById("payment-info");
+    if (select.value === "Zásilkovna") {
+      paymentDiv.style.display = "block";
+    } else {
+      paymentDiv.style.display = "none";
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
