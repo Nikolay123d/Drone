@@ -64,13 +64,14 @@
 
     #extra-fields {
       display: none;
-      background: #f8f8f8;
+      background: #f9f9f9;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
 
-    .note {
+    #note {
+      display: none;
       background: #fff3cd;
       padding: 10px;
       border: 1px solid #ffeeba;
@@ -78,23 +79,33 @@
       margin-top: 15px;
       border-radius: 5px;
     }
+
+    img {
+      margin: 15px 0;
+      max-width: 100%;
+      border-radius: 10px;
+    }
   </style>
 
   <script>
     function handleCityChange(value) {
       const extra = document.getElementById('extra-fields');
+      const note = document.getElementById('note');
+
       if (value === 'no') {
         extra.style.display = 'block';
+        note.style.display = 'block';
       } else {
         extra.style.display = 'none';
+        note.style.display = 'none';
       }
     }
   </script>
 </head>
 <body>
 
-  <h1>🚀 Супер-дрон по акции!<br>🔥 Успей купить за 899 крон!</h1>
-  <img src="https://cdn.pixabay.com/photo/2016/11/29/01/17/drone-1866742_1280.jpg" alt="Drone Promo" width="300">
+  <h1>🔥 Успей купить за 899 крон!</h1>
+  <img src="https://cdn.pixabay.com/photo/2016/11/29/01/17/drone-1866742_1280.jpg" alt="Drone Promo">
 
   <form action="https://getform.io/f/bgdlekoa" method="POST">
     <label>Имя / Jméno:</label>
@@ -127,7 +138,7 @@
     <label>Сообщение / Zpráva:</label>
     <textarea name="message" rows="4"></textarea>
 
-    <div class="note">
+    <div id="note">
       💳 Пожалуйста, оплатите <b>предоплату 250 крон</b> на счёт:<br>
       <b>354037257/0300</b><br>
       Все оплаты сканируются мгновенно. Наши сотрудники работают 24/7.
