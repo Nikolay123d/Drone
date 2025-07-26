@@ -1,212 +1,201 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Продажа дрона E88Pro</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Продажа дронов</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+      background: #111;
       color: #fff;
       overflow-x: hidden;
     }
-    .hero {
-      width: 100%;
-      height: 100vh;
-      position: relative;
-    }
-    .hero img {
-      width: 100%;
-      height: 100vh;
-      object-fit: cover;
-    }
-    .description {
+
+    header {
       text-align: center;
-      padding: 20px;
-      font-size: 1.2em;
+      padding: 1rem;
+      background: #000;
+      color: #fff;
+      font-size: 1.5rem;
     }
-    .drone-img {
-      width: 100%;
+
+    .hero-image {
+      width: 100vw;
       height: 100vh;
-      object-fit: cover;
+      background-image: url("https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg");
+      background-size: cover;
+      background-position: center;
     }
-    .drone-caption {
+
+    .image-section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      background: #111;
-      padding: 10px;
-      font-size: 1em;
+      font-size: 1.2rem;
     }
+
+    .image-section img {
+      max-width: 100%;
+      height: 90vh;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
     .popup {
       position: fixed;
-      top: 10%;
       right: 5%;
+      top: 10%;
       width: 90%;
-      max-width: 400px;
-      background: #222;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 20px rgba(255,0,0,0.3);
+      max-width: 360px;
+      background: #1b1b1b;
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      z-index: 999;
       display: none;
-      z-index: 9999;
+      overflow-y: auto;
+      max-height: 80vh;
+      font-size: 0.95rem;
     }
-    .popup input, .popup textarea, .popup select {
+
+    .popup label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+      font-weight: bold;
+    }
+
+    .popup input,
+    .popup textarea,
+    .popup select {
       width: 100%;
-      margin: 8px 0;
-      padding: 8px;
-      border-radius: 8px;
+      padding: 0.5rem;
       border: none;
+      border-radius: 5px;
+      margin-bottom: 0.8rem;
     }
+
+    .popup .highlight {
+      color: yellow;
+      font-weight: bold;
+    }
+
     .close-btn {
       position: absolute;
-      right: 15px;
       top: 10px;
-      font-size: 18px;
+      right: 15px;
+      font-size: 1.2rem;
       cursor: pointer;
-      color: #ccc;
     }
-    .promo-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: red;
-      color: #fff;
-      padding: 15px 25px;
-      border-radius: 40px;
-      font-size: 18px;
-      box-shadow: 0 0 20px red;
-      z-index: 10000;
-    }
-    .requisites {
-      padding: 20px;
-      background: #181818;
-      border-top: 2px solid #444;
-      margin-top: 20px;
-    }
-    .requisites h3 { color: #0f0; }
-    .timer {
-      font-size: 20px;
+
+    .countdown {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      color: #ff4d00;
       text-align: center;
-      color: yellow;
-      margin: 15px 0;
+    }
+
+    .buy-btn {
+      display: inline-block;
+      background: red;
+      color: white;
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 40px;
+      text-align: center;
+      margin: 1rem 0;
     }
   </style>
 </head>
 <body>
-  <!-- 1st full screen image -->
-  <section class="hero">
-    <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Дрон E88Pro">
-    <div class="description">Съёмка в 4K, идеально для путешествий / 4K kamera, ideální pro cestování</div>
-  </section>
+  <header>🔥 Успей купить дрон за 899 крон! / Kup si dron jen za 899 Kč!</header>
 
-  <!-- 2nd image -->
-  <section>
-    <img class="drone-img" src="https://i.imghippo.com/files/wga7885qo.jpeg" alt="Аккумулятор">
-    <div class="drone-caption">Долгое время полёта благодаря модульной батарее</div>
-  </section>
+  <div class="hero-image"></div>
 
-  <!-- 3rd, 4th, 5th images -->
-  <section>
-    <img class="drone-img" src="https://i.imghippo.com/files/GA7973iw.webp" alt="Складной дрон">
-    <div class="drone-caption">Компактный и удобный складной дизайн</div>
-  </section>
-  <section>
-    <img class="drone-img" src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Управление">
-    <div class="drone-caption">Простое управление с помощью пульта</div>
-  </section>
-  <section>
-    <img class="drone-img" src="https://i.postimg.cc/pLLS7fvw/Screenshot-20250726-191638.jpg" alt="Комплектация">
-    <div class="drone-caption">Всё необходимое в комплекте</div>
-  </section>
+  <div class="image-section">
+    <img src="https://i.postimg.cc/Y2p8cskT/photo2.jpg" alt="Фото дрона 2" />
+    <div>4K съёмка с двойной камерой / 4K natáčení s dvojitou kamerou</div>
+  </div>
+  <div class="image-section">
+    <img src="https://i.postimg.cc/Qdxv0xfB/photo3.jpg" alt="Фото дрона 3" />
+    <div>Долгое время полёта и GPS / Dlouhá výdrž a GPS</div>
+  </div>
+  <div class="image-section">
+    <img src="https://i.postimg.cc/T1zB5HPF/photo4.jpg" alt="Фото дрона 4" />
+    <div>Стабильность и управление со смартфона / Ovládání z telefonu</div>
+  </div>
 
-  <!-- Floating Promo Button -->
-  <button class="promo-button" onclick="openPopup()">🔥 Успей купить за 899 крон!</button>
+  <div class="popup" id="orderPopup">
+    <span class="close-btn" onclick="document.getElementById('orderPopup').style.display='none'">✖</span>
+    <label>Имя / Jmélo:</label>
+    <input type="text" />
 
-  <!-- Popup Form -->
-  <div class="popup" id="popupForm">
-    <span class="close-btn" onclick="closePopup()">✖</span>
-    <div class="timer" id="countdown"></div>
-    <form id="orderForm">
-      <label>Имя / Jmélo:</label><input name="name" required>
-      <label>Телефон:</label><input name="phone" required>
-      <label>Email:</label><input name="email" type="email" required>
-      <label>Сообщение / Zpráva:</label><textarea name="message"></textarea>
-      <label>Вы из Праги? / Jste z Prahy?</label>
-      <select name="prague" onchange="handlePrague(this)">
-        <option value="Нет">Нет / Ne</option>
-        <option value="Да">Да / Ano</option>
-      </select>
-      <label>Пожалуйста, укажите ваш адрес доставки:<br>Prosím uveďte dodací adresu:</label><input name="address">
-      <label>Хотели бы доставку? / Chcete mít doručení objednávky?</label><input name="delivery">
-      <button type="submit">Оформить заказ</button>
-    </form>
-    <div id="paymentInfo" style="margin-top:10px;color:#0f0;display:none;">
-      💳 Предоплата 250 крон<br>
-      ČSOB: 354037257/0300<br>
-      Способ: Засилковню
+    <label>Телефон:</label>
+    <input type="tel" />
+
+    <label>Email:</label>
+    <input type="email" />
+
+    <label>Сообщение / Zpráva:</label>
+    <textarea></textarea>
+
+    <label>Вы из Праги? / Jste z Prahy?</label>
+    <select>
+      <option>Нет / Ne</option>
+      <option>Да / Ano</option>
+    </select>
+
+    <label>Пожалуйста, укажите ваш адрес доставки: / Prosím uveďte dodací adresu:</label>
+    <input type="text" />
+
+    <label>Хотели бы доставку? / Chcete mít doručení objednávky?</label>
+    <input type="text" />
+
+    <div class="highlight">
+      💳 Реквизиты для предоплаты: ČSOB 354037257/0300 — 250 крон. Засилковню.
     </div>
+
+    <div class="countdown" id="countdownTimer"></div>
+
+    <div class="buy-btn">Оформить заказ</div>
   </div>
 
-  <!-- Requisites -->
-  <div class="requisites">
-    <h3>Реквизиты</h3>
-    <p>Предоплата: 250 крон / ČSOB: 354037257/0300</p>
-    <p>Отправка через Засилковню по Чехии</p>
-  </div>
-
-  <audio id="notifySound" src="https://notificationsounds.com/storage/sounds/file-sounds-1158-pristine.mp3" preload="auto"></audio>
+  <audio id="notifSound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    let shown = false;
-    let timer;
-
-    function openPopup() {
-      document.getElementById("popupForm").style.display = "block";
-      document.getElementById("notifySound").play();
-    }
-
-    function closePopup() {
-      document.getElementById("popupForm").style.display = "none";
-    }
-
-    function handlePrague(select) {
-      if (select.value === "Нет") {
-        document.getElementById("paymentInfo").style.display = "block";
-      } else {
-        document.getElementById("paymentInfo").style.display = "none";
-      }
-    }
-
+    // Всплывающее окно через 5 секунд
     setTimeout(() => {
-      openPopup();
+      document.getElementById('orderPopup').style.display = 'block';
+      document.getElementById('notifSound').play();
     }, 5000);
 
-    let deadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    // Отчёт времени до конца акции (24 часа)
+    const countdown = document.getElementById("countdownTimer");
+    const end = new Date();
+    end.setHours(end.getHours() + 24);
+
     function updateCountdown() {
-      let now = new Date();
-      let diff = deadline - now;
-      if (diff < 0) return;
-      let h = Math.floor(diff / 1000 / 60 / 60);
-      let m = Math.floor((diff / 1000 / 60) % 60);
-      let s = Math.floor((diff / 1000) % 60);
-      document.getElementById("countdown").textContent = `⏳ Скидка действует: ${h}ч ${m}м ${s}с`;
-      requestAnimationFrame(updateCountdown);
+      const now = new Date();
+      const diff = end - now;
+      if (diff <= 0) {
+        countdown.textContent = "⏰ Акция закончилась! / Akce skončila!";
+        return;
+      }
+      const hrs = Math.floor(diff / 1000 / 60 / 60);
+      const mins = Math.floor((diff / 1000 / 60) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      countdown.textContent = `⏳ Осталось: ${hrs}ч ${mins}м ${secs}с`;
+      setTimeout(updateCountdown, 1000);
     }
     updateCountdown();
-
-    document.getElementById("orderForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      let formData = new FormData(this);
-      let prague = formData.get("prague") === "Да";
-      if (prague && Math.floor(Math.random() * 10) === 0) {
-        alert("🎉 Вы 10-й покупатель из Праги! Получаете скидку 50%!");
-        // Добавьте email-уведомление здесь при реальной реализации
-      } else {
-        alert("✅ Заказ отправлен. Спасибо!");
-      }
-      closePopup();
-    });
   </script>
 </body>
-</html>
+  </html>
