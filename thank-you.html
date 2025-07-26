@@ -3,178 +3,192 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Продажа нового дрона</title>
+  <title>Продажа дронов</title>
   <style>
     body {
-      font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #fff);
     }
+
     header {
-      text-align: center;
-      padding: 20px;
       background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: red;
     }
-    header h1 {
-      font-size: 24px;
+
+    .image-section {
+      text-align: center;
     }
-    .main-image {
+
+    .image-section img {
       width: 100%;
-      max-height: 300px;
+      max-height: 400px;
       object-fit: cover;
-      display: none;
     }
+
     .gallery {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
     }
+
     .gallery img {
       width: 90%;
-      max-width: 500px;
-      margin-bottom: 10px;
+      max-width: 600px;
+      margin: 20px 0;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
     }
-    .gallery img.visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    .gallery img:hover {
+      transform: scale(1.03);
     }
-    .gallery .caption {
-      font-size: 14px;
-      margin-bottom: 30px;
-      color: #555;
+
+    .photo-caption {
+      font-size: 16px;
+      color: #444;
       text-align: center;
     }
-    .popup {
-      position: fixed;
-      top: 10%;
-      right: 5%;
-      width: 90%;
-      max-width: 400px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      padding: 20px;
-      z-index: 999;
-      display: none;
-    }
-    .popup .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 18px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
+
     .order-button {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #ff5050;
-      color: white;
+      background-color: red;
+      color: #fff;
       border: none;
       border-radius: 50%;
       width: 60px;
       height: 60px;
       font-size: 28px;
       cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .order-form {
+      display: none;
+      position: fixed;
+      top: 10%;
+      right: 5%;
+      width: 90%;
+      max-width: 350px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       z-index: 1000;
     }
-    form input, form textarea, form select {
+
+    .order-form input,
+    .order-form textarea,
+    .order-form select {
       width: 100%;
       margin-bottom: 10px;
-      padding: 8px;
-      font-size: 14px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .order-form .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .order-form {
+        top: 5%;
+        right: 5%;
+        width: 70%;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🔥 Успей купить за 899 крон!</h1>
+    🔥 Успей купить за 899 крон!
   </header>
 
+  <div class="image-section">
+    <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Главное фото дрона">
+  </div>
+
   <div class="gallery">
-    <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Главное фото">
-    <div class="caption">Идеально для съёмок с воздуха / Ideální pro letecké záběry</div>
-
-    <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Камера 4K">
-    <div class="caption">Ультрастабильная камера 4K / Ultra stabilní kamera 4K</div>
-
-    <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Складной корпус">
-    <div class="caption">Складной корпус — легко брать с собой / Skládací tělo – snadné na přenášení</div>
-
-    <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Управление с телефона">
-    <div class="caption">Управление через смартфон / Ovládání přes chytrý telefon</div>
+    <div>
+      <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Дрон в действии">
+      <div class="photo-caption">Дрон с HD-камерой и стабилизацией</div>
+    </div>
+    <div>
+      <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Компактный дрон">
+      <div class="photo-caption">Компактный и лёгкий для путешествий</div>
+    </div>
+    <div>
+      <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Пульт управления дрона">
+      <div class="photo-caption">Интуитивно понятное управление</div>
+    </div>
   </div>
 
-  <div class="popup" id="orderPopup">
-    <button class="close-btn" onclick="document.getElementById('orderPopup').style.display='none'">×</button>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <label>Имя / Jmélo:</label>
-      <input type="text" name="name" required>
+  <button class="order-button" onclick="showForm()">🛒</button>
 
-      <label>Email:</label>
-      <input type="email" name="email" required>
+  <form class="order-form" action="https://getform.io/f/bgdlekoa" method="POST" id="orderForm">
+    <button type="button" class="close-btn" onclick="hideForm()">&times;</button>
+    <label>Имя / Jmélo:</label>
+    <input type="text" name="name" required>
 
-      <label>Сообщение / Zpráva:</label>
-      <textarea name="message"></textarea>
+    <label>Email:</label>
+    <input type="email" name="email" required>
 
-      <label>Вы из Праги? / Jste z Prahy?</label>
-      <select name="prague" id="pragueSelect" onchange="handlePragueChange(this)">
-        <option value="yes">Да / Ano</option>
-        <option value="no">Нет / Ne</option>
-      </select>
+    <label>Сообщение / Zpráva:</label>
+    <textarea name="message"></textarea>
 
-      <div id="extraFields" style="display:none">
-        <label>Пожалуйста, укажите ваш адрес доставки / Prosím uveďte dodací adresu:</label>
-        <input type="text" name="address">
+    <label>Вы из Праги? / Jste z Prahy?</label>
+    <select name="from_prague" onchange="toggleDeliveryInfo(this)">
+      <option value="yes">Да / Ano</option>
+      <option value="no">Нет / Ne</option>
+    </select>
 
-        <label>Хотели бы доставку? / Chcete mít doručení objednávky?</label>
-        <textarea name="delivery"></textarea>
+    <div id="deliverySection" style="display: none;">
+      <label>Пожалуйста, укажите ваш адрес доставки / Prosím uveďte dodací adresu:</label>
+      <input type="text" name="address">
 
-        <p><strong>prosím pošlete platbu na tento účet: <br>354037257/0300 (ČSOB)</strong></p>
-      </div>
+      <label>Хотели бы доставку заказа? / Chcete mít doručení objednávky?</label>
+      <textarea name="delivery"></textarea>
 
-      <button type="submit">Оформить заказ</button>
-    </form>
-  </div>
+      <p><strong>prosím pošlete</strong> platbu na tento účet: <br><strong>354037257/0300 (ČSOB)</strong></p>
+    </div>
 
-  <button class="order-button" onclick="document.getElementById('orderPopup').style.display='block'">🛒</button>
+    <button type="submit">Оформить заказ</button>
+  </form>
 
   <script>
-    function handlePragueChange(select) {
-      const extra = document.getElementById('extraFields');
+    function showForm() {
+      document.getElementById('orderForm').style.display = 'block';
+    }
+
+    function hideForm() {
+      document.getElementById('orderForm').style.display = 'none';
+    }
+
+    function toggleDeliveryInfo(select) {
+      const section = document.getElementById('deliverySection');
       if (select.value === 'no') {
-        extra.style.display = 'block';
+        section.style.display = 'block';
       } else {
-        extra.style.display = 'none';
+        section.style.display = 'none';
       }
     }
 
-    // Показать всплывающее окно через 5 секунд
-    setTimeout(() => {
-      document.getElementById('orderPopup').style.display = 'block';
-    }, 5000);
-
-    // Плавное появление фото при скролле
-    const images = document.querySelectorAll('.gallery img');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    images.forEach(img => observer.observe(img));
+    setTimeout(showForm, 5000);
   </script>
 </body>
-</html>
+        </html>
