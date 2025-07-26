@@ -1,85 +1,94 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дрон — акция!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Промо: Дрон за 899 крон!</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #222;
+      color: #fff;
       padding: 20px;
       text-align: center;
-      background-color: #f2f2f2;
     }
-    img {
-      max-width: 100%;
+    .hero {
+      padding: 30px;
+      text-align: center;
+    }
+    .hero img {
+      max-width: 90%;
       height: auto;
-      border-radius: 10px;
+      border-radius: 15px;
     }
-    .price-banner {
-      background-color: #ffcc00;
-      color: #000;
-      padding: 15px;
-      font-size: 1.5em;
+    .promo {
+      font-size: 24px;
+      color: #d11111;
       margin: 20px 0;
-      border-radius: 8px;
       font-weight: bold;
     }
     form {
-      background-color: #fff;
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
       padding: 20px;
-      margin-top: 30px;
-      border-radius: 10px;
-      display: inline-block;
-      text-align: left;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #ccc;
     }
-    label, input, textarea {
+    form label {
       display: block;
-      width: 100%;
-      margin-bottom: 15px;
+      margin-top: 15px;
     }
-    button {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 15px;
-      border: none;
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
       border-radius: 5px;
-      font-size: 1em;
+      border: 1px solid #999;
+    }
+    form button {
+      margin-top: 20px;
+      background: #0a8f08;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 16px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #218838;
+    form button:hover {
+      background: #066f05;
     }
   </style>
 </head>
 <body>
 
-  <h1>🔥 Новый дрон в продаже!</h1>
+<header>
+  <h1>🛸 Супер-дрон по акции!</h1>
+</header>
 
-  <img src="https://cdn.pixabay.com/photo/2017/03/18/17/25/drone-2156132_1280.jpg" alt="Фото дрона">
+<div class="hero">
+  <img src="A_promotional_digital_photograph_advertisement_fea.png" alt="Drone Promo">
+  <div class="promo">🔥 Успей купить за 899 крон!</div>
+</div>
 
-  <div class="price-banner">
-    🕒 Успейте купить за 899 крон!
-  </div>
+<form action="https://getform.io/f/bgdlekoa" method="POST">
+  <label>Имя / Jméno:</label>
+  <input type="text" name="name" required>
 
-  <h2>Свяжитесь с нами</h2>
+  <label>Email:</label>
+  <input type="email" name="email" required>
 
-  <form action="https://formsubmit.io/send/urciknikolaj642@gmail.com" method="POST">
-    <label for="name">Имя:</label>
-    <input type="text" id="name" name="name" required>
+  <label>Сообщение / Zpráva:</label>
+  <textarea name="message" rows="5" required></textarea>
 
-    <label for="email">Почта:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="message">Сообщение:</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
-
-    <!-- Скрытые поля -->
-    <input name="_redirect" type="hidden" value="https://nikolay123d.github.io/Drone/thank-you.html">
-    <input name="_captcha" type="hidden" value="false">
-
-    <button type="submit">Отправить</button>
-  </form>
+  <button type="submit">Отправить / Odeslat</button>
+</form>
 
 </body>
-  </html>
+</html>
