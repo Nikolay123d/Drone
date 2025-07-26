@@ -1,132 +1,192 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Продажа дронов</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Продажа нового дрона</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
-    header, section, footer { max-width: 800px; margin: auto; padding: 20px; }
-    header img { width: 100%; border-radius: 10px; }
-    h1 { text-align: center; color: #333; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f6f6f6;
+      color: #333;
+      overflow-x: hidden;
+    }
 
-    .drone { margin: 40px 0; opacity: 0; transform: translateY(30px); transition: all 1s ease; }
-    .drone.visible { opacity: 1; transform: translateY(0); }
-    .drone img { width: 100%; border-radius: 10px; }
-    .drone p { font-size: 1rem; color: #444; margin-top: 10px; }
+    header {
+      text-align: center;
+      padding: 20px;
+    }
 
-    /* Всплывающая форма */
-    #order-form-popup {
-      display: none;
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .form-button {
       position: fixed;
-      top: 5%;
-      right: 5%;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 9999;
+    }
+
+    .modal {
+      position: fixed;
+      top: 10%;
+      right: -100%;
       width: 90%;
       max-width: 400px;
+      height: auto;
       background: white;
+      box-shadow: -4px 4px 10px rgba(0,0,0,0.3);
       padding: 20px;
-      z-index: 1000;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      border-radius: 10px;
-      animation: fadeIn 1s ease forwards;
-      overflow-y: auto;
-      max-height: 90vh;
+      border-radius: 8px;
+      z-index: 9998;
+      transition: right 0.5s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .modal.open {
+      right: 5%;
     }
 
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input, select, textarea {
-      width: 100%; padding: 8px; margin-top: 5px;
-      border: 1px solid #ccc; border-radius: 5px;
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ccc;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
     }
-    button {
-      margin-top: 15px; padding: 10px 20px;
-      background: #2196F3; color: white; border: none;
-      border-radius: 5px; cursor: pointer;
+
+    form {
+      display: flex;
+      flex-direction: column;
     }
-    .note {
-      font-size: 0.85rem; color: #555; margin-top: 10px;
+
+    label {
+      margin: 10px 0 5px;
+    }
+
+    input, textarea, select {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .image-gallery {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .image-gallery img {
+      width: 100%;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .image-gallery img.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>🚁 Продажа нового дрона</h1>
+    <p style="font-size:18px; color:red; font-weight:bold;">🔥 Успей купить за 899 крон!</p>
+  </header>
 
-<header>
-  <h1>🔥 Новый дрон всего за 899 CZK 🔥</h1>
-  <img src="https://i.imghippo.com/files/iuV7540EtQ.png" alt="Главное фото дрона">
-</header>
+  <div class="image-gallery">
+    <img src="https://i.imghippo.com/files/ItQG8214lQY.jpg" alt="Дрон 2" />
+    <img src="https://i.imghippo.com/files/kdp7335DbU.jpeg" alt="Дрон 3" />
+    <img src="https://i.imghippo.com/files/GA7973iw.webp" alt="Дрон 4" />
+    <img src="https://i.imghippo.com/files/NUU9932JRE.jpg" alt="Дрон 5" />
+  </div>
 
-<section class="drone"><img src="https://i.imghippo.com/files/ItQG8214lQY.jpg"><p>Лёгкий и манёвренный, легко управляется даже новичками. 🎮</p></section>
-<section class="drone"><img src="https://i.imghippo.com/files/kdp7335DbU.jpeg"><p>Стабилизация полёта и автопилот — для уверенного полёта. ✈️</p></section>
-<section class="drone"><img src="https://i.imghippo.com/files/GA7973iw.webp"><p>Поддержка GPS и автоматического возврата. 📍</p></section>
-<section class="drone"><img src="https://i.imghippo.com/files/NUU9932JRE.jpg"><p>Отличный подарок для детей и взрослых! 🎁</p></section>
+  <button class="form-button" onclick="toggleModal()">📝</button>
 
-<!-- Всплывающее окно -->
-<div id="order-form-popup">
-  <h2>🛒 Заказ / Objednávka</h2>
-  <form action="https://getform.io/f/bgdlekoa" method="POST">
-    <label>Имя / Jméno</label>
-    <input type="text" name="name" required>
+  <div class="modal" id="orderModal">
+    <button class="close-btn" onclick="toggleModal()">×</button>
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
+      <label>Имя / Jmélo:</label>
+      <input type="text" name="name" required />
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+      <label>Email:</label>
+      <input type="email" name="email" required />
 
-    <label>Телефон / Telefon</label>
-    <input type="text" name="phone" required>
+      <label>Сообщение / Zpráva:</label>
+      <textarea name="message"></textarea>
 
-    <label>Вы из Праги? / Jste z Prahy?</label>
-    <select name="from_prague" id="fromPrague" required>
-      <option value="">-- Выбрать / Vybrat --</option>
-      <option value="Да">Да / Ano</option>
-      <option value="Нет">Нет / Ne</option>
-    </select>
+      <label>Вы из Праги ? / Jete z ija z Prahy?</label>
+      <select name="from_prague" id="fromPrague" onchange="handleCityChange()">
+        <option value="Да">Да / Ano</option>
+        <option value="Нет">Нет / Ne</option>
+      </select>
 
-    <div id="nonPragueFields" style="display:none;">
-      <label>Город / Město</label>
-      <input type="text" name="city">
+      <div id="addressFields" style="display:none">
+        <label>Пожалуйста : укажите ваш адрес достав:</label>
+        <input type="text" name="address" placeholder="Адрес / Adresa" />
 
-      <label>Адрес доставки / Adresa</label>
-      <textarea name="address" rows="3"></textarea>
+        <label>Хотели бы доставку заказа?</label>
+        <textarea name="delivery_comment">Chcete mít doručení objednávky?</textarea>
 
-      <p class="note">📦 Доставка через Zásilkovna осуществляется после предоплаты 250 CZK.</p>
-      <p class="note">💳 Счёт ČSOB для предоплаты: <strong>354037257/0300</strong></p>
-    </div>
+        <p><strong>prosím pošlete</strong> platbu na tento účet <strong>354037257/0300</strong></p>
+      </div>
 
-    <label>Комментарий / Poznámka</label>
-    <textarea name="comment" rows="2"></textarea>
+      <button type="submit">Оформить заказ</button>
+    </form>
+  </div>
 
-    <button type="submit">Оформить заказ / Odeslat</button>
-  </form>
+  <script>
+    function toggleModal() {
+      const modal = document.getElementById("orderModal");
+      modal.classList.toggle("open");
+    }
 
-  <p class="note">
-    Из Праги — самовывоз без предоплаты. <br>
-    Z Prahy — osobní odběr bez zálohy.
-  </p>
-</div>
-
-<script>
-  const drones = document.querySelectorAll('.drone');
-  window.addEventListener('scroll', () => {
-    drones.forEach(d => {
-      const rect = d.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 100) {
-        d.classList.add('visible');
+    function handleCityChange() {
+      const select = document.getElementById("fromPrague");
+      const address = document.getElementById("addressFields");
+      if (select.value === "Нет") {
+        address.style.display = "block";
+      } else {
+        address.style.display = "none";
       }
+    }
+
+    window.addEventListener("scroll", () => {
+      document.querySelectorAll(".image-gallery img").forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          img.classList.add("visible");
+        }
+      });
     });
-  });
 
-  setTimeout(() => {
-    document.getElementById('order-form-popup').style.display = 'block';
-  }, 5000);
-
-  document.getElementById('fromPrague').addEventListener('change', function () {
-    document.getElementById('nonPragueFields').style.display = this.value === 'Нет' ? 'block' : 'none';
-  });
-</script>
-
+    setTimeout(() => {
+      toggleModal();
+    }, 5000);
+  </script>
 </body>
 </html>
