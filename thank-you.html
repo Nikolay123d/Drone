@@ -3,46 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dron E88 Pro - Akční Nabídka</title>
+  <title>Dron E88 Pro – Akční nabídka</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
-      color: #fff;
+      font-family: Arial, sans-serif;
+      background: #fff;
     }
-    header {
-      background: #ffcc00;
-      color: #000;
-      text-align: center;
-      padding: 1rem;
-      font-weight: bold;
-      font-size: 1.5rem;
+    .banner-top {
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      z-index: 9999;
-    }
-    .container {
-      margin-top: 80px;
-      padding: 0 5%;
-    }
-    .product {
-      margin-bottom: 30px;
-    }
-    .product img {
       width: 100%;
-      max-width: 100%;
-      display: block;
-      margin: 0 auto;
-      transform: scale(1.25);
-    }
-    .description {
-      margin-top: 5px;
-      font-size: 1.2rem;
-      line-height: 1.5;
+      background: gold;
+      color: black;
       text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 9999;
+      padding: 10px 0;
+    }
+    .image-slide {
+      width: 100%;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .image-slide img {
+      width: 85%;
+      border-radius: 8px;
+    }
+    .desc {
+      max-width: 85%;
+      font-size: 16px;
+      text-align: center;
+      margin: 8px auto 20px auto;
     }
     #popup {
       display: none;
@@ -51,162 +47,146 @@
       left: 15%;
       width: 70%;
       background: #222;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #000;
+      color: #fff;
+      border-radius: 10px;
       z-index: 10000;
-    }
-    #popup h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: #ffcc00;
+      padding: 20px;
+      box-shadow: 0 0 10px #000;
     }
     #popup .close {
       position: absolute;
       top: 10px;
       right: 15px;
-      font-size: 20px;
-      color: #fff;
+      color: white;
       cursor: pointer;
+      font-size: 22px;
     }
-    #timer {
-      text-align: center;
-      margin-top: -15px;
-      font-size: 1.2rem;
-      color: #ffcc00;
-    }
-    form {
+    .form-section {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 1rem;
+      margin-top: 15px;
     }
-    input, select, textarea {
+    .form-section input,
+    .form-section select,
+    .form-section textarea {
       padding: 10px;
-      font-size: 1rem;
-      border-radius: 8px;
+      font-size: 14px;
+      border-radius: 5px;
       border: none;
     }
-    button {
-      padding: 12px;
-      background: #ffcc00;
-      color: #000;
+    .form-section button {
+      background: gold;
       border: none;
-      border-radius: 10px;
+      padding: 12px;
       font-weight: bold;
-      font-size: 1.2rem;
+      border-radius: 5px;
       cursor: pointer;
     }
-    .checkbox {
-      margin-top: 10px;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-    .bank-details {
-      display: none;
-      margin-top: 10px;
-      font-weight: bold;
-      color: yellow;
+    .language-toggle {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #ddd;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 9999;
     }
   </style>
 </head>
 <body>
-  <header>
-    Uspějte koupit za 899 Kč
-  </header>
-  <div class="container">
-    <div class="product">
-      <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1">
-      <div class="description">Profesionální dron s HD kamerou, ideální pro každého — stabilní let, úžasná kvalita záběrů!</div>
-    </div>
-    <div class="product">
-      <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2">
-      <div class="description">Skládací konstrukce — kompaktní a přenosný, vhodný na výlety i dobrodružství.</div>
-    </div>
-    <div class="product">
-      <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3">
-      <div class="description">Leťte dál, stabilněji a s větší kontrolou díky modernímu gyroskopu 6 os.</div>
-    </div>
-    <div class="product">
-      <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4">
-      <div class="description">4K kamera s dálkovým ovládáním, ideální pro vlogy, přírodu nebo sledování objektů.</div>
-    </div>
-    <div class="product">
-      <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5">
-      <div class="description">Nepřekonatelný poměr cena/výkon. Skvělý dárek pro děti i dospělé!</div>
-    </div>
-    <div class="product">
-      <img src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Dron 6">
-      <div class="description">Pohled na svět z výšky — objevte nové perspektivy a nechte se unést zážitkem!</div>
-    </div>
+  <div class="banner-top">
+    Uspějte koupit za 899 Kč – <span id="timer">24:00:00</span>
+  </div>
+
+  <div class="image-slide">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1" />
+    <div class="desc">Ideální pro začátečníky i profesionály – stabilní let, 4K kamera a skládací design pro snadné přenášení.</div>
+  </div>
+  <div class="image-slide">
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2" />
+    <div class="desc">Dlouhá výdrž baterie a výměnný modulární systém – připraven na dlouhé lety!</div>
+  </div>
+  <div class="image-slide">
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3" />
+    <div class="desc">Vysoce kvalitní materiály a pokročilá stabilizace pro perfektní snímky z výšky.</div>
+  </div>
+  <div class="image-slide">
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4" />
+    <div class="desc">Ovládání gesty, automatický návrat a připojení přes Wi-Fi – dron nové generace!</div>
+  </div>
+  <div class="image-slide">
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5" />
+    <div class="desc">Lehký, skladný a odolný proti větru – ideální pro jakékoli podmínky.</div>
+  </div>
+  <div class="image-slide">
+    <img src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Dron 6" />
+    <div class="desc">Zachyťte každý okamžik s úžasnou 4K kvalitou. Ideální dárek pro každého!</div>
   </div>
 
   <div id="popup">
-    <span class="close" onclick="document.getElementById('popup').style.display='none'">&times;</span>
-    <div id="timer"></div>
-    <h2>🔥 Успей купить дрон всего за 899 Kč! 🔥</h2>
-    <form id="order-form">
-      <input type="text" placeholder="Vaše jméno / Имя" required>
-      <input type="tel" placeholder="Telefonní číslo / Телефон" required>
-      <input type="email" placeholder="E-mail" required>
-      <select id="location" required onchange="toggleBankDetails()">
-        <option value="praha">Jsem z Prahy / Я из Праги</option>
-        <option value="other">Ne z Prahy / Не из Праги</option>
+    <span class="close" onclick="document.getElementById('popup').style.display='none'">×</span>
+    <h2>Objednávkový formulář</h2>
+    <form class="form-section">
+      <input type="text" placeholder="Vaše jméno" required />
+      <input type="email" placeholder="Email" required />
+      <input type="tel" placeholder="Telefon" required />
+      <textarea placeholder="Poznámka (volitelné)"></textarea>
+      <select id="region" onchange="checkRegion()">
+        <option value="Praha">Jsem z Prahy</option>
+        <option value="Jiné">Ne z Prahy</option>
       </select>
-      <textarea placeholder="Poznámka / Комментарий"></textarea>
-      <div id="bank-details" class="bank-details">
-        🔸 Číslo účtu pro zálohu: <b>354037257/0300 (ČSOB)</b><br>
-        🔸 Záloha: <b>250 Kč</b><br>
-        🔸 Doplatek: <b>na dobírku při převzetí přes Zásilkovna</b>
+      <div id="payment-info" style="display:none; color:yellow;">
+        Předplatba 250 Kč na účet ČSOB: <b>354037257/0300</b><br />Zbytek (749 Kč) platíte při převzetí přes Zásilkovnu.
+        <br /><label><input type="checkbox" required /> Souhlasím s podmínkami</label>
       </div>
-      <div class="checkbox" id="confirm-box" style="display: none">
-        <input type="checkbox" required /> Potvrzuji, že do jedné hodiny odešlu zálohu 250 Kč na uvedený účet
-      </div>
-      <button type="submit">Odeslat objednávku / Отправить заказ</button>
+      <button type="submit">Odeslat objednávku</button>
     </form>
   </div>
 
-  <audio id="notify-sound">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3" type="audio/mpeg">
-  </audio>
+  <div class="language-toggle" onclick="toggleLang()">🇨🇿 / 🇷🇺</div>
+
+  <audio id="audio1" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+  <audio id="audio2" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
 
   <script>
+    // Появление формы через 10 секунд
     setTimeout(() => {
       document.getElementById('popup').style.display = 'block';
-      document.getElementById('notify-sound').play();
-      startCountdown();
+      document.getElementById('audio2').play();
     }, 10000);
 
-    function toggleBankDetails() {
-      const selected = document.getElementById('location').value;
-      const details = document.getElementById('bank-details');
-      const confirm = document.getElementById('confirm-box');
-      if (selected === 'other') {
-        details.style.display = 'block';
-        confirm.style.display = 'block';
-      } else {
-        details.style.display = 'none';
-        confirm.style.display = 'none';
+    // Таймер 24 часа
+    let hours = 23, minutes = 59, seconds = 59;
+    setInterval(() => {
+      if (seconds-- === 0) {
+        seconds = 59;
+        if (minutes-- === 0) {
+          minutes = 59;
+          if (hours-- === 0) hours = 0;
+        }
       }
+      document.getElementById('timer').textContent =
+        `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    }, 1000);
+
+    // Проверка региона
+    function checkRegion() {
+      const region = document.getElementById('region').value;
+      document.getElementById('payment-info').style.display = region === 'Jiné' ? 'block' : 'none';
     }
 
-    function startCountdown() {
-      const end = new Date().getTime() + 24 * 60 * 60 * 1000;
-      const timerElement = document.getElementById('timer');
-      const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const diff = end - now;
-        if (diff <= 0) {
-          clearInterval(interval);
-          timerElement.innerHTML = 'Akce skončila';
-          return;
-        }
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        timerElement.innerHTML = `⏳ Do konce akce zbývá: ${hours}h ${minutes}m ${seconds}s`;
-      }, 1000);
+    // Языковое переключение (будет доработано в следующем шаге)
+    function toggleLang() {
+      alert("Přepínání jazyků bude aktivní později. Switching language coming soon.");
     }
+
+    // Звук баннера через 5 секунд
+    setTimeout(() => {
+      document.getElementById('audio1').play();
+    }, 5000);
   </script>
 </body>
 </html>
