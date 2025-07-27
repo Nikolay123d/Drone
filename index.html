@@ -1,220 +1,155 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profesionální dron E88 Pro</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drony Prodej</title>
   <style>
     body {
       margin: 0;
-      background-color: #111;
+      font-family: sans-serif;
+      background: #111;
       color: #fff;
-      font-family: Arial, sans-serif;
-      font-size: 1.2em;
-      overflow-x: hidden;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-      max-width: 100vw;
-      object-fit: contain;
     }
 
     .banner {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
-      background: gold;
-      color: black;
+      width: 100%;
+      background: #ffd500;
+      color: #000;
       text-align: center;
-      padding: 10px 0;
-      font-size: 1.3em;
       font-weight: bold;
+      padding: 10px;
       z-index: 1000;
     }
 
     .timer {
-      position: fixed;
-      top: 60px;
-      right: 20px;
-      background: #333;
-      color: yellow;
-      padding: 10px;
-      border-radius: 8px;
-      z-index: 999;
-    }
-
-    .language-toggle {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      z-index: 1001;
-    }
-
-    .language-toggle button {
-      background: #333;
+      margin-top: 55px;
+      background: #222;
       color: #fff;
-      border: 1px solid #777;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 5px;
+      text-align: center;
+      font-size: 18px;
+      padding: 10px 0;
     }
 
     .modal {
-      display: none;
       position: fixed;
-      top: 10%;
-      left: 15%;
-      width: 70%;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -20%);
+      width: 60%;
+      max-height: 70%;
       background: #222;
-      border: 2px solid #fff;
       padding: 20px;
-      z-index: 1002;
-      box-shadow: 0 0 10px #000;
-      color: #fff;
+      border-radius: 10px;
+      z-index: 2000;
+      overflow-y: auto;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
 
-    .modal-close {
+    .modal input,
+    .modal textarea,
+    .modal select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .close-btn {
       position: absolute;
       top: 10px;
       right: 10px;
+      font-size: 22px;
       background: #000;
       color: #fff;
       border: none;
-      font-size: 1.2em;
       cursor: pointer;
-    }
-
-    .modal form input, .modal form textarea, .modal form select {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      font-size: 1em;
-    }
-
-    .modal form button {
-      background: gold;
-      color: black;
-      font-weight: bold;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 1em;
+      padding: 5px 10px;
     }
 
     .bank-info {
       background: #333;
-      padding: 10px;
+      padding: 15px;
       margin-top: 10px;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 15px;
+      line-height: 1.5;
     }
 
-    .hidden {
-      display: none;
+    @media (max-width: 768px) {
+      .modal {
+        width: 85%;
+        max-height: 70%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="banner">Uspĕj koupit za 899 Kč! / Успей купить за 899 Kč!</div>
-  <div class="timer" id="countdown"></div>
 
-  <div id="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone">
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone">
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone">
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone">
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone">
-    <img src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Drone">
+  <div class="banner">
+    Удачной покупки за 899 чешских крон! / Úspěšný nákup za 899 Kč!
   </div>
 
-  <div class="language-toggle">
-    <button onclick="toggleLanguage()">🌐 CZ / RU</button>
+  <div class="timer" id="countdown">
+    До конца акции: 23:59:59
   </div>
 
-  <div id="popup" class="modal">
-    <button class="modal-close" onclick="closePopup()">×</button>
-    <form id="orderForm">
-      <input type="text" name="name" placeholder="Jméno / Имя" required>
-      <input type="tel" name="phone" placeholder="Telefon / Телефон" required>
-      <input type="email" name="email" placeholder="E-mail" required>
-
-      <select name="location" onchange="handleLocation(this.value)" required>
-        <option value="">Vyberte lokalitu / Выберите регион</option>
-        <option value="praha">Praha / Прага</option>
-        <option value="nepraha">Ne z Prahy / Не из Праги</option>
+  <div class="modal" id="orderModal">
+    <button class="close-btn" onclick="document.getElementById('orderModal').style.display='none'">✕</button>
+    <form>
+      <input type="text" placeholder="Имя / Name" required>
+      <input type="text" placeholder="Телефон / Телефон" required>
+      <input type="email" placeholder="Электронная почта" required>
+      <select id="locationSelect" onchange="togglePaymentInfo()">
+        <option value="prague">Из Праги / Z Prahy</option>
+        <option value="not_prague">Не из Праги / Ne z Prahy</option>
       </select>
+      <textarea placeholder="Комментарий (например, хочу личную коллекцию в Праге) / Komentář..."></textarea>
 
-      <textarea name="comment" placeholder="Komentář (např. chci osobní odběr v Praze) / Комментарий (например, самовывоз в Праге)"></textarea>
-
-      <div id="bankDetails" class="bank-info hidden">
-        <p><b>Částka:</b> 250 Kč (záloha na dopravu)</p>
-        <p><b>Účet ČSOB:</b> 354037257/0300</p>
-        <p>Celková cena: 999 Kč (250 Kč záloha + 749 Kč při převzetí na Zásilkovně)</p>
-        <label><input type="checkbox" required> Potvrzuji, že provedu zálohovou platbu 250 Kč do 1 hodiny od objednání. / Я подтверждаю, что оплачу предоплату 250 Kč в течение 1 часа.</label>
+      <div class="bank-info" id="bankInfo" style="display: none;">
+        <strong>Сумма:</strong> 250 чешских крон (задаток за доставку)<br>
+        <strong>Счёт ČSOB:</strong><br>354037257/0300<br>
+        <br>
+        Общая стоимость: 999 чешских крон<br>
+        (250 чешских крон депозит + 749 чешских крон при получении в почтовом отделении).
       </div>
 
-      <button type="submit">Odeslat objednávku / Оформить заказ</button>
+      <input type="submit" value="Оформить заказ" style="margin-top: 15px; background: yellow; border: none; padding: 10px; font-size: 18px; border-radius: 8px;">
     </form>
   </div>
 
-  <audio id="popupSound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
-  <audio id="winSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"></audio>
-
   <script>
-    const popup = document.getElementById("popup");
-    const popupSound = document.getElementById("popupSound");
-    const winSound = document.getElementById("winSound");
-    const bankDetails = document.getElementById("bankDetails");
-
-    setTimeout(() => {
-      popup.style.display = "block";
-      popupSound.play();
-    }, 7000);
-
-    function closePopup() {
-      popup.style.display = "none";
+    function togglePaymentInfo() {
+      const selected = document.getElementById("locationSelect").value;
+      const bankInfo = document.getElementById("bankInfo");
+      bankInfo.style.display = selected === "not_prague" ? "block" : "none";
     }
 
-    function handleLocation(value) {
-      if (value === "nepraha") {
-        bankDetails.classList.remove("hidden");
-      } else {
-        bankDetails.classList.add("hidden");
+    // Таймер 24 часа
+    const countdown = document.getElementById('countdown');
+    const deadline = new Date(localStorage.getItem("deadline") || (Date.now() + 86400000));
+    localStorage.setItem("deadline", deadline);
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = new Date(deadline) - now;
+      if (diff <= 0) {
+        countdown.innerText = "Акция завершена.";
+        return;
       }
+      const hrs = String(Math.floor(diff / 1000 / 60 / 60)).padStart(2, '0');
+      const mins = String(Math.floor(diff / 1000 / 60) % 60).padStart(2, '0');
+      const secs = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
+      countdown.innerText = `До конца акции: ${hrs}:${mins}:${secs}`;
     }
 
-    function toggleLanguage() {
-      // Simplified — full implementation would switch all text
-      alert("Přepínání jazyků bude brzy dostupné / Смена языка скоро будет доступна");
-    }
-
-    // Countdown timer
-    const countdownEl = document.getElementById("countdown");
-    let end = localStorage.getItem("timerEnd");
-    if (!end) {
-      end = Date.now() + 24 * 60 * 60 * 1000;
-      localStorage.setItem("timerEnd", end);
-    }
-    setInterval(() => {
-      const now = Date.now();
-      const distance = end - now;
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      countdownEl.innerText = `Akce končí za: ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
-
-    // Submission
-    document.getElementById("orderForm").onsubmit = (e) => {
-      e.preventDefault();
-      winSound.play();
-      alert("Objednávka byla odeslána! / Заказ отправлен!");
-    };
+    setInterval(updateTimer, 1000);
+    updateTimer();
   </script>
 </body>
 </html>
