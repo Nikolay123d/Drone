@@ -3,221 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drony v akci</title>
+  <title>Profesionální drony se slevou</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
       background-color: #111;
-      color: #fff;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
     }
-    header {
+    .banner {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      background-color: #e60000;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      z-index: 9999;
-      font-size: 22px;
-    }
-    .timer {
+      background: #e60000;
+      color: #fff;
+      font-size: 20px;
       font-weight: bold;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 9999;
+    }
+    .banner span {
       font-size: 16px;
+      font-weight: normal;
+    }
+    .container {
+      margin-top: 70px;
+      padding: 20px;
     }
     .drone-image {
-      width: 90%;
+      width: 100%;
       max-width: 500px;
+      margin: 0 auto 10px;
       display: block;
-      margin: 80px auto 10px;
-      border-radius: 10px;
+      border-radius: 12px;
     }
     .description {
       text-align: center;
       margin-bottom: 30px;
-      font-size: 18px;
-      padding: 0 15px;
+      font-size: 17px;
     }
     #popup {
       display: none;
       position: fixed;
-      top: 10%;
+      top: 8%;
       left: 15%;
       width: 70%;
-      background: #222;
+      background-color: #222;
+      border: 2px solid #444;
+      border-radius: 16px;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #000;
       z-index: 10000;
-    }
-    #popup h2 {
-      margin-top: 0;
-      font-size: 22px;
-    }
-    #popup form {
-      display: flex;
-      flex-direction: column;
-    }
-    #popup label {
-      margin: 10px 0 5px;
-    }
-    #popup input, #popup select, #popup textarea {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
+      color: #fff;
       font-size: 16px;
     }
-    #popup button {
-      margin-top: 15px;
-      padding: 10px;
-      background: #e60000;
+    #popup-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      cursor: pointer;
+      font-size: 18px;
       color: #fff;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input, select, textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: #fff;
+    }
+    button {
+      padding: 12px;
+      background: #e60000;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
       font-size: 18px;
       cursor: pointer;
     }
-    #popup .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 22px;
-      cursor: pointer;
-      color: white;
-    }
-    .bank-info {
-      display: none;
-      background-color: #meta
-      padding: 10px;
-      border-radius: 8px;
+    #timer {
       margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .language-toggle {
       position: fixed;
       bottom: 10px;
       right: 10px;
-      background: #444;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+    }
+    @media screen and (max-width: 600px) {
+      #popup {
+        width: 90%;
+        left: 5%;
+      }
+      .banner { font-size: 16px; }
+      .description { font-size: 15px; }
+      button { font-size: 16px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    🛒 Uspěj koupit za 899 Kč <span class="timer" id="countdown"></span>
-  </header>
+  <div class="banner">🔥 Uspějte koupit za 899 Kč <span id="timer"></span></div>
 
-  <!-- Drone images with descriptions -->
-  <img class="drone-image" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1">
-  <div class="description">Moderní skládací dron s 4K kamerou a dosahem až 300 m. Ideální pro cestování.</div>
+  <div class="container">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" class="drone-image">
+    <div class="description">Kompaktní profesionální dron s HD kamerou a výbornou stabilitou.</div>
 
-  <img class="drone-image" src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2">
-  <div class="description">Lehký a výkonný model s funkcí GPS, automatickým návratem a optickou stabilizací.</div>
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" class="drone-image">
+    <div class="description">Skvělý výkon v malém těle. Dlouhá výdrž baterie a skládací konstrukce.</div>
 
-  <img class="drone-image" src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3">
-  <div class="description">Odolný dron s dlouhou výdrží baterie. Skvělý pro dobrodružné výlety i domácí zábavu.</div>
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" class="drone-image">
+    <div class="description">Dron nové generace s vylepšenou GPS navigací a 4K rozlišením kamery.</div>
 
-  <img class="drone-image" src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4">
-  <div class="description">Profesionální dron E88 PRO s HD kamerou, skládací konstrukce a stabilní let.</div>
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" class="drone-image">
+    <div class="description">Dálkově ovladatelný dron s funkcí návratu domů a režimem sledování.</div>
 
-  <img class="drone-image" src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Dron 5">
-  <div class="description">Prémiová kvalita, ostrý obraz, jednoduché ovládání. Nejlepší volba za tuto cenu.</div>
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" class="drone-image">
+    <div class="description">Nejlepší volba pro začátečníky i pokročilé. Automatické vzlétání a přistání.</div>
+  </div>
 
-  <!-- Popup objednávky -->
   <div id="popup">
-    <div class="close-btn" onclick="closePopup()">×</div>
-    <h2>Odeslat objednávku</h2>
-    <form id="orderForm" action="https://postimg.cc/tY8DnVYk" method="post" onsubmit="return validateForm()">
-      <label for="name">Jméno:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="phone">Telefon:</label>
-      <input type="tel" id="phone" name="phone" required>
-
-      <label for="email">E-mail:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="city">Jste z Prahy?</label>
-      <select id="city" name="city" onchange="toggleBankInfo()">
-        <option value="praha">Ano</option>
-        <option value="nepraha">Ne</option>
+    <span id="popup-close">×</span>
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
+      <input type="text" name="name" placeholder="Jméno" required>
+      <input type="tel" name="phone" placeholder="Telefon" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <select name="delivery">
+        <option value="praha">Jsem z Prahy</option>
+        <option value="nezprahy">Ne z Prahy</option>
       </select>
+      <textarea name="comment" placeholder="Poznámky"></textarea>
 
-      <div class="bank-info" id="bankInfo">
-        <p>Cena: 999 Kč (včetně 250 Kč předplatby na účet)</p>
-        <p>Účet pro předplatbu: <strong>ČSOB 354037257/0300</strong></p>
-        <label><input type="checkbox" id="confirmPayment"> Potvrzuji, že jsem uhradil 250 Kč předplatbu</label>
+      <div id="account-info" style="display:none;">
+        <p>Celková cena: 999 Kč (250 Kč předem na účet ČSOB: <strong>354037257/0300</strong>, zbytek při vyzvednutí)</p>
+        <div class="checkbox-container">
+          <input type="checkbox" id="confirm-payment" required>
+          <label for="confirm-payment">Potvrzuji, že jsem uhradil 250 Kč předem</label>
+        </div>
       </div>
-
-      <label for="comment">Komentář:</label>
-      <textarea id="comment" name="comment"></textarea>
 
       <button type="submit">Odeslat objednávku</button>
     </form>
   </div>
 
-  <div class="language-toggle" onclick="toggleLanguage()">🇷🇺</div>
+  <div class="language-toggle" onclick="toggleLanguage()">🌐 RU / CZ</div>
+
+  <audio id="popup-sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
 
   <script>
-    // Timer with localStorage
-    let endTime = localStorage.getItem('endTime');
-    if (!endTime) {
-      endTime = new Date().getTime() + 24 * 60 * 60 * 1000;
-      localStorage.setItem('endTime', endTime);
-    }
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = endTime - now;
-      if (distance < 0) {
-        document.getElementById("countdown").innerHTML = " - Akce skončila";
-        return;
-      }
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("countdown").innerHTML = `- Akce končí za ${hours}h ${minutes}m ${seconds}s`;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // Show popup after 5 seconds
-    setTimeout(() => {
-      document.getElementById("popup").style.display = "block";
-      playSound();
-    }, 5000);
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-
-    function toggleBankInfo() {
-      const selected = document.getElementById("city").value;
-      const bankBlock = document.getElementById("bankInfo");
-      bankBlock.style.display = selected === 'nepraha' ? 'block' : 'none';
-    }
-
-    function validateForm() {
-      const city = document.getElementById("city").value;
-      const checkbox = document.getElementById("confirmPayment");
-      if (city === 'nepraha' && !checkbox.checked) {
-        alert("Potvrďte, že jste provedli platbu 250 Kč předem.");
-        return false;
-      }
-      return true;
-    }
-
-    function playSound() {
-      const audio = new Audio('https://www.fesliyanstudios.com/play-mp3/4386');
-      audio.play();
-    }
+    let lang = 'cs';
 
     function toggleLanguage() {
-      alert("Přepnutí jazyka zatím není plně implementováno.");
+      lang = lang === 'cs' ? 'ru' : 'cs';
+      alert(lang === 'cs' ? 'Čeština zapnuta' : 'Включен русский язык');
+    }
+
+    window.onload = function() {
+      const popup = document.getElementById('popup');
+      const sound = document.getElementById('popup-sound');
+      setTimeout(() => {
+        popup.style.display = 'block';
+        sound.play();
+      }, 5000);
+
+      document.getElementById('popup-close').onclick = () => {
+        popup.style.display = 'none';
+      };
+
+      const delivery = document.querySelector("select[name='delivery']");
+      const accountInfo = document.getElementById("account-info");
+      delivery.addEventListener('change', () => {
+        if (delivery.value === 'nezprahy') {
+          accountInfo.style.display = 'block';
+          document.getElementById('confirm-payment').setAttribute('required', 'required');
+        } else {
+          accountInfo.style.display = 'none';
+          document.getElementById('confirm-payment').removeAttribute('required');
+        }
+      });
+
+      const storedTime = localStorage.getItem('saleEnds');
+      const endTime = storedTime ? new Date(storedTime) : new Date(Date.now() + 24 * 60 * 60 * 1000);
+      localStorage.setItem('saleEnds', endTime);
+
+      setInterval(() => {
+        const now = new Date();
+        const diff = endTime - now;
+        if (diff <= 0) {
+          document.getElementById('timer').innerText = 'Akce skončila';
+          return;
+        }
+        const hours = Math.floor(diff / 1000 / 60 / 60);
+        const minutes = Math.floor(diff / 1000 / 60) % 60;
+        const seconds = Math.floor(diff / 1000) % 60;
+        document.getElementById('timer').innerText = ` – zbývá ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
     }
   </script>
 </body>
