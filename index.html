@@ -119,6 +119,13 @@
       border-radius: 10px;
       display: none;
     }
+
+    #timer {
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+      color: #ffcc00;
+    }
   </style>
 </head>
 <body>
@@ -148,7 +155,7 @@
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
       <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha">Jsem z Prahy</option>
+        <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
       <div id="account-info">
@@ -159,6 +166,7 @@
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit" id="submitBtn">Odeslat objednávku</button>
+      <div id="timer"></div>
     </form>
   </div>
 
@@ -169,9 +177,35 @@
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
     }
 
+    // Таймер с привязкой к localStorage (как замена IP)
+    function startCountdown() {
+      const timerDisplay = document.getElementById('timer');
+      const now = Date.now();
+      const stored = localStorage.getItem('deadline');
+      let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
+
+      localStorage.setItem('deadline', deadline);
+
+      function updateTimer() {
+        const remaining = deadline - Date.now();
+        if (remaining <= 0) {
+          timerDisplay.innerText = "⏰ Čas vypršel!";
+          return;
+        }
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
+        setTimeout(updateTimer, 1000);
+      }
+
+      updateTimer();
+    }
+
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
+      startCountdown(); // запускаем таймер при открытии формы
     }, 7000);
   </script>
 </body>
-</html>
+      </html>
