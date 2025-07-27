@@ -1,163 +1,139 @@
-<!DOCTYPE html>
-<html lang="cs">
+<!DOCTYPE html><html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prodej dronů</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dron Prodej</title>
   <style>
     body {
       margin: 0;
-      background-color: #111;
-      color: #fff;
       font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #eee;
     }
-    .banner {
+    .fixed-banner {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: #e53935;
+      background-color: #d32f2f;
       color: white;
-      padding: 10px;
-      font-size: 20px;
       text-align: center;
-      z-index: 1000;
+      padding: 10px;
+      font-size: 1.2em;
+      z-index: 9999;
     }
-    .banner a {
-      color: white;
-      text-decoration: underline;
+    .fixed-banner button {
+      background: #fff;
+      color: #d32f2f;
+      border: none;
+      padding: 6px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .drone-image {
+      width: 85%;
+      display: block;
+      margin: 80px auto 20px auto;
+      border-radius: 12px;
     }
     .popup {
+      display: none;
       position: fixed;
       top: 10%;
       left: 15%;
-      right: 15%;
+      width: 70%;
       background-color: #222;
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 1001;
-      display: none;
-    }
-    .popup-close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
       color: #fff;
-      font-size: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #000;
+      z-index: 10000;
+    }
+    .popup h2 {
+      margin-top: 0;
+    }
+    .popup input, .popup select, .popup textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background: #111;
+      color: white;
+    }
+    .popup label {
+      font-weight: bold;
+    }
+    .popup .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      color: #fff;
+      font-size: 18px;
+      border: none;
       cursor: pointer;
     }
-    .form-group {
-      margin-bottom: 10px;
-    }
-    .hidden {
-      display: none;
-    }
-    #countdown {
-      font-weight: bold;
+    .description {
+      max-width: 85%;
+      margin: 10px auto 40px;
+      font-size: 1em;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-
-<div class="banner">
-  🛍️ Uspějte koupit za 899 Kč! Nabídka končí za <span id="countdown"></span> <a href="#order-form">Objednat</a>
-</div>
-
-<div class="popup" id="popup-form">
-  <div class="popup-close" onclick="closePopup()">✖</div>
-  <form action="https://getform.io/f/bgdlekoa" method="POST" id="order-form">
-    <div class="form-group">
-      <label>Jméno / Имя:</label>
-      <input type="text" name="name" required>
-    </div>
-    <div class="form-group">
+  <div class="fixed-banner">
+    Успей купить за 899 Kč!
+    <button onclick="document.querySelector('.popup').style.display='block'">Оформить заказ</button>
+  </div>  <img class="drone-image" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 1">
+  <div class="description">Компактный и надёжный дрон с HD-камерой. Идеален для начинающих и любителей.</div>  <img class="drone-image" src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2">
+  <div class="description">Модель с улучшенной стабилизацией и дальностью полёта до 1 км. Высокое качество записи.</div>  <img class="drone-image" src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3">
+  <div class="description">Складной дизайн, легко помещается в рюкзак. Отличный выбор для путешествий.</div>  <img class="drone-image" src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 4">
+  <div class="description">Профессиональный дрон с 4K камерой, широким углом обзора и стабилизатором изображения.</div>  <img class="drone-image" src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Drone 5">
+  <div class="description">Флагманская модель с GPS-навигацией, интеллектуальными режимами и длительным временем полета.</div>  <div class="popup">
+    <button class="close-btn" onclick="this.parentElement.style.display='none'">✖</button>
+    <h2>Odeslat objednávku</h2>
+    <form method="POST" action="https://postimg.cc/tY8DnVYk">
+      <label>Jméno:</label>
+      <input type="text" name="name" required />
       <label>Telefon:</label>
-      <input type="tel" name="phone" required>
-    </div>
-    <div class="form-group">
+      <input type="tel" name="phone" required />
       <label>Email:</label>
-      <input type="email" name="email" required>
-    </div>
-    <div class="form-group">
-      <label>Doprava / Доставка:</label>
-      <select id="city-select" name="delivery">
-        <option value="praha">Z Prahy / Из Праги</option>
-        <option value="nepraha">Ne z Prahy / Не из Праги</option>
+      <input type="email" name="email" required />
+      <label>Město:</label>
+      <select name="city" onchange="checkCity(this.value)">
+        <option value="Praha">Praha</option>
+        <option value="NePraha">Ne z Prahy</option>
       </select>
-    </div>
-    <div class="form-group hidden" id="payment-info">
-      <p><strong>Celková cena: 999 Kč</strong></p>
-      <p>⚠️ Předplatba: 250 Kč na účet ČSOB 354037257/0300</p>
-      <label><input type="checkbox" id="payment-confirm" name="paid"> ✅ Potvrzuji platbu / Подтверждаю оплату</label>
-    </div>
-    <div class="form-group">
+      <div id="payment-info" style="display:none; margin-top: 10px;">
+        <p>Celková cena: <strong>999 Kč</strong></p>
+        <p>Předplatba 250 Kč na účet ČSOB: <strong>354037257/0300</strong></p>
+        <label><input type="checkbox" id="payment-check"> Potvrzuji, že jsem zaplatil zálohu 250 Kč</label>
+      </div>
       <label>Komentář:</label>
       <textarea name="comment"></textarea>
-    </div>
-    <div class="form-group">
-      <label><input type="checkbox" name="confirm_all" checked> Vše jak je / Всё как есть</label>
-    </div>
-    <button type="submit" id="submit-btn">Odeslat objednávku / Оформить заказ</button>
-  </form>
-</div>
-
-<script>
-  // Таймер 24 часа сохраняется в localStorage
-  const countdownEl = document.getElementById("countdown");
-  const storedDeadline = localStorage.getItem("droneCountdownDeadline");
-  let deadline;
-  if (storedDeadline) {
-    deadline = new Date(storedDeadline);
-  } else {
-    deadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    localStorage.setItem("droneCountdownDeadline", deadline);
-  }
-  function updateCountdown() {
-    const now = new Date();
-    const diff = deadline - now;
-    if (diff <= 0) {
-      countdownEl.textContent = "čas vypršel";
-      return;
+      <button type="submit" id="submit-btn">Odeslat</button>
+    </form>
+  </div>  <script>
+    function checkCity(val) {
+      const info = document.getElementById("payment-info");
+      const submitBtn = document.getElementById("submit-btn");
+      if (val === "NePraha") {
+        info.style.display = "block";
+        submitBtn.disabled = true;
+        document.getElementById("payment-check").addEventListener("change", function() {
+          submitBtn.disabled = !this.checked;
+        });
+      } else {
+        info.style.display = "none";
+        submitBtn.disabled = false;
+      }
     }
-    const hrs = Math.floor(diff / (1000 * 60 * 60));
-    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((diff % (1000 * 60)) / 1000);
-    countdownEl.textContent = `${hrs}h ${mins}m ${secs}s`;
-  }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
 
-  // Показываем попап через 7 секунд
-  setTimeout(() => {
-    document.getElementById("popup-form").style.display = "block";
-    const audio = new Audio("https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg");
-    audio.play();
-  }, 7000);
-
-  function closePopup() {
-    document.getElementById("popup-form").style.display = "none";
-  }
-
-  // Обработка выбора города
-  const citySelect = document.getElementById("city-select");
-  const paymentInfo = document.getElementById("payment-info");
-  const submitBtn = document.getElementById("submit-btn");
-  const paymentCheckbox = document.getElementById("payment-confirm");
-
-  citySelect.addEventListener("change", () => {
-    if (citySelect.value === "nepraha") {
-      paymentInfo.classList.remove("hidden");
-    } else {
-      paymentInfo.classList.add("hidden");
-    }
-  });
-
-  document.getElementById("order-form").addEventListener("submit", function(e) {
-    if (citySelect.value === "nepraha" && !paymentCheckbox.checked) {
-      e.preventDefault();
-      alert("Potvrďte prosím platbu 250 Kč / Пожалуйста, подтвердите оплату 250 крон");
-    }
-  });
-</script>
-
-</body>
+    // Показываем окно через 7 секунд
+    setTimeout(() => {
+      document.querySelector(".popup").style.display = "block";
+    }, 7000);
+  </script></body>
 </html>
