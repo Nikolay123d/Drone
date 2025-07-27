@@ -1,139 +1,150 @@
-<!DOCTYPE html><html lang="cs">
+<!DOCTYPE html>
+<html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dron Prodej</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prodej dronů</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #111;
-      color: #eee;
+      color: white;
     }
-    .fixed-banner {
+    .banner {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: #d32f2f;
+      background-color: red;
       color: white;
       text-align: center;
-      padding: 10px;
-      font-size: 1.2em;
-      z-index: 9999;
+      z-index: 10000;
+      padding: 10px 0;
     }
-    .fixed-banner button {
-      background: #fff;
-      color: #d32f2f;
+    .banner button {
+      margin-left: 15px;
+      padding: 5px 15px;
+      background-color: white;
+      color: red;
       border: none;
-      padding: 6px 12px;
-      margin-left: 10px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
-    .drone-image {
-      width: 85%;
-      display: block;
-      margin: 80px auto 20px auto;
-      border-radius: 12px;
-    }
-    .popup {
+    .modal {
       display: none;
       position: fixed;
-      top: 10%;
-      left: 15%;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
       width: 70%;
+      max-width: 500px;
       background-color: #222;
-      color: #fff;
       padding: 20px;
-      border-radius: 12px;
+      border-radius: 8px;
       box-shadow: 0 0 10px #000;
-      z-index: 10000;
+      z-index: 9999;
     }
-    .popup h2 {
+    .modal h2 {
       margin-top: 0;
     }
-    .popup input, .popup select, .popup textarea {
+    .modal label, .modal input, .modal select, .modal textarea {
+      display: block;
       width: 100%;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .modal input, .modal select, .modal textarea {
       padding: 8px;
-      margin-bottom: 12px;
-      border-radius: 6px;
-      border: 1px solid #555;
-      background: #111;
+      border-radius: 4px;
+      border: none;
+      background-color: #333;
       color: white;
     }
-    .popup label {
-      font-weight: bold;
-    }
-    .popup .close-btn {
+    .modal .close {
       position: absolute;
-      top: 8px;
-      right: 12px;
-      background: none;
-      color: #fff;
-      font-size: 18px;
-      border: none;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
       cursor: pointer;
+      color: white;
     }
-    .description {
-      max-width: 85%;
-      margin: 10px auto 40px;
-      font-size: 1em;
-      color: #ccc;
+    .modal .submit-btn {
+      padding: 12px;
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="fixed-banner">
-    Успей купить за 899 Kč!
-    <button onclick="document.querySelector('.popup').style.display='block'">Оформить заказ</button>
-  </div>  <img class="drone-image" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 1">
-  <div class="description">Компактный и надёжный дрон с HD-камерой. Идеален для начинающих и любителей.</div>  <img class="drone-image" src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2">
-  <div class="description">Модель с улучшенной стабилизацией и дальностью полёта до 1 км. Высокое качество записи.</div>  <img class="drone-image" src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3">
-  <div class="description">Складной дизайн, легко помещается в рюкзак. Отличный выбор для путешествий.</div>  <img class="drone-image" src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 4">
-  <div class="description">Профессиональный дрон с 4K камерой, широким углом обзора и стабилизатором изображения.</div>  <img class="drone-image" src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Drone 5">
-  <div class="description">Флагманская модель с GPS-навигацией, интеллектуальными режимами и длительным временем полета.</div>  <div class="popup">
-    <button class="close-btn" onclick="this.parentElement.style.display='none'">✖</button>
-    <h2>Odeslat objednávku</h2>
-    <form method="POST" action="https://postimg.cc/tY8DnVYk">
-      <label>Jméno:</label>
-      <input type="text" name="name" required />
-      <label>Telefon:</label>
-      <input type="tel" name="phone" required />
-      <label>Email:</label>
-      <input type="email" name="email" required />
-      <label>Město:</label>
-      <select name="city" onchange="checkCity(this.value)">
-        <option value="Praha">Praha</option>
-        <option value="NePraha">Ne z Prahy</option>
-      </select>
-      <div id="payment-info" style="display:none; margin-top: 10px;">
-        <p>Celková cena: <strong>999 Kč</strong></p>
-        <p>Předplatba 250 Kč na účet ČSOB: <strong>354037257/0300</strong></p>
-        <label><input type="checkbox" id="payment-check"> Potvrzuji, že jsem zaplatil zálohu 250 Kč</label>
-      </div>
-      <label>Komentář:</label>
-      <textarea name="comment"></textarea>
-      <button type="submit" id="submit-btn">Odeslat</button>
-    </form>
-  </div>  <script>
-    function checkCity(val) {
-      const info = document.getElementById("payment-info");
-      const submitBtn = document.getElementById("submit-btn");
-      if (val === "NePraha") {
-        info.style.display = "block";
-        submitBtn.disabled = true;
-        document.getElementById("payment-check").addEventListener("change", function() {
-          submitBtn.disabled = !this.checked;
-        });
-      } else {
-        info.style.display = "none";
-        submitBtn.disabled = false;
-      }
-    }
 
-    // Показываем окно через 7 секунд
+  <div class="banner">
+    <span>Успейте купить за 899 чешских крон!</span>
+    <button onclick="openModal()">Оформить заказ</button>
+  </div>
+
+  <div id="orderModal" class="modal">
+    <div class="close" onclick="closeModal()">&times;</div>
+    <h2>Оформить заказ</h2>
+    <form id="orderForm" action="https://getform.io/f/bgdlekoa" method="POST">
+      <label>Имя:
+        <input type="text" name="name" required>
+      </label>
+      <label>Телефон:
+        <input type="tel" name="phone" required>
+      </label>
+      <label>Электронная почта:
+        <input type="email" name="email" required>
+      </label>
+      <label>Город:
+        <select name="city" id="citySelect" onchange="togglePaymentInfo()">
+          <option value="Прага">Из Праги</option>
+          <option value="Не из Праги">Не из Праги</option>
+        </select>
+      </label>
+
+      <div id="paymentInfo" class="hidden">
+        <p><strong>Общая цена: 999 чешских крон</strong></p>
+        <p>Предоплата 250 чешских крон на счет ČSOB: <strong>354037257/0300</strong></p>
+        <label>
+          <input type="checkbox" name="confirm" required>
+          Я подтверждаю, что внес депозит в размере 250 чешских крон.
+        </label>
+      </div>
+
+      <label>Комментарий:
+        <textarea name="comment"></textarea>
+      </label>
+      <button class="submit-btn" type="submit">Оформить заказ</button>
+    </form>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('orderModal').style.display = 'block';
+    }
+    function closeModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+    function togglePaymentInfo() {
+      const city = document.getElementById('citySelect').value;
+      const paymentInfo = document.getElementById('paymentInfo');
+      paymentInfo.classList.toggle('hidden', city === 'Прага');
+    }
     setTimeout(() => {
-      document.querySelector(".popup").style.display = "block";
+      openModal();
+      const audio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+      audio.play();
     }, 7000);
-  </script></body>
+  </script>
+
+</body>
 </html>
