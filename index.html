@@ -3,170 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dron E88 Pro - Akční nabídka</title>
+  <title>Akce: 4K Dron za 899 Kč</title>
   <style>
     body {
       margin: 0;
-      background-color: #121212;
-      color: #fff;
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      background-color: #121212;
+      color: #f0f0f0;
     }
-    .banner {
-      position: fixed;
+    header {
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #e53935;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      font-size: 18px;
+      background-color: #1e1e1e;
       z-index: 1000;
+      padding: 10px;
+      text-align: center;
     }
-    .banner button {
-      background: #fff;
-      color: #e53935;
+    header button {
+      background: #ff5252;
+      color: white;
+      font-size: 18px;
       border: none;
-      padding: 5px 10px;
-      margin-left: 10px;
+      padding: 10px 20px;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: bold;
     }
     .image-section {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .image-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
-    .image-section img {
+    .image-block img {
       width: 85%;
-      margin: 30px 0;
+      max-width: 600px;
+      border-radius: 15px;
     }
-    .popup {
-      display: none;
+    .image-block p {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #popup {
       position: fixed;
       top: 15%;
-      left: 15%;
-      width: 70%;
+      left: 50%;
+      transform: translateX(-50%);
       background: #1e1e1e;
-      border: 2px solid #e53935;
-      border-radius: 10px;
-      padding: 20px;
-      z-index: 2000;
+      padding: 30px;
+      border-radius: 20px;
+      width: 70%;
+      max-width: 500px;
+      z-index: 1001;
+      display: none;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
-    .popup h2 {
+    #popup h2 {
       margin-top: 0;
-      color: #e53935;
     }
-    .popup .close {
+    #popup form {
+      display: flex;
+      flex-direction: column;
+    }
+    #popup input, #popup select, #popup textarea {
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    #popup label {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    #popup .close {
       position: absolute;
       top: 10px;
       right: 15px;
-      cursor: pointer;
-      color: #fff;
       font-size: 24px;
-    }
-    form input, form select, form textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-    form button {
-      background-color: #e53935;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
       cursor: pointer;
     }
-    .lang-switch {
+    #account-info {
+      padding: 10px;
+      margin-top: 10px;
+      background: #2c2c2c;
+      border-radius: 10px;
+      display: none;
+    }
+    #lang-switch {
       position: fixed;
       bottom: 10px;
       right: 10px;
-      z-index: 999;
+      z-index: 2000;
     }
-    .lang-switch button {
+    #lang-switch button {
       background: #333;
       color: #fff;
-      border: 1px solid #555;
+      border: none;
       padding: 5px 10px;
-      margin-left: 5px;
-      cursor: pointer;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <div class="banner">
-    🛍️ Uspějte koupit za 899 Kč <span id="timer">(00:00:00)</span>
-    <button onclick="scrollToForm()">Objednat</button>
-  </div>
-
+  <header>
+    <button onclick="document.getElementById('popup').style.display='block'; window.scrollTo(0,0)">🔥 Uspěj objednat za 899 Kč</button>
+  </header>
   <div class="image-section">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 1" />
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2" />
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3" />
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 4" />
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone 5" />
+    <div class="image-block">
+      <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1">
+      <p>🛸 Ovládání gesty – jednoduše zvedni ruku!</p>
+    </div>
+    <div class="image-block">
+      <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2">
+      <p>🔋 Výdrž baterie a snadné nabíjení díky modulu</p>
+    </div>
+    <div class="image-block">
+      <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3">
+      <p>📸 4K kamera – zachyť detaily z výšky</p>
+    </div>
+    <div class="image-block">
+      <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4">
+      <p>✈️ Skládací design – ideální na cesty</p>
+    </div>
+    <div class="image-block">
+      <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5">
+      <p>📦 Kompletní sada – připraven k letu ihned!</p>
+    </div>
   </div>
 
-  <div class="popup" id="popup">
-    <span class="close" onclick="closePopup()">×</span>
-    <h2>🛒 Оформление заказа</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <input type="text" name="name" placeholder="Ваше имя" required />
-      <input type="tel" name="phone" placeholder="Телефон" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <select name="delivery">
-        <option value="praha">Из Праги</option>
-        <option value="nepraha">Не из Праги</option>
+  <div id="popup">
+    <span class="close" onclick="document.getElementById('popup').style.display='none'">×</span>
+    <h2>📦 Objednávka dronu</h2>
+    <form action="https://app.getform.io/bgdlekoa" method="POST">
+      <label for="name">Jméno / Имя</label>
+      <input type="text" name="name" required>
+      <label for="phone">Telefon</label>
+      <input type="text" name="phone" required>
+      <label for="email">Email</label>
+      <input type="email" name="email" required>
+      <label for="delivery">Doprava / Доставка</label>
+      <select name="delivery" id="delivery" onchange="toggleAccountInfo(this.value)">
+        <option value="praha">Z Prahy</option>
+        <option value="nonpraha">Ne z Prahy</option>
       </select>
-      <textarea name="comment" placeholder="Комментарий (например: самовывоз в Праге)"></textarea>
-      <div id="payment-info" style="display:none; color:#ccc; margin-bottom:10px;">
-        💳 Cena: 999 Kč (250 Kč předem na účet <strong>354037257/0300</strong>, 749 Kč při převzetí přes Zásilkovnu)
-        <br><label><input type="checkbox" name="confirm" required /> Я подтверждаю оплату 250 Kč на счёт</label>
+      <div id="account-info">
+        <p>Celková cena: 999 Kč (včetně 250 Kč předem na účet)</p>
+        <p>Účet pro platbu: <strong>ČSOB 354037257/0300</strong></p>
+        <label><input type="checkbox" required> Potvrzuji převod 250 Kč jako zálohu / Подтверждаю предоплату</label>
       </div>
-      <button type="submit">Оформить заказ</button>
+      <label for="comment">Poznámka / Комментарий</label>
+      <textarea name="comment"></textarea>
+      <button type="submit">✅ Objednat / Оформить заказ</button>
     </form>
   </div>
 
-  <div class="lang-switch">
-    <button onclick="setLanguage('cs')">🇨🇿</button>
-    <button onclick="setLanguage('ru')">🇷🇺</button>
+  <div id="lang-switch">
+    <button onclick="toggleLang()">🌐 Změnit jazyk / Сменить язык</button>
   </div>
 
-  <audio id="notify-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
-
   <script>
-    function scrollToForm() {
-      document.getElementById('popup').scrollIntoView({ behavior: 'smooth' });
+    function toggleAccountInfo(val) {
+      document.getElementById('account-info').style.display = val === 'nonpraha' ? 'block' : 'none';
     }
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
+    function toggleLang() {
+      alert('Dvojjazyčná verze připravena. Přepnutí jazyka je zatím ruční.');
     }
-    function setLanguage(lang) {
-      // Можно доработать переключение языков
-      alert('Пока что переключение языка в разработке');
-    }
-    function startTimer(duration) {
-      const display = document.getElementById('timer');
-      setInterval(() => {
-        let t = duration--;
-        let h = String(Math.floor(t / 3600)).padStart(2, '0');
-        let m = String(Math.floor((t % 3600) / 60)).padStart(2, '0');
-        let s = String(t % 60).padStart(2, '0');
-        display.textContent = `(${h}:${m}:${s})`;
-      }, 1000);
-    }
-    function showPopup() {
-      document.getElementById('popup').style.display = 'block';
-      document.getElementById('notify-sound').play();
-    }
-    document.querySelector('select[name="delivery"]').addEventListener('change', function() {
-      document.getElementById('payment-info').style.display = this.value === 'nepraha' ? 'block' : 'none';
-    });
     window.onload = function() {
-      setTimeout(showPopup, 7000);
-      startTimer(86400); // 24h таймер
+      setTimeout(() => {
+        document.getElementById('popup').style.display = 'block';
+        window.scrollTo(0, 0);
+        new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3').play();
+      }, 7000);
     };
   </script>
 </body>
