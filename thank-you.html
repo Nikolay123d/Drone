@@ -11,6 +11,7 @@
       background-color: #111;
       color: #fff;
     }
+
     .banner {
       position: fixed;
       top: 0;
@@ -24,6 +25,7 @@
       font-weight: bold;
       z-index: 9999;
     }
+
     .banner button {
       background: #fff;
       color: #e60000;
@@ -34,9 +36,11 @@
       cursor: pointer;
       border-radius: 8px;
     }
+
     .images {
       margin-top: 60px;
     }
+
     .images img {
       width: 100%;
       max-width: 100%;
@@ -44,29 +48,35 @@
       margin: 20px auto;
       border-radius: 12px;
     }
+
     .description {
       text-align: center;
       font-size: 18px;
       margin: -10px 20px 30px;
       color: #ccc;
     }
+
     .popup {
       display: none;
       position: fixed;
-      top: 12%;
-      left: 15%;
+      top: 15%;
+      left: 50%;
+      transform: translate(-50%, -15%);
       width: 70%;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      transform: scale(0.85);
+      max-height: 80vh;
+      overflow-y: auto;
     }
+
     .popup h2 {
       margin-top: 0;
       color: #fff;
     }
+
     .close {
       position: absolute;
       top: 10px;
@@ -75,6 +85,7 @@
       font-size: 24px;
       cursor: pointer;
     }
+
     form input, form select, form textarea {
       width: 100%;
       margin-bottom: 15px;
@@ -83,6 +94,12 @@
       border-radius: 8px;
       font-size: 16px;
     }
+
+    form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
     form button {
       background: #00cc00;
       color: white;
@@ -91,7 +108,9 @@
       font-size: 18px;
       cursor: pointer;
       border-radius: 10px;
+      width: 100%;
     }
+
     #account-info {
       font-size: 16px;
       color: #fff;
@@ -168,4 +187,4 @@
     }, 7000);
   </script>
 </body>
-  </html>
+</html>
