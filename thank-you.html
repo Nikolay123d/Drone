@@ -1,155 +1,187 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drony Prodej</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prodej Dronů</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: #111;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
       color: #fff;
+      overflow-x: hidden;
     }
-
     .banner {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #ffd500;
+      background-color: #ff0;
       color: #000;
-      text-align: center;
       font-weight: bold;
+      text-align: center;
       padding: 10px;
       z-index: 1000;
     }
-
     .timer {
-      margin-top: 55px;
-      background: #222;
-      color: #fff;
+      margin-top: 60px;
       text-align: center;
-      font-size: 18px;
-      padding: 10px 0;
+      font-size: 1.2em;
+      color: #fff;
     }
-
-    .modal {
+    .images {
+      margin-top: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    .images img {
+      width: 85%;
+      max-width: 600px;
+      border-radius: 8px;
+    }
+    .description {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 700px;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #ddd;
+    }
+    .popup {
+      display: none;
       position: fixed;
       top: 20%;
       left: 50%;
       transform: translate(-50%, -20%);
-      width: 60%;
-      max-height: 70%;
-      background: #222;
+      width: 75%;
+      max-width: 500px;
+      background: #1e1e1e;
+      border-radius: 8px;
       padding: 20px;
-      border-radius: 10px;
       z-index: 2000;
       overflow-y: auto;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      max-height: 60vh;
     }
-
-    .modal input,
-    .modal textarea,
-    .modal select {
+    .popup input, .popup textarea, .popup select {
       width: 100%;
       padding: 10px;
-      margin-top: 10px;
       margin-bottom: 10px;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 4px;
+      font-size: 1em;
     }
-
-    .close-btn {
+    .popup .close-btn {
       position: absolute;
       top: 10px;
       right: 10px;
-      font-size: 22px;
-      background: #000;
-      color: #fff;
-      border: none;
+      font-size: 1.5em;
       cursor: pointer;
-      padding: 5px 10px;
+      color: #fff;
     }
-
-    .bank-info {
+    .requisites {
+      background: #2a2a2a;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 4px;
+      display: none;
+    }
+    .language-switch {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
       background: #333;
-      padding: 15px;
-      margin-top: 10px;
-      border-radius: 8px;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 768px) {
-      .modal {
-        width: 85%;
-        max-height: 70%;
-      }
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <div class="banner">Удачной покупки за 899 чешских крон! / Úspěšný nákup za 899 Kč!</div>
 
-  <div class="banner">
-    Удачной покупки за 899 чешских крон! / Úspěšný nákup za 899 Kč!
+  <div class="timer" id="timer"></div>
+
+  <div class="images">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 1">
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2">
   </div>
 
-  <div class="timer" id="countdown">
-    До конца акции: 23:59:59
+  <div class="description">
+    <p><strong>4K HD Дрон E88 PRO</strong> с камерой, стабилизацией и складным корпусом — идеален для съёмки природы, путешествий и развлечений. Лёгкий, надёжный и с мощной батареей.</p>
   </div>
 
-  <div class="modal" id="orderModal">
-    <button class="close-btn" onclick="document.getElementById('orderModal').style.display='none'">✕</button>
-    <form>
+  <div class="images" id="more-images">
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3">
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 4">
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone 5">
+    <img src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Drone 6">
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="close-btn" onclick="closePopup()">×</div>
+    <form id="orderForm" target="_blank" action="https://postimg.cc/tY8DnVYk">
       <input type="text" placeholder="Имя / Name" required>
-      <input type="text" placeholder="Телефон / Телефон" required>
+      <input type="tel" placeholder="Телефон / Телефон" required>
       <input type="email" placeholder="Электронная почта" required>
-      <select id="locationSelect" onchange="togglePaymentInfo()">
-        <option value="prague">Из Праги / Z Prahy</option>
-        <option value="not_prague">Не из Праги / Ne z Prahy</option>
+      <select id="regionSelect" onchange="toggleRequisites()">
+        <option>Из Праги / Z Prahy</option>
+        <option>Не из Праги / Ne z Prahy</option>
       </select>
-      <textarea placeholder="Комментарий (например, хочу личную коллекцию в Праге) / Komentář..."></textarea>
-
-      <div class="bank-info" id="bankInfo" style="display: none;">
+      <textarea placeholder="Комментарий / Komentář"></textarea>
+      <div class="requisites" id="requisites">
         <strong>Сумма:</strong> 250 чешских крон (задаток за доставку)<br>
-        <strong>Счёт ČSOB:</strong><br>354037257/0300<br>
-        <br>
-        Общая стоимость: 999 чешских крон<br>
-        (250 чешских крон депозит + 749 чешских крон при получении в почтовом отделении).
+        <strong>Счёт ČSOB:</strong> 354037257/0300<br>
+        Общая стоимость: 999 чешских крон (250 задаток + 749 при получении)<br>
+        <label><input type="checkbox" required> Подтверждаю перевод 250 крон</label>
       </div>
-
-      <input type="submit" value="Оформить заказ" style="margin-top: 15px; background: yellow; border: none; padding: 10px; font-size: 18px; border-radius: 8px;">
+      <button type="submit">Оформить заказ</button>
     </form>
   </div>
 
+  <div class="language-switch" onclick="switchLang()">Русский / Česky</div>
+
   <script>
-    function togglePaymentInfo() {
-      const selected = document.getElementById("locationSelect").value;
-      const bankInfo = document.getElementById("bankInfo");
-      bankInfo.style.display = selected === "not_prague" ? "block" : "none";
+    function startTimer() {
+      const savedTime = localStorage.getItem('saleEnds') || (Date.now() + 86400000);
+      localStorage.setItem('saleEnds', savedTime);
+      const end = parseInt(savedTime);
+      const timerEl = document.getElementById('timer');
+      setInterval(() => {
+        const diff = end - Date.now();
+        const hours = Math.floor(diff / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        timerEl.textContent = `Осталось: ${hours}ч ${mins}м ${secs}с / Zbývá: ${hours}h ${mins}m ${secs}s`;
+      }, 1000);
     }
 
-    // Таймер 24 часа
-    const countdown = document.getElementById('countdown');
-    const deadline = new Date(localStorage.getItem("deadline") || (Date.now() + 86400000));
-    localStorage.setItem("deadline", deadline);
-
-    function updateTimer() {
-      const now = new Date();
-      const diff = new Date(deadline) - now;
-      if (diff <= 0) {
-        countdown.innerText = "Акция завершена.";
-        return;
-      }
-      const hrs = String(Math.floor(diff / 1000 / 60 / 60)).padStart(2, '0');
-      const mins = String(Math.floor(diff / 1000 / 60) % 60).padStart(2, '0');
-      const secs = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
-      countdown.innerText = `До конца акции: ${hrs}:${mins}:${secs}`;
+    function toggleRequisites() {
+      const val = document.getElementById('regionSelect').value;
+      const block = document.getElementById('requisites');
+      block.style.display = val.includes('Не из') || val.includes('Ne z') ? 'block' : 'none';
     }
 
-    setInterval(updateTimer, 1000);
-    updateTimer();
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    function switchLang() {
+      alert('Переключение языка пока в разработке. / Přepnutí jazyka je ve vývoji.');
+    }
+
+    setTimeout(() => {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'block';
+      const audio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+      audio.play();
+    }, 7000);
+
+    window.onload = () => {
+      startTimer();
+    };
   </script>
 </body>
 </html>
