@@ -1,138 +1,180 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dron E88 Pro</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prodej dronu - Akce</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
       color: #fff;
     }
     .banner {
-      background: red;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      z-index: 9999;
-    }
-    .timer {
+      background: #ffcc00;
+      color: #000;
       font-size: 18px;
       font-weight: bold;
-      color: yellow;
-      margin-top: 5px;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 10000;
     }
-    .drone-container {
-      padding: 20px 0 60px 0;
+    .timer {
+      margin-top: 5px;
+      font-size: 16px;
+      color: red;
+    }
+    .main {
+      margin-top: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .drone-item {
-      max-width: 100%;
-      width: 90%;
-      margin-bottom: 20px;
+    .drone {
+      max-width: 85%;
+      margin-bottom: 10px;
+    }
+    .description {
+      max-width: 85%;
+      margin-bottom: 30px;
       text-align: center;
-    }
-    .drone-item img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-    }
-    .drone-desc {
-      margin-top: 10px;
       font-size: 16px;
-      line-height: 1.4;
     }
-    .lang-switch {
+    .popup {
+      display: none;
       position: fixed;
-      bottom: 10px;
-      right: 10px;
-      z-index: 10000;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      background-color: #222;
+      border: 2px solid #ffcc00;
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 9999;
+      box-shadow: 0 0 10px #000;
     }
-    .lang-switch button {
-      margin-left: 5px;
-      padding: 5px 10px;
-      font-size: 14px;
+    .popup h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .popup input, .popup select, .popup textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
       border: none;
-      background: #444;
+    }
+    .popup .checkbox-label {
+      font-size: 14px;
+      display: block;
+      margin-top: 10px;
+    }
+    .popup .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
       color: #fff;
-      border-radius: 6px;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    .show {
+      display: block;
     }
   </style>
 </head>
 <body>
   <div class="banner">
-    <div><span id="buyText">Спешите купить за 899 чешских крон</span></div>
-    <button onclick="scrollToOrder()">ЗАКАЗ</button>
-    <div id="timer" class="timer">Zbývá 24h 00m 00s</div>
+    🛍️ Uspějte koupit za 899 Kč!
+    <div class="timer" id="timer">Zbývá: --:--:--</div>
   </div>
 
-  <div class="drone-container">
-    <div class="drone-item">
-      <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 1">
-      <div class="drone-desc" id="desc1">Современный дрон E88 Pro с HD-камерой, идеально подходящий как для новичков, так и для опытных пользователей. Лёгкий, складной и управляемый через мобильное приложение.</div>
-    </div>
-    <div class="drone-item">
-      <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2">
-      <div class="drone-desc" id="desc2">Поддерживает Wi-Fi управление и трансляцию видео в реальном времени. Время полета до 15 минут.</div>
-    </div>
-    <div class="drone-item">
-      <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3">
-      <div class="drone-desc" id="desc3">Ультралёгкая конструкция и простота управления делают его идеальным подарком.</div>
-    </div>
-    <div class="drone-item">
-      <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone 4">
-      <div class="drone-desc" id="desc4">Встроенная HD-камера для съёмки видео и фото с воздуха.</div>
-    </div>
-    <div class="drone-item">
-      <img src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" alt="Drone 5">
-      <div class="drone-desc" id="desc5">Дальность управления — до 100 метров. Идеально для прогулок на природе и городских съёмок.</div>
-    </div>
-    <div class="drone-item">
-      <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 6">
-      <div class="drone-desc" id="desc6">Функция автоматического возвращения домой и удержания высоты.</div>
-    </div>
+  <div class="main">
+    <img class="drone" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 1">
+    <div class="description">Profesionální dron E88 Pro s 4K kamerou. Perfektní pro každého začátečníka i pokročilého.</div>
+
+    <img class="drone" src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2">
+    <div class="description">Skládací design, dlouhá výdrž baterie a ovládání přes telefon. Ideální do přírody i města.</div>
+
+    <img class="drone" src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3">
+    <div class="description">Lehký a odolný, odolá větru a nečekaným přistáním. Bezpečný pro děti i dospělé.</div>
+
+    <img class="drone" src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 4">
+    <div class="description">Zachyťte dechberoucí záběry z výšky s ultra HD stabilizací.</div>
+
+    <img class="drone" src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone 5">
+    <div class="description">Výjimečná hodnota za bezkonkurenční cenu pouze dnes.</div>
   </div>
 
-  <div class="lang-switch">
-    <button onclick="setLang('cs')">česky</button>
-    <button onclick="setLang('ru')">русский</button>
+  <div class="popup" id="orderPopup">
+    <span class="close" onclick="closePopup()">×</span>
+    <h2>Objednávka dronu</h2>
+    <input type="text" placeholder="Vaše jméno" required>
+    <input type="tel" placeholder="Telefonní číslo" required>
+    <input type="email" placeholder="E-mail" required>
+    <select id="regionSelect" onchange="toggleBankDetails()">
+      <option value="praha">Praha</option>
+      <option value="jine">Ne z Prahy</option>
+    </select>
+    <textarea placeholder="Způsob doručení / komentář"></textarea>
+    <div id="bankInfo" style="display:none;">
+      <p>Celková cena: <strong>999 Kč</strong> (včetně dopravy)<br>
+      Převod 250 Kč předem na účet ČSOB: <strong>354037257/0300</strong><br>
+      Zbytek při převzetí na Zásilkovna.</p>
+      <label class="checkbox-label">
+        <input type="checkbox" required> Potvrzuji, že zaplatím zálohu 250 Kč do 1 hodiny od odeslání objednávky.
+      </label>
+    </div>
+    <button>Odeslat objednávku</button>
   </div>
 
   <script>
-    function scrollToOrder() {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    function countdown() {
+      let stored = localStorage.getItem("countdown")
+      let end = stored ? new Date(parseInt(stored)) : new Date().getTime() + 24*60*60*1000;
+      localStorage.setItem("countdown", end);
+
+      let timer = setInterval(() => {
+        let now = new Date().getTime();
+        let distance = end - now;
+
+        if (distance < 0) {
+          clearInterval(timer);
+          document.getElementById("timer").innerText = "Akce skončila";
+          return;
+        }
+
+        let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerText = `Zbývá: ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+      }, 1000);
     }
 
-    function setLang(lang) {
-      const textRU = [
-        'Современный дрон E88 Pro с HD-камерой, идеально подходящий как для новичков, так и для опытных пользователей. Лёгкий, складной и управляемый через мобильное приложение.',
-        'Поддерживает Wi-Fi управление и трансляцию видео в реальном времени. Время полета до 15 минут.',
-        'Ультралёгкая конструкция и простота управления делают его идеальным подарком.',
-        'Встроенная HD-камера для съёмки видео и фото с воздуха.',
-        'Дальность управления — до 100 метров. Идеально для прогулок на природе и городских съёмок.',
-        'Функция автоматического возвращения домой и удержания высоты.'
-      ];
-      const textCS = [
-        'Moderní dron E88 Pro s HD kamerou, ideální pro začátečníky i zkušené uživatele. Lehký, skládací a ovladatelný přes mobilní aplikaci.',
-        'Podporuje Wi-Fi ovládání a přenos videa v reálném čase. Doba letu až 15 minut.',
-        'Ultralehká konstrukce a snadné ovládání — ideální jako dárek.',
-        'Vestavěná HD kamera pro pořizování leteckých videí a fotografií.',
-        'Dosah ovládání — až 100 metrů. Ideální pro přírodu i městské natáčení.',
-        'Funkce automatického návratu a držení výšky.'
-      ];
-
-      document.getElementById('buyText').innerText = lang === 'cs' ? 'Pospěšte si koupit za 899 Kč' : 'Спешите купить за 899 чешских крон';
-      for (let i = 0; i < 6; i++) {
-        document.getElementById(`desc${i+1}`).innerText = lang === 'cs' ? textCS[i] : textRU[i];
-      }
+    function toggleBankDetails() {
+      const select = document.getElementById("regionSelect");
+      const bankInfo = document.getElementById("bankInfo");
+      bankInfo.style.display = select.value === "jine" ? "block" : "none";
     }
+
+    function closePopup() {
+      document.getElementById("orderPopup").classList.remove("show");
+    }
+
+    window.onload = () => {
+      countdown();
+      setTimeout(() => {
+        document.getElementById("orderPopup").classList.add("show");
+        new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3").play();
+      }, 7000);
+    };
   </script>
 </body>
 </html>
