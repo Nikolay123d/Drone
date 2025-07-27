@@ -1,211 +1,97 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prodej Dronů</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-    }
-
-    .banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #e60000;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-      font-size: 20px;
-      font-weight: bold;
-      z-index: 9999;
-    }
-
-    .banner button {
-      background: #fff;
-      color: #e60000;
-      border: none;
-      padding: 10px 15px;
-      margin-left: 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-
-    .images {
-      margin-top: 60px;
-    }
-
-    .images img {
-      width: 100%;
-      max-width: 100%;
-      display: block;
-      margin: 20px auto;
-      border-radius: 12px;
-    }
-
-    .description {
-      text-align: center;
-      font-size: 18px;
-      margin: -10px 20px 30px;
-      color: #ccc;
-    }
-
-    .popup {
-      display: none;
-      position: fixed;
-      top: 15%;
-      left: 50%;
-      transform: translate(-50%, -15%);
-      width: 70%;
-      background-color: #222;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      z-index: 10000;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-
-    .popup h2 {
-      margin-top: 0;
-      color: #fff;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    form input, form select, form textarea {
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    form textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    form button {
-      background: #00cc00;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 100%;
-    }
-
-    #account-info {
-      font-size: 16px;
-      color: #fff;
-      background: #333;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
-    }
-
-    #timer {
-      margin-top: 10px;
-      font-size: 16px;
-      text-align: center;
-      color: #ffcc00;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone E88 – Speciální Nabídka</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); position: relative; }
+        h1 { text-align: center; color: #333; }
+        p { line-height: 1.6; }
+        .highlight { color: red; font-weight: bold; font-size: 20px; text-align: center; }
+        .countdown { font-size: 24px; text-align: center; margin-top: 10px; color: #ff0000; }
+        .winner-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff5f5;
+            border: 2px solid red;
+            border-radius: 100px;
+            padding: 15px;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        .winner-popup.show { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .close-btn { position: absolute; top: 5px; right: 10px; cursor: pointer; font-size: 18px; color: #aaa; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-  <div class="banner">
-    Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
-  </div>
-  
-  <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
-  </div>
+    <div class="container">
+        <h1>🔥 Akční Nabídka Dronu E88</h1>
+        <p><strong>Dron E88</strong> je ideální volbou pro začátečníky i pokročilé. Jeho kompaktní design, 4K kamera, snadné ovládání přes aplikaci a možnost skládání z něj dělají perfektní dárek.</p>
+        <p class="highlight">‼️ Zbývá pouze 6 kusů – objednejte teď ‼️</p>
+        <div class="countdown" id="countdown"></div>
+        <p><strong>Obsah balení:</strong></p>
+        <ul>
+            <li>Dron E88</li>
+            <li>Dálkový ovladač</li>
+            <li>Baterie (1–2 ks podle zvolené varianty)</li>
+            <li>Nabíjecí kabel</li>
+            <li>Návod</li>
+        </ul>
+        <p><strong>Specifikace:</strong> 4K kamera, Wi-Fi ovládání, výdrž do 10 minut, skládací konstrukce, dosah do 100 m.</p>
+    </div>
 
-  <div class="popup">
-    <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
-    <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha" selected>Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
-      </select>
-      <div id="account-info">
-        <p>Celková cena: <strong>999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
-        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu 250 Kč na účet</label>
-      </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit" id="submitBtn">Odeslat objednávku</button>
-      <div id="timer"></div>
-    </form>
-  </div>
+    <div class="winner-popup" id="winner-popup">
+        <span class="close-btn" onclick="this.parentElement.style.display='none'">✖</span>
+        <strong>🎉 Gratulujeme!</strong> Stali jste se 100. zákazníkem – máte <strong>bezplatnou dopravu</strong> a slevu!
+    </div>
 
-  <script>
-    function toggleAccount() {
-      const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
-    }
+    <audio id="win-sound">
+        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_12e3b53c43.mp3" type="audio/mpeg">
+    </audio>
 
-    // Таймер с привязкой к localStorage (как замена IP)
-    function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const now = Date.now();
-      const stored = localStorage.getItem('deadline');
-      let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
-
-      localStorage.setItem('deadline', deadline);
-
-      function updateTimer() {
-        const remaining = deadline - Date.now();
-        if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
-          return;
+    <script>
+        // Индивидуальный таймер на 10 минут
+        function startCountdown(duration) {
+            const countdown = document.getElementById('countdown');
+            let timer = localStorage.getItem('timerStart');
+            if (!timer) {
+                localStorage.setItem('timerStart', Date.now());
+                timer = Date.now();
+            } else {
+                timer = parseInt(timer);
+            }
+            function updateCountdown() {
+                const now = Date.now();
+                const diff = duration - Math.floor((now - timer) / 1000);
+                if (diff <= 0) {
+                    countdown.textContent = "⏰ Čas vypršel!";
+                } else {
+                    const min = Math.floor(diff / 60);
+                    const sec = diff % 60;
+                    countdown.textContent = `⏳ Zbývá čas: ${min}m ${sec}s`;
+                    requestAnimationFrame(updateCountdown);
+                }
+            }
+            updateCountdown();
         }
-        const hours = Math.floor(remaining / (1000 * 60 * 60));
-        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
-        setTimeout(updateTimer, 1000);
-      }
+        startCountdown(600);
 
-      updateTimer();
-    }
-
-    setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown(); // запускаем таймер при открытии формы
-    }, 7000);
-  </script>
+        // Показываем победителю окно через 5 секунд
+        window.onload = function() {
+            setTimeout(() => {
+                const popup = document.getElementById('winner-popup');
+                popup.classList.add('show');
+                document.getElementById('win-sound').play();
+            }, 5000);
+        };
+    </script>
 </body>
-      </html>
+</html>
