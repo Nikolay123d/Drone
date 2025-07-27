@@ -143,11 +143,11 @@
   <div class="popup">
     <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
-    <form onsubmit="return handleSubmit(event)">
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
       <input type="text" name="name" placeholder="Vaše jméno" required>
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
-      <select id="location" onchange="toggleAccount()">
+      <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha">Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
@@ -155,7 +155,7 @@
         <p>Celková cena: <strong>999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
         Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment"> Potvrzuji platbu 250 Kč na účet</label>
+        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu 250 Kč na účet</label>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit" id="submitBtn">Odeslat objednávku</button>
@@ -167,19 +167,6 @@
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
-    }
-
-    function handleSubmit(e) {
-      e.preventDefault();
-      const location = document.getElementById('location').value;
-      const confirm = document.getElementById('confirm-payment').checked;
-      if (location === 'nepraha' && !confirm) {
-        alert('Potvrďte platbu 250 Kč za doručení.');
-        return false;
-      }
-      alert('Objednávka byla úspěšně odeslána!');
-      window.open("https://postimg.cc/tY8DnVYk", "_blank");
-      return false;
     }
 
     setTimeout(() => {
