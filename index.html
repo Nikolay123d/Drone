@@ -59,9 +59,9 @@
     .popup {
       display: none;
       position: fixed;
-      top: 15%;
+      top: 10%;
       left: 50%;
-      transform: translate(-50%, -15%);
+      transform: translate(-50%, -10%) scale(0.85);
       width: 70%;
       background-color: #222;
       padding: 20px;
@@ -104,8 +104,8 @@
       background: #00cc00;
       color: white;
       border: none;
-      padding: 12px 20px;
-      font-size: 18px;
+      padding: 15px 25px;
+      font-size: 20px;
       cursor: pointer;
       border-radius: 10px;
       width: 100%;
@@ -126,14 +126,53 @@
       text-align: center;
       color: #ffcc00;
     }
+
+    .wheel-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
+      border-radius: 20px;
+      padding: 30px;
+      z-index: 11000;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255,255,255,0.4);
+    }
+
+    .wheel-popup h3 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .wheel-popup button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      background: #00cc00;
+      color: white;
+      cursor: pointer;
+    }
+
+    .wheel-close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body>
   <div class="banner">
-    Uspěj koupit za 899 Kč
+    Uspěj koupit za 899 Kč (běžná cena 1199 Kč) — Sleva platí jen 24 hodin!
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
-  
+
   <div class="images">
     <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
     <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
@@ -170,20 +209,36 @@
     </form>
   </div>
 
+  <div class="wheel-popup" id="wheel">
+    <span class="wheel-close" onclick="document.getElementById('wheel').style.display='none'">×</span>
+    <h3>🎁 Zkuste štěstí! Otočte kolem!</h3>
+    <button onclick="spinWheel()">🎡 Točit</button>
+    <div id="wheel-result" style="margin-top: 20px; font-size: 18px;"></div>
+  </div>
+
   <script>
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+      const checkbox = document.getElementById('confirm-payment');
+      const submitBtn = document.getElementById('submitBtn');
+      if (location === 'nepraha') {
+        accInfo.style.display = 'block';
+        submitBtn.disabled = !checkbox.checked;
+        checkbox.onchange = () => {
+          submitBtn.disabled = !checkbox.checked;
+        };
+      } else {
+        accInfo.style.display = 'none';
+        submitBtn.disabled = false;
+      }
     }
 
-    // Таймер с привязкой к localStorage (как замена IP)
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
       const now = Date.now();
       const stored = localStorage.getItem('deadline');
       let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
-
       localStorage.setItem('deadline', deadline);
 
       function updateTimer() {
@@ -198,14 +253,28 @@
         timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
         setTimeout(updateTimer, 1000);
       }
-
       updateTimer();
+    }
+
+    function spinWheel() {
+      const prizes = [
+        "🎁 Bezplatná doprava",
+        "🎉 Sleva 10%",
+        "🎉 Sleva 50%",
+        "Nic tentokrát"
+      ];
+      const result = prizes[Math.floor(Math.random() * prizes.length)];
+      document.getElementById("wheel-result").innerText = result;
     }
 
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
-      startCountdown(); // запускаем таймер при открытии формы
+      startCountdown();
     }, 7000);
+
+    setTimeout(() => {
+      document.getElementById('wheel').style.display = 'block';
+    }, 10000);
   </script>
 </body>
-</html
+</html>
