@@ -1,150 +1,177 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prodej dronů</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dron za 899 Kč</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
       background-color: #111;
-      color: white;
+      color: #fff;
     }
     .banner {
-      position: fixed;
-      top: 0;
-      width: 100%;
       background-color: red;
       color: white;
       text-align: center;
-      z-index: 10000;
-      padding: 10px 0;
+      padding: 10px;
+      font-size: 18px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
     }
     .banner button {
-      margin-left: 15px;
-      padding: 5px 15px;
+      margin-top: 10px;
       background-color: white;
       color: red;
+      padding: 5px 15px;
       border: none;
       font-weight: bold;
       cursor: pointer;
     }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%) scale(0.85);
-      width: 70%;
-      max-width: 500px;
-      background-color: #222;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #000;
-      z-index: 9999;
-    }
-    .modal h2 {
-      margin-top: 0;
-    }
-    .modal label, .modal input, .modal select, .modal textarea {
+    .drone-image {
       display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      font-size: 14px;
+      width: 90%;
+      max-width: 600px;
+      margin: 80px auto 10px auto;
+      border-radius: 12px;
+    }
+    .drone-description {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 40px;
+      padding: 0 10px;
+      color: #ccc;
+    }
+    .modal {
+      position: fixed;
+      top: 7%;
+      left: 15%;
+      width: 70%;
+      background-color: #222;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+      display: none;
+      z-index: 2000;
     }
     .modal input, .modal select, .modal textarea {
+      width: 100%;
       padding: 8px;
-      border-radius: 4px;
+      margin: 5px 0 10px;
+      border-radius: 5px;
       border: none;
-      background-color: #333;
-      color: white;
     }
-    .modal .close {
+    .modal label {
+      font-weight: bold;
+    }
+    .close-btn {
       position: absolute;
       top: 10px;
       right: 15px;
-      font-size: 24px;
       cursor: pointer;
-      color: white;
+      font-size: 20px;
     }
-    .modal .submit-btn {
-      padding: 12px;
+    .submit-btn {
       background-color: red;
       color: white;
-      font-weight: bold;
+      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
       font-size: 16px;
       width: 100%;
+      cursor: pointer;
+      margin-top: 10px;
     }
-    .hidden {
-      display: none;
+    .payment-info {
+      background-color: #333;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-
   <div class="banner">
-    <span>Успейте купить за 899 чешских крон!</span>
-    <button onclick="openModal()">Оформить заказ</button>
+    Uspějte koupit za 899 českých korun!<br>
+    <button onclick="openForm()">Odeslat objednávku</button>
   </div>
 
-  <div id="orderModal" class="modal">
-    <div class="close" onclick="closeModal()">&times;</div>
-    <h2>Оформить заказ</h2>
-    <form id="orderForm" action="https://getform.io/f/bgdlekoa" method="POST">
-      <label>Имя:
-        <input type="text" name="name" required>
-      </label>
-      <label>Телефон:
-        <input type="tel" name="phone" required>
-      </label>
-      <label>Электронная почта:
-        <input type="email" name="email" required>
-      </label>
-      <label>Город:
-        <select name="city" id="citySelect" onchange="togglePaymentInfo()">
-          <option value="Прага">Из Праги</option>
-          <option value="Не из Праги">Не из Праги</option>
-        </select>
-      </label>
+  <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" class="drone-image">
+  <p class="drone-description">📷 Skládací dron s HD kamerou – ideální pro začátečníky i profesionály.</p>
 
-      <div id="paymentInfo" class="hidden">
-        <p><strong>Общая цена: 999 чешских крон</strong></p>
-        <p>Предоплата 250 чешских крон на счет ČSOB: <strong>354037257/0300</strong></p>
-        <label>
-          <input type="checkbox" name="confirm" required>
-          Я подтверждаю, что внес депозит в размере 250 чешских крон.
-        </label>
+  <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" class="drone-image">
+  <p class="drone-description">🚁 Stabilní let, jednoduché ovládání, perfektní na rodinné výlety.</p>
+
+  <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" class="drone-image">
+  <p class="drone-description">🌐 Dálkové ovládání s dosahem až 100 metrů, vysoká odolnost větru.</p>
+
+  <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" class="drone-image">
+  <p class="drone-description">🎥 4K kamera s širokoúhlým záběrem a funkcí automatického návratu.</p>
+
+  <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" class="drone-image">
+  <p class="drone-description">💡 Skládací design, který se snadno vejde do kapsy nebo batohu.</p>
+
+  <img src="https://i.ibb.co/v47YXhhC/drone-e88-pro-4k-hd-44558-labi-interneti-reference.jpg" class="drone-image">
+  <p class="drone-description">🔋 Dlouhá výdrž baterie až 20 minut letu na jedno nabití.</p>
+
+  <div class="modal" id="orderModal">
+    <span class="close-btn" onclick="closeForm()">&times;</span>
+    <h2>Odeslat objednávku</h2>
+    <form action="https://postimg.cc/tY8DnVYk" method="POST">
+      <label>Jméno:</label>
+      <input type="text" name="name" required>
+      <label>Telefon:</label>
+      <input type="tel" name="phone" required>
+      <label>E-mail:</label>
+      <input type="email" name="email" required>
+      <label>Město:</label>
+      <select name="city" id="citySelect" onchange="togglePayment()">
+        <option value="praha">Z Prahy</option>
+        <option value="nepraha">Ne z Prahy</option>
+      </select>
+      <div id="priceInfo">
+        <p><strong>Celková cena:</strong> <span id="totalPrice">899</span> Kč</p>
       </div>
-
-      <label>Комментарий:
-        <textarea name="comment"></textarea>
-      </label>
-      <button class="submit-btn" type="submit">Оформить заказ</button>
+      <div id="paymentDetails" style="display:none">
+        <div class="payment-info">
+          <p>Předplatba 250 Kč na účet <strong>ČSOB: 354037257/0300</strong></p>
+          <input type="checkbox" required> Potvrzuji, že jsem uhradil zálohu 250 Kč
+        </div>
+      </div>
+      <label>Komentář:</label>
+      <textarea name="comment"></textarea>
+      <button class="submit-btn" type="submit">Odeslat objednávku</button>
     </form>
   </div>
 
   <script>
-    function openModal() {
+    function openForm() {
       document.getElementById('orderModal').style.display = 'block';
     }
-    function closeModal() {
+    function closeForm() {
       document.getElementById('orderModal').style.display = 'none';
     }
-    function togglePaymentInfo() {
-      const city = document.getElementById('citySelect').value;
-      const paymentInfo = document.getElementById('paymentInfo');
-      paymentInfo.classList.toggle('hidden', city === 'Прага');
+    function togglePayment() {
+      var city = document.getElementById('citySelect').value;
+      var payment = document.getElementById('paymentDetails');
+      var price = document.getElementById('totalPrice');
+      if (city === 'nepraha') {
+        payment.style.display = 'block';
+        price.textContent = '999';
+      } else {
+        payment.style.display = 'none';
+        price.textContent = '899';
+      }
     }
     setTimeout(() => {
-      openModal();
-      const audio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
-      audio.play();
+      openForm();
+      const beep = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+      beep.play();
     }, 7000);
   </script>
-
 </body>
-</html>
+  </html>
