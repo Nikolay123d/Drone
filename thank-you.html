@@ -3,174 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prodej Dronů</title>
+  <title>Prodej Dronů - Akce & Raffle</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #111;
+      background: #111;
       color: #fff;
     }
-
     .banner {
       position: fixed;
       top: 0;
-      left: 0;
       width: 100%;
       background: #e60000;
       color: white;
       text-align: center;
-      padding: 10px 0;
+      padding: 12px 0;
       font-size: 20px;
-      font-weight: bold;
       z-index: 9999;
     }
-
     .banner button {
-      background: #fff;
+      background: white;
       color: #e60000;
+      padding: 10px 18px;
       border: none;
-      padding: 10px 15px;
+      font-size: 17px;
       margin-left: 20px;
-      font-size: 16px;
       cursor: pointer;
       border-radius: 8px;
     }
-
-    .images {
-      margin-top: 60px;
-    }
-
+    .images { margin-top: 70px; }
     .images img {
-      width: 100%;
-      max-width: 100%;
-      display: block;
-      margin: 20px auto;
+      width: 100%; max-width: 600px;
       border-radius: 12px;
+      margin: 20px auto 5px;
+      display: block;
     }
-
     .description {
       text-align: center;
       font-size: 18px;
-      margin: -10px 20px 30px;
+      margin-bottom: 30px;
       color: #ccc;
     }
-
     .popup {
       display: none;
       position: fixed;
-      top: 10%;
+      top: 12%;
       left: 50%;
-      transform: translate(-50%, -10%) scale(0.85);
+      transform: translate(-50%, -12%) scale(0.85);
       width: 70%;
-      background-color: #222;
-      padding: 20px;
+      background: #222;
+      padding: 22px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
       z-index: 10000;
       max-height: 80vh;
       overflow-y: auto;
     }
-
-    .popup h2 {
-      margin-top: 0;
-      color: #fff;
-    }
-
+    .popup h2 { color: #fff; margin-top: 0; }
     .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
+      position: absolute; top: 10px; right: 20px;
+      color: #fff; font-size: 24px; cursor: pointer;
     }
-
-    form input, form select, form textarea {
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
+    .form-section input, .form-section select, .form-section textarea {
+      width: 100%; padding: 10px; margin-bottom: 15px;
+      border: none; border-radius: 8px; font-size: 16px;
     }
-
-    form textarea {
-      resize: vertical;
-      min-height: 80px;
+    .form-section button {
+      background: #00cc00; color: white;
+      padding: 15px; font-size: 18px;
+      border: none; border-radius: 10px;
+      cursor: pointer; width: 100%;
     }
-
-    form button {
-      background: #00cc00;
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      font-size: 20px;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 100%;
-    }
-
     #account-info {
-      font-size: 16px;
-      color: #fff;
-      background: #333;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
+      background: #333; padding: 15px;
+      border-radius: 8px; font-size: 15px;
+      margin-bottom: 15px; display: none;
     }
-
     #timer {
-      margin-top: 10px;
-      font-size: 16px;
-      text-align: center;
-      color: #ffcc00;
+      text-align: center; color: #ffcc00;
+      font-size: 16px; margin-top: 10px;
     }
-
     .wheel-popup {
       display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: #222;
-      border-radius: 20px;
-      padding: 30px;
-      z-index: 11000;
-      text-align: center;
+      background: #222; color: #fff;
+      padding: 30px; border-radius: 20px;
+      text-align: center; z-index: 11000;
       box-shadow: 0 0 30px rgba(255,255,255,0.4);
     }
-
     .wheel-popup h3 {
-      color: #fff;
-      margin-bottom: 20px;
+      margin-top: 0; color: #fff; font-size: 22px;
     }
-
-    .wheel-popup button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      background: #00cc00;
-      color: white;
-      cursor: pointer;
-    }
-
     .wheel-close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 24px;
-      color: #fff;
-      cursor: pointer;
+      position: absolute; top: 10px; right: 20px;
+      font-size: 24px; color: #fff; cursor: pointer;
     }
-
+    .wheel-popup button {
+      padding: 12px 24px; background: #00cc00;
+      border: none; font-size: 18px; border-radius: 10px;
+      cursor: pointer; margin-top: 15px;
+    }
+    .wheel-result {
+      margin-top: 20px; font-size: 20px; color: #ffcc00;
+    }
   </style>
 </head>
 <body>
+
   <div class="banner">
-    Uspěj koupit za 899 Kč (běžná cena 1199 Kč) — Sleva platí jen 24 hodin!
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
+    🎯 Uspějte koupit za 899 Kč (běžná cena 1199 Kč) – Sleva platí jen 24 hodin!
+    <button onclick="openPopup()">Odeslat objednávku</button>
   </div>
 
   <div class="images">
@@ -186,95 +131,100 @@
     <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
-  <div class="popup">
-    <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
+  <div class="popup" id="popup">
+    <span class="close" onclick="closePopup()">×</span>
     <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <form action="https://getform.io/f/bgdlekoa" method="POST" class="form-section" id="orderForm">
       <input type="text" name="name" placeholder="Vaše jméno" required>
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
+      <select name="location" id="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
       <div id="account-info">
         <p>Celková cena: <strong>999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
-        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu 250 Kč na účet</label>
+        Z toho 250 Kč předem na účet: <strong>ČSOB 354037257/0300</strong><br>
+        Zbytek 749 Kč při převzetí v Zásilkovně.</p>
+        <label><input type="checkbox" id="confirm-payment"> Potvrzuji platbu 250 Kč předem</label>
       </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+      <textarea name="comment" placeholder="Poznámka / výdejní místo"></textarea>
+      <input type="hidden" id="discountField" name="discount" value="">
       <button type="submit" id="submitBtn">Odeslat objednávku</button>
       <div id="timer"></div>
     </form>
   </div>
 
   <div class="wheel-popup" id="wheel">
-    <span class="wheel-close" onclick="document.getElementById('wheel').style.display='none'">×</span>
-    <h3>🎁 Zkuste štěstí! Otočte kolem!</h3>
+    <span class="wheel-close" onclick="closeWheel()">×</span>
+    <h3>🎁 Zatočte kolem a získejte slevu! Máte jen jeden pokus:</h3>
     <button onclick="spinWheel()">🎡 Točit</button>
-    <div id="wheel-result" style="margin-top: 20px; font-size: 18px;"></div>
+    <div class="wheel-result" id="wheel-result">🎲 Výhra čeká...</div>
   </div>
 
-  <script>
-    function toggleAccount() {
-      const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      const checkbox = document.getElementById('confirm-payment');
-      const submitBtn = document.getElementById('submitBtn');
-      if (location === 'nepraha') {
-        accInfo.style.display = 'block';
-        submitBtn.disabled = !checkbox.checked;
-        checkbox.onchange = () => {
-          submitBtn.disabled = !checkbox.checked;
-        };
-      } else {
-        accInfo.style.display = 'none';
-        submitBtn.disabled = false;
-      }
-    }
+  <audio id="sound-appear" src="https://orangefreesounds.com/wp-content/uploads/2025/01/Spinning-prize-wheel-sound-effect.mp3"></audio>
+  <audio id="sound-spin" src="https://gfxsounds.com/wp-content/uploads/2024/08/Fortune-wheel-spinning.mp3"></audio>
+  <audio id="sound-win" src="https://mixkit.co/free-sound-effects/quick-positive-video-game-notification-interface.mp3"></audio>
 
-    function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const now = Date.now();
-      const stored = localStorage.getItem('deadline');
-      let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
+<script>
+  function openPopup() { document.getElementById('popup').style.display = 'block'; }
+  function closePopup() { document.getElementById('popup').style.display = 'none'; }
+  function closeWheel() { document.getElementById('wheel').style.display = 'none'; }
+
+  function toggleAccount() {
+    const loc = document.getElementById('location').value;
+    const info = document.getElementById('account-info');
+    const btn = document.getElementById('submitBtn');
+    if (loc === 'nepraha') {
+      info.style.display = 'block';
+      btn.disabled = true;
+      document.getElementById('confirm-payment').onchange = e => btn.disabled = !e.target.checked;
+    } else {
+      info.style.display = 'none';
+      btn.disabled = false;
+    }
+  }
+
+  function startTimer() {
+    const display = document.getElementById('timer');
+    let deadline = localStorage.getItem('deadline');
+    if (!deadline) {
+      deadline = Date.now() + 24*60*60*1000;
       localStorage.setItem('deadline', deadline);
-
-      function updateTimer() {
-        const remaining = deadline - Date.now();
-        if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
-          return;
-        }
-        const hours = Math.floor(remaining / (1000 * 60 * 60));
-        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
-        setTimeout(updateTimer, 1000);
-      }
-      updateTimer();
     }
+    setInterval(() => {
+      const diff = deadline - Date.now();
+      if (diff <= 0) return display.innerText = "⏰ Čas vypršel!";
+      const h = Math.floor(diff/(3600000));
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      display.innerText = `⏳ Zbývá: ${h}h ${m}m ${s}s`;
+    }, 1000);
+  }
 
-    function spinWheel() {
-      const prizes = [
-        "🎁 Bezplatná doprava",
-        "🎉 Sleva 10%",
-        "🎉 Sleva 50%",
-        "Nic tentokrát"
-      ];
-      const result = prizes[Math.floor(Math.random() * prizes.length)];
-      document.getElementById("wheel-result").innerText = result;
-    }
-
+  function spinWheel() {
+    if (localStorage.getItem('wheelSpun')) return; // уже был
+    localStorage.setItem('wheelSpun', 'yes');
+    document.getElementById('sound-appear').play();
     setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
-    }, 7000);
+      document.getElementById('sound-spin').play();
+      const count = Number(localStorage.getItem('visitorCount')||0) + 1;
+      localStorage.setItem('visitorCount', count);
+      const res = (count % 4 === 0) ? '10% sleva'
+                 : (count % 2 === 0) ? 'Doprava zdarma'
+                 : 'Bez slevy';
+      document.getElementById('wheel-result').innerText = res;
+      document.getElementById('discountField').value = res;
+      document.getElementById('sound-win').play();
+    }, 500);
+  }
 
-    setTimeout(() => {
-      document.getElementById('wheel').style.display = 'block';
-    }, 10000);
-  </script>
+  setTimeout(() => openPopup(), 7000);
+  setTimeout(() => {
+    document.getElementById('wheel').style.display = 'block';
+  }, 10000);
+
+  startTimer();
+</script>
 </body>
   </html>
