@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -12,7 +11,6 @@
       background-color: #111;
       color: #fff;
     }
-
     .banner {
       position: fixed;
       top: 0;
@@ -26,7 +24,6 @@
       font-weight: bold;
       z-index: 9999;
     }
-
     .banner button {
       background: #fff;
       color: #e60000;
@@ -37,11 +34,9 @@
       cursor: pointer;
       border-radius: 8px;
     }
-
     .images {
       margin-top: 60px;
     }
-
     .images img {
       width: 100%;
       max-width: 100%;
@@ -49,21 +44,19 @@
       margin: 20px auto;
       border-radius: 12px;
     }
-
     .description {
       text-align: center;
       font-size: 18px;
       margin: -10px 20px 30px;
       color: #ccc;
     }
-
     .popup {
       display: none;
       position: fixed;
       top: 15%;
       left: 50%;
       transform: translate(-50%, -15%);
-      width: 70%;
+      width: 90%;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
@@ -72,21 +65,19 @@
       max-height: 80vh;
       overflow-y: auto;
     }
-
     .popup h2 {
       margin-top: 0;
       color: #fff;
     }
-
     .close {
       position: absolute;
       top: 10px;
       right: 20px;
       color: #fff;
-      font-size: 24px;
+      font-size: 30px;
+      font-weight: bold;
       cursor: pointer;
     }
-
     form input, form select, form textarea {
       width: 100%;
       margin-bottom: 15px;
@@ -95,12 +86,10 @@
       border-radius: 8px;
       font-size: 16px;
     }
-
     form textarea {
       resize: vertical;
       min-height: 80px;
     }
-
     form button {
       background: #00cc00;
       color: white;
@@ -111,7 +100,6 @@
       border-radius: 10px;
       width: 100%;
     }
-
     #account-info {
       font-size: 16px;
       color: #fff;
@@ -120,12 +108,18 @@
       border-radius: 10px;
       display: none;
     }
-
     #timer {
       margin-top: 10px;
       font-size: 16px;
       text-align: center;
       color: #ffcc00;
+    }
+    #stock {
+      font-size: 18px;
+      text-align: center;
+      margin-top: 5px;
+      color: #ff9900;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -134,17 +128,17 @@
     Uspěj koupit za 899 Kč
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
-  
+
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <img src="https://i.ibb.co/zHZy0g5/images-3.jpg">
     <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <img src="https://i.ibb.co/B2b8YsR/images-4.jpg">
     <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
     <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
     <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
     <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
     <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <img src="https://i.ibb.co/4RCNfC6/4444502663-kvadrokopter-s-hd.webp">
     <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
@@ -168,6 +162,7 @@
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit" id="submitBtn">Odeslat objednávku</button>
       <div id="timer"></div>
+      <div id="stock">🛒 Uspěj koupit! <span style="color:#ffcc00;">Zbývá jen 8 kusů!</span></div>
     </form>
   </div>
 
@@ -178,13 +173,11 @@
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
     }
 
-    // Таймер с привязкой к localStorage (как замена IP)
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
       const now = Date.now();
       const stored = localStorage.getItem('deadline');
       let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
-
       localStorage.setItem('deadline', deadline);
 
       function updateTimer() {
@@ -199,13 +192,12 @@
         timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
         setTimeout(updateTimer, 1000);
       }
-
       updateTimer();
     }
 
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
-      startCountdown(); // запускаем таймер при открытии формы
+      startCountdown();
     }, 7000);
   </script>
 </body>
