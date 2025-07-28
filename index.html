@@ -1,224 +1,218 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dron E88 Pro - Nabídka</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profesionální dron za 899 Kč</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0d0d0d;
+      background-color: #111;
       color: #fff;
       overflow-x: hidden;
     }
     .banner {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
-      background: #ff0000;
+      width: 100%;
+      background-color: #d32f2f;
       color: #fff;
-      font-weight: bold;
-      padding: 10px;
       text-align: center;
-      z-index: 9999;
-    }
-    .countdown {
-      display: inline-block;
-      margin-left: 10px;
-    }
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 100px 10px 40px;
-    }
-    .gallery img {
-      max-width: 90%;
-      margin-bottom: 10px;
-      border-radius: 10px;
-    }
-    .description {
-      text-align: center;
-      font-size: 1.1em;
-      margin-bottom: 50px;
-    }
-    #popup {
-      position: fixed;
-      top: 15%;
-      left: 15%;
-      width: 70%;
-      background: #1a1a1a;
-      border: 2px solid #fff;
-      border-radius: 10px;
-      padding: 20px;
-      z-index: 9998;
-      display: none;
-      color: #fff;
-      overflow-y: auto;
-      max-height: 70vh;
-    }
-    #popup .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      cursor: pointer;
-      font-size: 24px;
-      color: #fff;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    form input, form select, form textarea {
-      margin: 10px 0;
+      font-size: 1.4em;
       padding: 10px;
+      z-index: 1000;
+    }
+    .banner button {
+      background: #fff;
+      color: #d32f2f;
       border: none;
-      border-radius: 5px;
-      font-size: 1em;
+      padding: 8px 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 20px;
     }
-    .checkbox {
-      display: flex;
-      align-items: center;
-    }
-    .checkbox input {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-    }
-    .submit-btn {
-      background: #00cc00;
-      color: white;
+    .timer {
       font-size: 1.2em;
-      font-weight: bold;
-      cursor: pointer;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
+      margin-top: 5px;
     }
-    .wheel-container {
-      display: none;
+    .content {
+      margin-top: 70px;
+      padding: 20px;
+    }
+    .drone-image {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 20px;
+      display: block;
+      border-radius: 20px;
+    }
+    /* ROULETTE */
+    .roulette-container {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9997;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    #wheel {
+    .wheel {
       width: 300px;
       height: 300px;
       border-radius: 50%;
       border: 10px solid #fff;
       position: relative;
-      background: conic-gradient(#ff0 0deg 60deg, #0f0 60deg 120deg, #f00 120deg 180deg, #0ff 180deg 240deg, #00f 240deg 300deg, #f0f 300deg 360deg);
-      animation: spin 3s ease-out forwards;
+      overflow: hidden;
+      box-shadow: 0 0 30px #d32f2f;
     }
-    .pointer {
+    .wheel .sector {
       position: absolute;
-      top: -30px;
-      left: 135px;
-      width: 30px;
-      height: 30px;
-      background: #fff;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      width: 50%;
+      height: 50%;
+      background: #333;
+      color: white;
+      text-align: right;
+      transform-origin: 100% 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 0.9em;
     }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(720deg); }
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 30px solid yellow;
+      margin-bottom: 15px;
+    }
+    .spin-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background: #ffd700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+    .close-roulette {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2.2em;
+      cursor: pointer;
+      color: white;
+      background: rgba(255, 0, 0, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .win-text {
+      margin-top: 20px;
+      font-size: 1.4em;
+      color: #0f0;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="banner">
-    🎯 Uspěj koupit za 899 Kč! <span class="countdown" id="timer"></span>
+    🛍️ Uspokojte se za 899 Kč — Akce končí za: <span id="timer"></span>
+    <button onclick="scrollToForm()">Koupit nyní</button>
   </div>
 
-  <div class="gallery">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone 1" />
-    <div class="description">E88 Pro s 4K kamerou – profesionální dron pro každého!</div>
-
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone 2" />
-    <div class="description">Skládací design, HD záběry, dlouhá výdrž baterie.</div>
-
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone 3" />
-    <div class="description">Létání ještě nikdy nebylo tak snadné a zábavné.</div>
-
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone 4" />
-    <div class="description">Zachyť každý moment s nejmodernější technologií.</div>
-
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone 5" />
-    <div class="description">Speciální nabídka jen dnes! Objednej nyní.</div>
+  <div class="content">
+    <img class="drone-image" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone">
+    <img class="drone-image" src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone">
+    <img class="drone-image" src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone">
+    <img class="drone-image" src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone">
+    <img class="drone-image" src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone">
   </div>
 
-  <div id="popup">
-    <span class="close-btn" onclick="document.getElementById('popup').style.display='none'">&times;</span>
-    <form action="https://getform.io/f/bgdlekoa" method="POST" onsubmit="return validateForm()">
-      <input type="text" name="name" placeholder="Vaše jméno" required />
-      <input type="tel" name="phone" placeholder="Telefon" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <select name="delivery" id="delivery" onchange="handleDelivery()">
-        <option value="praha">Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
-      </select>
-      <textarea name="comment" placeholder="Komentář / výdejní místo"></textarea>
-      <div class="checkbox" id="payment-confirm" style="display:none">
-        <input type="checkbox" id="confirmCheck" />
-        <label for="confirmCheck">Potvrzuji, že jsem uhradil 250 Kč na účet ČSOB 354037257/0300</label>
-      </div>
-      <button type="submit" class="submit-btn">Odeslat objednávku</button>
-    </form>
-  </div>
-
-  <div class="wheel-container" id="wheelContainer">
-    <div class="pointer"></div>
-    <div id="wheel"></div>
+  <!-- ROULETTE -->
+  <div id="roulette" class="roulette-container" style="display:none">
+    <div class="close-roulette" onclick="closeRoulette()">×</div>
+    <div class="arrow"></div>
+    <div class="wheel" id="wheel"></div>
+    <button class="spin-btn" onclick="spinWheel()">🎲 KRUŤIT</button>
+    <div class="win-text" id="winText"></div>
   </div>
 
   <script>
-    const popup = document.getElementById('popup');
-    setTimeout(() => {
-      popup.style.display = 'block';
-      new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alert-bells-echo-958.mp3').play();
-    }, 5000);
-
-    const countdownEl = document.getElementById('timer');
-    const countdownKey = 'drone-countdown';
-    const deadline = localStorage.getItem(countdownKey) || (Date.now() + 86400000);
-    localStorage.setItem(countdownKey, deadline);
+    // TIMER 24H LOGIC
+    const timerEl = document.getElementById('timer');
+    let countdownTime = localStorage.getItem('promoTimer');
+    if (!countdownTime) {
+      countdownTime = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem('promoTimer', countdownTime);
+    }
     setInterval(() => {
       const now = Date.now();
-      const diff = deadline - now;
-      if (diff < 0) return countdownEl.innerText = '0:00:00';
-      const h = Math.floor(diff / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      countdownEl.innerText = `${h}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+      const diff = countdownTime - now;
+      if (diff <= 0) {
+        timerEl.textContent = 'Skončilo';
+        return;
+      }
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      timerEl.textContent = `${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
 
-    function handleDelivery() {
-      const delivery = document.getElementById('delivery').value;
-      const paymentBlock = document.getElementById('payment-confirm');
-      paymentBlock.style.display = delivery === 'nepraha' ? 'flex' : 'none';
-    }
-
-    function validateForm() {
-      const delivery = document.getElementById('delivery').value;
-      if (delivery === 'nepraha' && !document.getElementById('confirmCheck').checked) {
-        alert('Potvrďte, že jste uhradili 250 Kč.');
-        return false;
-      }
-      return true;
-    }
-
-    // Ruleta
-    const wheelShown = sessionStorage.getItem('wheel-shown');
-    if (!wheelShown) {
+    // ROULETTE
+    const rewards = [
+      '🎁 Sleva 50 Kč', '💸 Sleva 100 Kč', '🎁 Doprava zdarma',
+      '⛔ Zkuste znovu', '🎉 Dárkový kód', '🎁 Sleva 20 %', '🛍️ 2+1 zdarma', '🔁 Ještě jednou'
+    ];
+    const wheel = document.getElementById('wheel');
+    const winText = document.getElementById('winText');
+    let hasSpun = localStorage.getItem('hasSpun');
+    if (!hasSpun) {
       setTimeout(() => {
-        document.getElementById('wheelContainer').style.display = 'block';
-        new Audio('https://assets.mixkit.co/sfx/preview/mixkit-wheel-of-fortune-1993.mp3').play();
+        document.getElementById('roulette').style.display = 'flex';
       }, 10000);
-      sessionStorage.setItem('wheel-shown', '1');
+    }
+    function closeRoulette() {
+      document.getElementById('roulette').style.display = 'none';
+    }
+    function spinWheel() {
+      if (hasSpun) return;
+      const degrees = Math.floor(Math.random() * 360 + 1440);
+      wheel.style.transition = 'transform 4s ease-out';
+      wheel.style.transform = `rotate(${degrees}deg)`;
+      const selected = rewards[Math.floor(Math.random() * rewards.length)];
+      localStorage.setItem('bonus', selected);
+      localStorage.setItem('hasSpun', '1');
+      setTimeout(() => {
+        winText.textContent = `🎉 Vaše výhra: ${selected}`;
+      }, 4000);
+    }
+    // BUILD WHEEL SLICES
+    const sliceCount = rewards.length;
+    for (let i = 0; i < sliceCount; i++) {
+      const slice = document.createElement('div');
+      slice.className = 'sector';
+      slice.style.transform = `rotate(${i * (360 / sliceCount)}deg)`;
+      slice.style.background = i % 2 === 0 ? '#c62828' : '#ad1457';
+      slice.textContent = rewards[i];
+      wheel.appendChild(slice);
+    }
+
+    function scrollToForm() {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
   </script>
 </body>
