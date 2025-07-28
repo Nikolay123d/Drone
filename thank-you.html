@@ -1,219 +1,212 @@
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profesionální dron za 899 Kč</title>
+  <title>Prodej Dronů</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #111;
       color: #fff;
-      overflow-x: hidden;
     }
+
     .banner {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      background-color: #d32f2f;
-      color: #fff;
+      background: #e60000;
+      color: white;
       text-align: center;
-      font-size: 1.4em;
-      padding: 10px;
-      z-index: 1000;
+      padding: 10px 0;
+      font-size: 20px;
+      font-weight: bold;
+      z-index: 9999;
     }
+
     .banner button {
       background: #fff;
-      color: #d32f2f;
+      color: #e60000;
       border: none;
-      padding: 8px 15px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
+      padding: 10px 15px;
       margin-left: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
     }
-    .timer {
-      font-size: 1.2em;
-      margin-top: 5px;
+
+    .images {
+      margin-top: 60px;
     }
-    .content {
-      margin-top: 70px;
-      padding: 20px;
-    }
-    .drone-image {
+
+    .images img {
       width: 100%;
-      max-width: 500px;
-      margin: 0 auto 20px;
+      max-width: 100%;
       display: block;
-      border-radius: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
     }
-    /* ROULETTE */
-    .roulette-container {
+
+    .description {
+      text-align: center;
+      font-size: 18px;
+      margin: -10px 20px 30px;
+      color: #ccc;
+    }
+
+    .popup {
+      display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 2000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      top: 15%;
+      left: 50%;
+      transform: translate(-50%, -15%);
+      width: 70%;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      z-index: 10000;
+      max-height: 80vh;
+      overflow-y: auto;
     }
-    .wheel {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      border: 10px solid #fff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 30px #d32f2f;
+
+    .popup h2 {
+      margin-top: 0;
+      color: #fff;
     }
-    .wheel .sector {
+
+    .close {
       position: absolute;
-      width: 50%;
-      height: 50%;
-      background: #333;
-      color: white;
-      text-align: right;
-      transform-origin: 100% 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 10px;
-      box-sizing: border-box;
-      font-size: 0.9em;
-    }
-    .arrow {
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-bottom: 30px solid yellow;
-      margin-bottom: 15px;
-    }
-    .spin-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1.2em;
-      background: #ffd700;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      color: #000;
-      font-weight: bold;
-    }
-    .close-roulette {
-      position: absolute;
-      top: 20px;
+      top: 10px;
       right: 20px;
-      font-size: 2.2em;
+      color: #fff;
+      font-size: 24px;
       cursor: pointer;
-      color: white;
-      background: rgba(255, 0, 0, 0.8);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .win-text {
-      margin-top: 20px;
-      font-size: 1.4em;
-      color: #0f0;
-      font-weight: bold;
+
+    form input, form select, form textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    form button {
+      background: #00cc00;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    #account-info {
+      font-size: 16px;
+      color: #fff;
+      background: #333;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    #timer {
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+      color: #ffcc00;
     }
   </style>
 </head>
 <body>
   <div class="banner">
-    🛍️ Uspokojte se za 899 Kč — Akce končí za: <span id="timer"></span>
-    <button onclick="scrollToForm()">Koupit nyní</button>
+    Uspěj koupit za 899 Kč
+    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
+  </div>
+  
+  <div class="images">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
-  <div class="content">
-    <img class="drone-image" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Drone">
-    <img class="drone-image" src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Drone">
-    <img class="drone-image" src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Drone">
-    <img class="drone-image" src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Drone">
-    <img class="drone-image" src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Drone">
-  </div>
-
-  <!-- ROULETTE -->
-  <div id="roulette" class="roulette-container" style="display:none">
-    <div class="close-roulette" onclick="closeRoulette()">×</div>
-    <div class="arrow"></div>
-    <div class="wheel" id="wheel"></div>
-    <button class="spin-btn" onclick="spinWheel()">🎲 KRUŤIT</button>
-    <div class="win-text" id="winText"></div>
+  <div class="popup">
+    <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
+    <h2>Objednávkový formulář</h2>
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
+      <input type="text" name="name" placeholder="Vaše jméno" required>
+      <input type="tel" name="phone" placeholder="Telefon" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <select id="location" name="location" onchange="toggleAccount()">
+        <option value="praha" selected>Jsem z Prahy</option>
+        <option value="nepraha">Nejsem z Prahy</option>
+      </select>
+      <div id="account-info">
+        <p>Celková cena: <strong>999 Kč</strong><br>
+        Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
+        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
+        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu 250 Kč na účet</label>
+      </div>
+      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+      <button type="submit" id="submitBtn">Odeslat objednávku</button>
+      <div id="timer"></div>
+    </form>
   </div>
 
   <script>
-    // TIMER 24H LOGIC
-    const timerEl = document.getElementById('timer');
-    let countdownTime = localStorage.getItem('promoTimer');
-    if (!countdownTime) {
-      countdownTime = Date.now() + 24 * 60 * 60 * 1000;
-      localStorage.setItem('promoTimer', countdownTime);
+    function toggleAccount() {
+      const location = document.getElementById('location').value;
+      const accInfo = document.getElementById('account-info');
+      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
     }
-    setInterval(() => {
+
+    // Таймер с привязкой к localStorage (как замена IP)
+    function startCountdown() {
+      const timerDisplay = document.getElementById('timer');
       const now = Date.now();
-      const diff = countdownTime - now;
-      if (diff <= 0) {
-        timerEl.textContent = 'Skončilo';
-        return;
+      const stored = localStorage.getItem('deadline');
+      let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
+
+      localStorage.setItem('deadline', deadline);
+
+      function updateTimer() {
+        const remaining = deadline - Date.now();
+        if (remaining <= 0) {
+          timerDisplay.innerText = "⏰ Čas vypršel!";
+          return;
+        }
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
+        setTimeout(updateTimer, 1000);
       }
-      const hours = Math.floor(diff / 3600000);
-      const minutes = Math.floor((diff % 3600000) / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
-      timerEl.textContent = `${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
 
-    // ROULETTE
-    const rewards = [
-      '🎁 Sleva 50 Kč', '💸 Sleva 100 Kč', '🎁 Doprava zdarma',
-      '⛔ Zkuste znovu', '🎉 Dárkový kód', '🎁 Sleva 20 %', '🛍️ 2+1 zdarma', '🔁 Ještě jednou'
-    ];
-    const wheel = document.getElementById('wheel');
-    const winText = document.getElementById('winText');
-    let hasSpun = localStorage.getItem('hasSpun');
-    if (!hasSpun) {
-      setTimeout(() => {
-        document.getElementById('roulette').style.display = 'flex';
-      }, 10000);
-    }
-    function closeRoulette() {
-      document.getElementById('roulette').style.display = 'none';
-    }
-    function spinWheel() {
-      if (hasSpun) return;
-      const degrees = Math.floor(Math.random() * 360 + 1440);
-      wheel.style.transition = 'transform 4s ease-out';
-      wheel.style.transform = `rotate(${degrees}deg)`;
-      const selected = rewards[Math.floor(Math.random() * rewards.length)];
-      localStorage.setItem('bonus', selected);
-      localStorage.setItem('hasSpun', '1');
-      setTimeout(() => {
-        winText.textContent = `🎉 Vaše výhra: ${selected}`;
-      }, 4000);
-    }
-    // BUILD WHEEL SLICES
-    const sliceCount = rewards.length;
-    for (let i = 0; i < sliceCount; i++) {
-      const slice = document.createElement('div');
-      slice.className = 'sector';
-      slice.style.transform = `rotate(${i * (360 / sliceCount)}deg)`;
-      slice.style.background = i % 2 === 0 ? '#c62828' : '#ad1457';
-      slice.textContent = rewards[i];
-      wheel.appendChild(slice);
+      updateTimer();
     }
 
-    function scrollToForm() {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
+    setTimeout(() => {
+      document.querySelector('.popup').style.display = 'block';
+      startCountdown(); // запускаем таймер при открытии формы
+    }, 7000);
   </script>
 </body>
 </html>
