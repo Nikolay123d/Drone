@@ -1,212 +1,248 @@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prodej Dronů</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Akce - Dron E88 Pro</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #111;
+      background: #121212;
       color: #fff;
+      overflow-x: hidden;
     }
 
     .banner {
       position: fixed;
       top: 0;
-      left: 0;
       width: 100%;
-      background: #e60000;
+      background: #ff4500;
       color: white;
       text-align: center;
-      padding: 10px 0;
+      padding: 12px;
       font-size: 20px;
       font-weight: bold;
-      z-index: 9999;
+      z-index: 1000;
     }
 
-    .banner button {
-      background: #fff;
-      color: #e60000;
-      border: none;
-      padding: 10px 15px;
-      margin-left: 20px;
+    .countdown {
       font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
+      margin-top: 5px;
     }
 
-    .images {
-      margin-top: 60px;
+    .main {
+      padding-top: 80px;
     }
 
-    .images img {
-      width: 100%;
-      max-width: 100%;
-      display: block;
-      margin: 20px auto;
-      border-radius: 12px;
-    }
-
-    .description {
-      text-align: center;
-      font-size: 18px;
-      margin: -10px 20px 30px;
-      color: #ccc;
-    }
-
-    .popup {
-      display: none;
+    .popup, .wheel-popup {
       position: fixed;
-      top: 15%;
-      left: 50%;
-      transform: translate(-50%, -15%);
+      top: 10%;
+      left: 15%;
       width: 70%;
-      background-color: #222;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      z-index: 10000;
       max-height: 80vh;
+      background: #1e1e1e;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      z-index: 9999;
+      display: none;
       overflow-y: auto;
     }
 
-    .popup h2 {
-      margin-top: 0;
-      color: #fff;
-    }
-
-    .close {
+    .popup .close, .wheel-popup .close {
       position: absolute;
       top: 10px;
-      right: 20px;
-      color: #fff;
-      font-size: 24px;
+      right: 15px;
+      background: transparent;
+      color: white;
+      font-size: 22px;
+      border: none;
       cursor: pointer;
     }
 
-    form input, form select, form textarea {
+    .product-img {
       width: 100%;
-      margin-bottom: 15px;
+      max-width: 400px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, select, textarea {
       padding: 10px;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
     }
 
-    form textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    form button {
-      background: #00cc00;
+    button.submit-btn {
+      background: #00c853;
       color: white;
+      padding: 12px;
       border: none;
-      padding: 12px 20px;
+      border-radius: 10px;
       font-size: 18px;
       cursor: pointer;
-      border-radius: 10px;
-      width: 100%;
-    }
-
-    #account-info {
-      font-size: 16px;
-      color: #fff;
-      background: #333;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
-    }
-
-    #timer {
       margin-top: 10px;
+    }
+
+    .wheel {
+      margin: 0 auto;
+      width: 250px;
+      height: 250px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      transform: rotate(0deg);
+      transition: transform 4s ease-out;
+    }
+
+    .wheel .segment {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      background: #555;
+      color: #fff;
+      transform-origin: 100% 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .spin-btn {
+      background: #ff1744;
+      color: white;
+      padding: 10px 20px;
       font-size: 16px;
-      text-align: center;
-      color: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    @keyframes popup-music {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
   <div class="banner">
-    Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
-  </div>
-  
-  <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+    🕑 Sleva 899 Kč! Akce končí za <span id="timer" class="countdown"></span>
   </div>
 
-  <div class="popup">
-    <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
-    <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha" selected>Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
-      </select>
-      <div id="account-info">
-        <p>Celková cena: <strong>999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
-        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu 250 Kč na účet</label>
-      </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit" id="submitBtn">Odeslat objednávku</button>
-      <div id="timer"></div>
-    </form>
+  <div class="main">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" class="product-img" alt="Drone" />
+    <p style="text-align: center; max-width: 600px; margin: auto;">
+      Profesionální 4K dron s kamerou E88 Pro za speciální cenu pouze dnes! Rychlé skládání, výdrž baterie a přesné ovládání. Využij výhodné nabídky ještě teď!
+    </p>
   </div>
+
+  <!-- Popup objednávky -->
+  <div class="popup" id="orderPopup">
+    <button class="close" onclick="closePopup('orderPopup')">×</button>
+    <h2>Objednat dron</h2>
+    <form action="https://getform.io/f/bgdlekoa" method="POST">
+      <input type="text" name="name" placeholder="Jméno" required />
+      <input type="tel" name="phone" placeholder="Telefon" required />
+      <input type="email" name="email" placeholder="E-mail" required />
+      <select name="delivery">
+        <option value="Praha">Jsem z Prahy</option>
+        <option value="nePraha">Ne z Prahy</option>
+      </select>
+      <textarea name="comment" placeholder="Komentář... (např. výdejní místo Zásilkovna)"></textarea>
+      <label><input type="checkbox" name="agree" required /> Souhlasím s podmínkami</label>
+      <button type="submit" class="submit-btn">Odeslat objednávku</button>
+    </form>
+    <div id="paymentInfo" style="display:none; margin-top: 15px;">
+      <strong>Cena: 999 Kč</strong><br/>
+      Záloha: 250 Kč na účet ČSOB: <b>354037257/0300</b><br/>
+      Zbytek (749 Kč) při převzetí.
+    </div>
+  </div>
+
+  <!-- Rullete Popup -->
+  <div class="wheel-popup" id="wheelPopup">
+    <button class="close" onclick="closePopup('wheelPopup')">×</button>
+    <h3>Zkus štěstí!</h3>
+    <div class="wheel" id="wheel">
+      <div class="segment" style="transform: rotate(0deg)">10% sleva</div>
+      <div class="segment" style="transform: rotate(60deg)">Doprava zdarma</div>
+      <div class="segment" style="transform: rotate(120deg)">Příště</div>
+      <div class="segment" style="transform: rotate(180deg)">Příště</div>
+      <div class="segment" style="transform: rotate(240deg)">Příště</div>
+      <div class="segment" style="transform: rotate(300deg)">Příště</div>
+    </div>
+    <button class="spin-btn" onclick="spinWheel()">Točit!</button>
+    <p id="result"></p>
+  </div>
+
+  <audio id="soundOpen" src="https://www.fesliyanstudios.com/play-mp3/4386" preload="auto"></audio>
+  <audio id="soundSpin" src="https://www.fesliyanstudios.com/play-mp3/6412" preload="auto"></audio>
 
   <script>
-    function toggleAccount() {
-      const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+    // Otevření popup
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'block';
+      document.getElementById("soundOpen").play();
     }
 
-    // Таймер с привязкой к localStorage (как замена IP)
-    function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const now = Date.now();
-      const stored = localStorage.getItem('deadline');
-      let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
 
-      localStorage.setItem('deadline', deadline);
-
-      function updateTimer() {
-        const remaining = deadline - Date.now();
-        if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
-          return;
-        }
-        const hours = Math.floor(remaining / (1000 * 60 * 60));
-        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
-        setTimeout(updateTimer, 1000);
+    // Odpočet
+    const timerEl = document.getElementById("timer");
+    const end = Date.now() + 24 * 60 * 60 * 1000;
+    setInterval(() => {
+      const left = end - Date.now();
+      if (left <= 0) {
+        timerEl.innerText = "00:00:00";
+        return;
       }
+      const h = String(Math.floor(left / 1000 / 60 / 60)).padStart(2, "0");
+      const m = String(Math.floor((left / 1000 / 60) % 60)).padStart(2, "0");
+      const s = String(Math.floor((left / 1000) % 60)).padStart(2, "0");
+      timerEl.innerText = `${h}:${m}:${s}`;
+    }, 1000);
 
-      updateTimer();
+    // Zobrazení formuláře za 5s
+    setTimeout(() => openPopup("orderPopup"), 5000);
+
+    // Zobrazení rulety za 10s
+    setTimeout(() => openPopup("wheelPopup"), 10000);
+
+    // Reakce na "ne z Prahy"
+    const deliverySelect = document.querySelector("select[name='delivery']");
+    deliverySelect.addEventListener("change", function() {
+      document.getElementById("paymentInfo").style.display = this.value === "nePraha" ? "block" : "none";
+    });
+
+    // Kolo štěstí
+    function spinWheel() {
+      const wheel = document.getElementById("wheel");
+      const sound = document.getElementById("soundSpin");
+      sound.play();
+
+      const outcomes = [0, 60]; // Только 10% и Doprava zdarma
+      const angle = outcomes[Math.floor(Math.random() * outcomes.length)];
+      const totalRotation = 1440 + angle;
+
+      wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+      setTimeout(() => {
+        const result = angle === 0 ? "Vyhrál jsi 10% slevu!" : "Získáváš dopravu zdarma!";
+        document.getElementById("result").innerText = result;
+      }, 4000);
     }
-
-    setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown(); // запускаем таймер при открытии формы
-    }, 7000);
   </script>
 </body>
 </html>
