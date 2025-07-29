@@ -53,26 +53,22 @@
     .popup, .bonus-popup {
       display: none;
       position: fixed;
-      top: 10%;
+      top: 5%;
       left: 50%;
-      transform: translate(-50%, -10%);
+      transform: translate(-50%, 0);
       width: 90%;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 90vh;
+      max-height: 85vh;
       overflow-y: auto;
-      animation: popupFadeIn 0.5s ease-in-out;
-    }
-    @keyframes popupFadeIn {
-      from { opacity: 0; transform: translate(-50%, -20%); }
-      to { opacity: 1; transform: translate(-50%, -10%); }
     }
     .popup h2, .bonus-popup h2 {
       margin-top: 0;
-      color: #ffcc00;
+      color: #fff;
+      text-align: center;
     }
     .close {
       position: absolute;
@@ -84,11 +80,11 @@
     }
     form input, form select, form textarea {
       width: 100%;
-      margin-bottom: 12px;
-      padding: 8px;
+      margin-bottom: 15px;
+      padding: 10px;
       border: none;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 16px;
     }
     form textarea {
       resize: vertical;
@@ -104,17 +100,6 @@
       border-radius: 10px;
       width: 100%;
     }
-    #submitBtn {
-      position: sticky;
-      bottom: 0;
-      background: #00cc00;
-      padding: 14px;
-      margin-top: 10px;
-      font-size: 18px;
-      border-radius: 10px;
-      width: 100%;
-      z-index: 10;
-    }
     #account-info {
       font-size: 16px;
       color: #fff;
@@ -123,150 +108,162 @@
       border-radius: 10px;
       display: none;
     }
-    #timer, #bonus-timer {
+    #timer {
       margin-top: 10px;
       font-size: 16px;
       text-align: center;
       color: #ffcc00;
     }
     .bonus-option {
-      background: #ff0033;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
     }
     .bonus-option img {
-      max-width: 100%;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 15px;
       border-radius: 10px;
-      margin-top: 10px;
     }
-    .bonus-option button {
-      margin-top: 10px;
-      background: #fff;
-      color: #e60000;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
+    .bonus-option input {
+      margin-right: 10px;
+    }
+    .bonus-popup .continue-btn {
+      margin-top: 20px;
+      background: #ff0000;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block';playSound('form')">Odeslat objednávku</button>
+    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
 
   <div class="images">
-    <!-- изображения -->
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
   <div class="popup">
-    <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
+    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
-    <form>
-      <!-- поля формы -->
-      <p id="bonus-selected" style="color: #00ffcc; font-weight: bold;"></p>
-      <button type="submit" id="submitBtn">Odeslat objednávku</button>
+    <form id="main-form" action="https://getform.io/f/bgdlekoa" method="POST">
+      <input type="text" name="name" placeholder="Vaše jméno" required>
+      <input type="tel" name="phone" placeholder="Telefon" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <select id="location" name="location" onchange="toggleAccount()">
+        <option value="praha" selected>Jsem z Prahy</option>
+        <option value="nepraha">Nejsem z Prahy</option>
+      </select>
+      <div id="account-info">
+        <p>Celková cena: <strong id="total-price">999 Kč</strong><br>
+        Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
+        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
+        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> <strong>Potvrzuji platbu 250 Kč na účet</strong></label>
+      </div>
+      <input type="hidden" name="bonus" id="bonus-hidden">
+      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+      <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
     </form>
   </div>
 
-  <div class="bonus-popup" id="bonusPopup">
-    <span class="close" onclick="document.getElementById('bonusPopup').style.display='none'">×</span>
-    <h2 style="text-align:center; color:#ffcc00; font-size: 26px;">🎁 LIKVIDACE TOVARU 🎁</h2>
-    <p style="text-align:center; font-size: 18px;">Gratulujeme! Jste 50. zákazník! Vyberte si 1 ze 2 dárků:</p>
-
+  <div class="bonus-popup" id="bonus-popup">
+    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+    <h2>🎉 Gratulujeme! Jste 50. zákazník!</h2>
+    <p>Vybírejte si dárek:</p>
     <div class="bonus-option">
-      <strong>1. Šachová deska jen za 99 Kč</strong>
+      <input type="radio" name="bonus-option" value="Šachovnice za 99 Kč">
       <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg">
-      <button onclick="chooseBonus('Šachová deska +99 Kč')">Vybrat</button>
+      <label>Šachovnice (příplatek 99 Kč)</label>
     </div>
-
     <div class="bonus-option">
-      <strong>2. Sluchátka P47 ZDARMA</strong>
+      <input type="radio" name="bonus-option" value="Sluchátka P47 zdarma">
       <img src="https://i.ibb.co/xKxdGMW4/289748005.webp">
-      <button onclick="chooseBonus('Sluchátka P47 (zdarma)')">Vybrat</button>
+      <label>Sluchátka P47 zdarma</label>
     </div>
-
-    <div id="bonus-timer"></div>
+    <button class="continue-btn" onclick="applyBonus()">✅ Pokračovat s bonusem</button>
+    <div id="bonus-timer" style="text-align: center; margin-top: 15px; color: #ff0;"></div>
   </div>
 
-  <audio id="bonusSound" src="https://cdn.pixabay.com/audio/2023/03/08/audio_c3f94d2a78.mp3"></audio>
-  <audio id="formSound" src="https://cdn.pixabay.com/audio/2022/03/26/audio_2d1be4b7be.mp3"></audio>
+  <audio id="popup-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.wav"></audio>
 
   <script>
-    let bonusShown = false;
-    let orderCount = localStorage.getItem('orderCount') || 0;
-
-    function showBonusPopup() {
-      if (orderCount < 5 && !bonusShown) {
-        document.getElementById('bonusPopup').style.display = 'block';
-        document.getElementById('bonusSound').play();
-        startBonusTimer();
-        bonusShown = true;
-      }
+    function toggleAccount() {
+      const location = document.getElementById('location').value;
+      const accInfo = document.getElementById('account-info');
+      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
     }
 
-    function chooseBonus(bonus) {
-      localStorage.setItem('selectedBonus', bonus);
-      document.getElementById('bonusPopup').style.display = 'none';
-      document.querySelector('.popup').style.display = 'block';
-      document.getElementById('bonus-selected').innerText = `🎁 Zvolený bonus: ${bonus}`;
-    }
-
-    function startBonusTimer() {
-      const display = document.getElementById('bonus-timer');
-      let end = Date.now() + (10 * 60 * 1000);
+    function startCountdown() {
+      const timerDisplay = document.getElementById('timer');
+      const deadline = Date.now() + 24 * 60 * 60 * 1000;
       function update() {
-        let remain = end - Date.now();
-        if (remain <= 0) {
-          display.innerText = "⏰ Akce skončila!";
+        const left = deadline - Date.now();
+        if (left <= 0) {
+          timerDisplay.innerText = "⏰ Čas vypršel!";
           return;
         }
-        let m = Math.floor((remain / 1000 / 60) % 60);
-        let s = Math.floor((remain / 1000) % 60);
-        display.innerText = `⏳ Čas na výběr bonusu: ${m}m ${s}s`;
+        const h = Math.floor(left / 3600000);
+        const m = Math.floor((left % 3600000) / 60000);
+        const s = Math.floor((left % 60000) / 1000);
+        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
         setTimeout(update, 1000);
       }
       update();
     }
 
-    function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const now = Date.now();
-      const stored = localStorage.getItem('deadline');
-      let deadline = stored ? parseInt(stored) : now + 24 * 60 * 60 * 1000;
-      localStorage.setItem('deadline', deadline);
-      function updateTimer() {
-        const remaining = deadline - Date.now();
-        if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
-          return;
-        }
-        const hours = Math.floor(remaining / (1000 * 60 * 60));
-        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
-        setTimeout(updateTimer, 1000);
-      }
-      updateTimer();
-    }
-
-    function playSound(type) {
-      if (type === 'form') document.getElementById('formSound').play();
-      if (type === 'bonus') document.getElementById('bonusSound').play();
-    }
-
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
-      playSound('form');
+      document.getElementById('popup-sound').play();
       startCountdown();
     }, 5000);
 
-    setTimeout(showBonusPopup, 10000);
+    setTimeout(() => {
+      document.getElementById('bonus-popup').style.display = 'block';
+      document.getElementById('popup-sound').play();
+      startBonusCountdown();
+    }, 10000);
+
+    function applyBonus() {
+      const selected = document.querySelector('input[name="bonus-option"]:checked');
+      if (!selected) return alert('Vyberte prosím dárek.');
+      document.getElementById('bonus-hidden').value = selected.value;
+
+      if (selected.value.includes('99')) {
+        document.getElementById('total-price').innerText = '1 098 Kč';
+      }
+      document.getElementById('bonus-popup').style.display = 'none';
+      document.querySelector('.popup').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function startBonusCountdown() {
+      const display = document.getElementById('bonus-timer');
+      const deadline = Date.now() + 10 * 60 * 1000;
+      function update() {
+        const left = deadline - Date.now();
+        if (left <= 0) {
+          display.innerText = "🎁 Nabídka skončila";
+          return;
+        }
+        const m = Math.floor((left % 3600000) / 60000);
+        const s = Math.floor((left % 60000) / 1000);
+        display.innerText = `🕒 Sleva končí za: ${m}m ${s}s`;
+        setTimeout(update, 1000);
+      }
+      update();
+    }
   </script>
 </body>
 </html>
