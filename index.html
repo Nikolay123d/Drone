@@ -50,24 +50,24 @@
       margin: -10px 20px 30px;
       color: #ccc;
     }
-    .popup {
+    .popup, .bonus-popup {
       display: none;
       position: fixed;
       top: 10%;
       left: 50%;
       transform: translate(-50%, -10%);
       width: 90%;
-      max-width: 450px;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
+      max-height: 90vh;
+      overflow-y: auto;
     }
-    .popup h2 {
+    .popup h2, .bonus-popup h2 {
       margin-top: 0;
       color: #fff;
-      font-size: 20px;
     }
     .close {
       position: absolute;
@@ -79,7 +79,7 @@
     }
     form input, form select, form textarea {
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       padding: 10px;
       border: none;
       border-radius: 8px;
@@ -87,39 +87,62 @@
     }
     form textarea {
       resize: vertical;
-      min-height: 60px;
+      min-height: 80px;
     }
     form button {
       background: #00cc00;
       color: white;
       border: none;
-      padding: 10px;
+      padding: 12px 20px;
       font-size: 18px;
       cursor: pointer;
       border-radius: 10px;
       width: 100%;
     }
     #account-info {
-      font-size: 14px;
+      font-size: 16px;
+      color: #fff;
       background: #333;
-      padding: 10px;
+      padding: 15px;
       border-radius: 10px;
       display: none;
     }
-    #bonus-choice {
-      display: none;
-      margin-top: 15px;
-    }
-    #bonus-choice label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
     #timer {
       margin-top: 10px;
-      font-size: 14px;
+      font-size: 16px;
       text-align: center;
       color: #ffcc00;
+    }
+    .bonus-options img {
+      width: 100px;
+      border-radius: 12px;
+      margin: 5px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .bonus-options img:hover {
+      transform: scale(1.1);
+    }
+    .bonus-popup h2 {
+      font-size: 24px;
+      text-align: center;
+      color: #ff4444;
+      background: linear-gradient(90deg, #ffcc00, #ff4444);
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .big-submit {
+      margin-top: 20px;
+      background: #00cc00;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      width: 100%;
     }
   </style>
 </head>
@@ -143,73 +166,87 @@
   </div>
 
   <div class="popup">
-    <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
+    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
     <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Vaše jméno" required>
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
-
       <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
-
       <div id="account-info">
-        <p>Celková cena: <strong id="total-price">999 Kč</strong><br>
-        Předem: <strong>250 Kč</strong> na účet: <br><strong>ČSOB 354037257/0300</strong></p>
-        <label style="font-weight: bold;"><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> ✅ Potvrzuji platbu 250 Kč</label><br>
-        <label>📎 Nahrajte potvrzení platby (screenshot): <input type="file" name="payment_proof" accept="image/*"></label>
-
-        <div id="bonus-choice">
-          <label>🎁 Vyberte bonus:</label>
-          <label><input type="radio" name="bonus" value="sachy" onchange="updatePrice(99)"> Šachovnice +99 Kč</label>
-          <label><input type="radio" name="bonus" value="p47" onchange="updatePrice(0)"> Sluchátka P47 zdarma</label>
-        </div>
+        <p>Celková cena: <strong id="price">999 Kč</strong><br>
+        Z toho <strong>250 Kč</strong> předem na účet:<br>
+        <strong>ČSOB 354037257/0300</strong><br>
+        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label>
+        <br><br>
+        📎 Přiložte screenshot potvrzení:
+        <input type="file" name="payment_proof" accept="image/*">
       </div>
-
-      <textarea name="comment" placeholder="Poznámka / výdejní místo"></textarea>
-      <button type="submit">📦 Odeslat objednávku</button>
+      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+      <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
     </form>
+  </div>
+
+  <div class="bonus-popup">
+    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+    <h2>🎉 Gratulujeme! Jste 50. zákazník — Získejte BONUS!</h2>
+    <p style="text-align:center; font-size:18px;">Vyberte si jeden z bonusových dárků:</p>
+    <div class="bonus-options" style="text-align:center">
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src, '_blank')">
+      <br><br>
+      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src, '_blank')">
+    </div>
+    <button class="big-submit" onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
   <script>
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      const bonusBox = document.getElementById('bonus-choice');
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
-      bonusBox.style.display = (location === 'nepraha') ? 'block' : 'none';
-    }
-
-    function updatePrice(bonusPrice) {
-      let total = 999 + bonusPrice;
-      document.getElementById('total-price').innerText = `${total} Kč`;
     }
 
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
-      const deadline = Date.now() + 86400000; // 24 hours
+      const deadline = Date.now() + 24 * 60 * 60 * 1000;
       function updateTimer() {
         const remaining = deadline - Date.now();
         if (remaining <= 0) {
           timerDisplay.innerText = "⏰ Čas vypršel!";
           return;
         }
-        const hours = Math.floor(remaining / 3600000);
-        const minutes = Math.floor((remaining % 3600000) / 60000);
-        const seconds = Math.floor((remaining % 60000) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
+        const h = Math.floor(remaining / (1000 * 60 * 60));
+        const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((remaining % (1000 * 60)) / 1000);
+        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
         setTimeout(updateTimer, 1000);
       }
       updateTimer();
+    }
+
+    function setBonus(bonus) {
+      const priceText = document.getElementById('price');
+      if (bonus === 'sachy') {
+        priceText.innerText = '1098 Kč';
+      } else {
+        priceText.innerText = '999 Kč';
+      }
     }
 
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
       startCountdown();
     }, 5000);
+
+    setTimeout(() => {
+      document.querySelector('.bonus-popup').style.display = 'block';
+    }, 10000);
   </script>
 </body>
-</html>
+</html>э
