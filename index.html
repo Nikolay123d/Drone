@@ -56,7 +56,7 @@
       top: 10%;
       left: 50%;
       transform: translate(-50%, -10%);
-      width: 90%;
+      width: 500px;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
@@ -107,20 +107,36 @@
       border-radius: 10px;
       display: none;
     }
-    #qr-code {
-      display: none;
-      text-align: center;
-      margin-top: 15px;
-    }
     #timer {
       margin-top: 10px;
       font-size: 16px;
       text-align: center;
       color: #ffcc00;
     }
-    .bonus-options img {
+    .bonus-options label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .bonus-options img.thumb {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .big-image {
+      display: block;
       width: 100%;
+      margin-top: 10px;
       border-radius: 12px;
+    }
+    .highlight {
+      color: #ff4444;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
       margin-bottom: 10px;
     }
   </style>
@@ -159,35 +175,21 @@
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet:<br>
         <strong>ČSOB 354037257/0300</strong><br>
-        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label>
-        <br><br>
+        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label><br><br>
         📎 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*">
         <br><br>
-        <button type="button" onclick="document.getElementById('qr-code').style.display='block'">📷 Zobrazit QR kód pro platbu</button>
-        <div id="qr-code">
-          <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR kód pro platbu" style="width: 200px; margin: 10px auto; display: block;">
-          <button type="button" onclick="document.getElementById('qr-code').style.display='none'">Zavřít QR</button>
-        </div>
+        <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR Platba" class="big-image">
+      </div>
+      <div class="highlight">🎁 Vyberte si bonus</div>
+      <div class="bonus-options">
+        <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> Šachová deska +99 Kč <img class="thumb" src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="showBig('https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg')"></label>
+        <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> Sluchátka P47 ZDARMA <img class="thumb" src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="showBig('https://i.ibb.co/xKxdGMW4/289748005.webp')"></label>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit">Odeslat objednávku</button>
+      <button type="submit">📦 Pokračovat v objednávce</button>
       <div id="timer"></div>
     </form>
-  </div>
-
-  <div class="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎁 L I K V I D A C E  - Bonus k objednávce!</h2>
-    <p>Vyberte si jeden z bonusů:</p>
-    <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label>
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg">
-
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label>
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp">
-    </div>
-    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
   <script>
@@ -224,14 +226,15 @@
       }
     }
 
+    function showBig(url) {
+      const w = window.open();
+      w.document.write(`<img src="${url}" style="width:100%">`);
+    }
+
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
       startCountdown();
     }, 5000);
-
-    setTimeout(() => {
-      document.querySelector('.bonus-popup').style.display = 'block';
-    }, 10000);
   </script>
 </body>
-</html>
+  </html>
