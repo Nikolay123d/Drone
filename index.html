@@ -124,6 +124,15 @@
       text-align: center;
       color: #ffcc00;
     }
+    .bold-checkbox {
+      transform: scale(1.4);
+      margin-right: 8px;
+    }
+    .upload-note {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
@@ -148,7 +157,7 @@
   <div class="popup">
     <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
     <h2>Objednávkový formulář / Форма заказа</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST">
+    <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Vaše jméno / Ваше имя" required>
       <input type="tel" name="phone" placeholder="Telefon / Телефон" required>
       <input type="email" name="email" placeholder="Email" required>
@@ -162,7 +171,10 @@
         Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.<br>
         Общая цена: <strong>999 Kč</strong>, из них <strong>250 Kč</strong> предоплата на счёт,<br>
         Остальное (<strong>749 Kč</strong>) — при получении в Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu / Подтверждаю оплату</label>
+
+        <p class="upload-note">📸 Nahrajte potvrzení o platbě / Загрузите скриншот оплаты:</p>
+        <input type="file" name="payment_screenshot" accept="image/*" required>
+
         <div id="qr-payment" style="margin-top: 15px; text-align: center; display: none;">
           <button onclick="document.getElementById('qr-box').style.display = 'block'; this.style.display='none';"
                   style="padding: 10px 16px; font-size: 15px; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">
@@ -174,6 +186,11 @@
             <p style="margin-top: 10px; font-size: 13px; color: #ccc;">Skenujte QR v aplikaci vaší banky / Отсканируйте в банковском приложении</p>
           </div>
         </div>
+
+        <label style="display: flex; align-items: center; margin-top: 15px;">
+          <input type="checkbox" class="bold-checkbox" id="confirm-payment" name="payment_confirmed" value="yes" required>
+          <span>Potvrzuji platbu / Подтверждаю оплату</span>
+        </label>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo / Комментарий или пункт выдачи"></textarea>
       <button type="submit" id="submitBtn">Odeslat objednávku / Отправить заказ</button>
