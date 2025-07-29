@@ -53,16 +53,16 @@
     .popup, .bonus-popup {
       display: none;
       position: fixed;
-      top: 10%;
+      top: 15%;
       left: 50%;
-      transform: translate(-50%, -10%);
-      width: 500px;
+      transform: translate(-50%, -15%);
+      width: 85%;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 90vh;
+      max-height: 85vh;
       overflow-y: auto;
     }
     .popup h2, .bonus-popup h2 {
@@ -113,31 +113,24 @@
       text-align: center;
       color: #ffcc00;
     }
-    .bonus-options label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .bonus-options img.thumb {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 8px;
+    .bonus-options img {
+      width: 50px;
+      height: auto;
       margin-left: 10px;
       cursor: pointer;
     }
-    .big-image {
+    .bonus-preview {
       display: block;
-      width: 100%;
+      max-width: 100%;
       margin-top: 10px;
-      border-radius: 12px;
+      border-radius: 10px;
     }
-    .highlight {
-      color: #ff4444;
+    .highlight-bonus {
       font-size: 22px;
       font-weight: bold;
+      color: #ff4444;
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
   </style>
 </head>
@@ -175,19 +168,25 @@
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet:<br>
         <strong>ČSOB 354037257/0300</strong><br>
-        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label><br><br>
+        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label>
+        <br><br>
         📎 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*">
         <br><br>
-        <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR Platba" class="big-image">
+        📲 Nebo zaplaťte přes QR:
+        <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR platba" style="max-width:100%; border-radius:10px;">
       </div>
-      <div class="highlight">🎁 Vyberte si bonus</div>
-      <div class="bonus-options">
-        <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> Šachová deska +99 Kč <img class="thumb" src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="showBig('https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg')"></label>
-        <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> Sluchátka P47 ZDARMA <img class="thumb" src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="showBig('https://i.ibb.co/xKxdGMW4/289748005.webp')"></label>
+      <div>
+        <label class="highlight-bonus">🎁 Vyberte bonus:</label><br>
+        <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska +99 Kč</label>
+        <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="showPreview(this.src)">
+        <br>
+        <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Naushniki P47 zdarma</label>
+        <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="showPreview(this.src)">
+        <img id="preview" class="bonus-preview" src="" style="display:none">
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit">📦 Pokračovat v objednávce</button>
+      <button type="submit">📦 Odeslat objednávku</button>
       <div id="timer"></div>
     </form>
   </div>
@@ -226,9 +225,10 @@
       }
     }
 
-    function showBig(url) {
-      const w = window.open();
-      w.document.write(`<img src="${url}" style="width:100%">`);
+    function showPreview(src) {
+      const preview = document.getElementById('preview');
+      preview.src = src;
+      preview.style.display = 'block';
     }
 
     setTimeout(() => {
@@ -237,4 +237,4 @@
     }, 5000);
   </script>
 </body>
-  </html>
+</html>
