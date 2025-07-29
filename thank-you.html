@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Prodej Dronů</title>
   <style>
     body {
@@ -36,6 +36,9 @@
     }
     .images {
       margin-top: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .images img {
       width: 100%;
@@ -50,41 +53,48 @@
       margin: -10px 20px 30px;
       color: #ccc;
     }
-    .popup, .bonus-popup {
+    /* Первое окно — форма */
+    .popup {
       display: none;
       position: fixed;
-      top: 5%;
+      top: 15%;
       left: 50%;
-      transform: translate(-50%, 0);
+      transform: translate(-50%, -15%);
       width: 90%;
+      max-width: 450px;
       background-color: #222;
-      padding: 20px;
+      padding: 20px 25px 30px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 85vh;
+      max-height: 80vh;
       overflow-y: auto;
     }
-    .popup h2, .bonus-popup h2 {
+    .popup h2 {
       margin-top: 0;
       color: #fff;
       text-align: center;
     }
     .close {
       position: absolute;
-      top: 10px;
+      top: 12px;
       right: 20px;
       color: #fff;
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
+      font-weight: bold;
+      user-select: none;
     }
-    form input, form select, form textarea {
+    form input,
+    form select,
+    form textarea {
       width: 100%;
       margin-bottom: 15px;
       padding: 10px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
+      box-sizing: border-box;
     }
     form textarea {
       resize: vertical;
@@ -99,6 +109,7 @@
       cursor: pointer;
       border-radius: 10px;
       width: 100%;
+      margin-top: 5px;
     }
     #account-info {
       font-size: 16px;
@@ -107,6 +118,7 @@
       padding: 15px;
       border-radius: 10px;
       display: none;
+      margin-bottom: 15px;
     }
     #timer {
       margin-top: 10px;
@@ -114,155 +126,352 @@
       text-align: center;
       color: #ffcc00;
     }
-    .bonus-option {
+    #confirm-payment-label {
+      font-weight: bold;
+      font-size: 18px;
       display: flex;
       align-items: center;
-      margin: 10px 0;
+      gap: 10px;
+      user-select: none;
     }
-    .bonus-option img {
+    #confirm-payment {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      accent-color: #00cc00;
+      /* Толстая галочка */
+      border-radius: 5px;
+      border: 2px solid #00cc00;
+    }
+    /* Второе окно — бонусы */
+    .popup-bonus {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+      width: 90%;
+      max-width: 480px;
+      background-color: #222;
+      padding: 25px 30px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #ffcc00;
+      z-index: 11000;
+      max-height: 85vh;
+      overflow-y: auto;
+      color: #fff;
+      text-align: center;
+    }
+    .popup-bonus h2 {
+      margin-top: 0;
+      font-size: 28px;
+      color: #ffcc00;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 4px #000;
+    }
+    .popup-bonus .bonus-item {
+      background: #333;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .popup-bonus .bonus-item:hover,
+    .popup-bonus .bonus-item.selected {
+      background: #ffcc00;
+      color: #111;
+      font-weight: bold;
+      box-shadow: 0 0 10px #ffcc00;
+    }
+    .popup-bonus img {
       width: 80px;
-      height: 80px;
-      object-fit: cover;
-      margin-right: 15px;
+      height: auto;
       border-radius: 10px;
+      flex-shrink: 0;
     }
-    .bonus-option input {
-      margin-right: 10px;
+    .popup-bonus .bonus-desc {
+      flex-grow: 1;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
     }
-    .bonus-popup .continue-btn {
-      margin-top: 20px;
-      background: #ff0000;
+    .popup-bonus .bonus-price {
+      font-size: 18px;
+      font-weight: 900;
+      flex-shrink: 0;
+      min-width: 50px;
+      text-align: right;
+    }
+    .popup-bonus button.continue-btn {
+      margin-top: 25px;
+      background: #ffcc00;
+      color: #111;
+      font-weight: 900;
       font-size: 20px;
+      border: none;
+      padding: 12px 0;
+      width: 100%;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ffcc00;
+      transition: background 0.3s ease;
+    }
+    .popup-bonus button.continue-btn:hover {
+      background: #e6b800;
     }
   </style>
 </head>
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
+    <button onclick="showPopupForm()">Odeslat objednávku</button>
   </div>
 
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1" />
     <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2" />
     <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3" />
     <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4" />
     <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5" />
     <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
-  <div class="popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+  <!-- Первое окно — форма заказа -->
+  <div class="popup" id="popupForm">
+    <span class="close" onclick="closePopup('popupForm')">&times;</span>
     <h2>Objednávkový formulář</h2>
-    <form id="main-form" action="https://getform.io/f/bgdlekoa" method="POST">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
+    <form id="orderForm" action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Vaše jméno" required />
+      <input type="tel" name="phone" placeholder="Telefon" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <select id="location" name="location" onchange="toggleAccountInfo()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
+
       <div id="account-info">
-        <p>Celková cena: <strong id="total-price">999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
-        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> <strong>Potvrzuji platbu 250 Kč na účet</strong></label>
+        <p>
+          Celková cena: <strong><span id="totalPrice">899</span> Kč</strong><br />
+          Z toho předem na účet: <strong>250 Kč</strong> (ČSOB 354037257/0300)<br />
+          Zbytek (<strong><span id="restPrice">649</span> Kč</strong>) při převzetí v Zásilkovně.
+        </p>
+        <label id="confirm-payment-label">
+          <input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes" required />
+          Potvrzuji platbu 250 Kč na účet
+        </label>
       </div>
-      <input type="hidden" name="bonus" id="bonus-hidden">
+
+      <label for="payment-screenshot" style="font-weight: bold; margin-bottom: 6px; display: block;">
+        Přiložit screenshot platby (volitelné):
+      </label>
+      <input type="file" id="payment-screenshot" name="payment_screenshot" accept="image/*" />
+
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+
       <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
     </form>
   </div>
 
-  <div class="bonus-popup" id="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2>🎉 Gratulujeme! Jste 50. zákazník!</h2>
-    <p>Vybírejte si dárek:</p>
-    <div class="bonus-option">
-      <input type="radio" name="bonus-option" value="Šachovnice za 99 Kč">
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg">
-      <label>Šachovnice (příplatek 99 Kč)</label>
+  <!-- Второе окно — выбор бонуса -->
+  <div class="popup-bonus" id="popupBonus">
+    <span class="close" onclick="closePopup('popupBonus')">&times;</span>
+    <h2>Gratulujeme! Jste 50. zákazník!</h2>
+    <p style="font-size:18px; font-weight:bold; margin-bottom: 15px; color:#fff;">
+      Likvidace zboží – Vyberte si dárek k objednávce:
+    </p>
+
+    <div class="bonus-item" data-bonus="chess" data-price="99" onclick="selectBonus(this)">
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" alt="Šachová deska" />
+      <div class="bonus-desc">Šachová deska – pouze za 99 Kč (příplatek k objednávce)</div>
+      <div class="bonus-price">+99 Kč</div>
     </div>
-    <div class="bonus-option">
-      <input type="radio" name="bonus-option" value="Sluchátka P47 zdarma">
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp">
-      <label>Sluchátka P47 zdarma</label>
+
+    <div class="bonus-item" data-bonus="headphones" data-price="0" onclick="selectBonus(this)">
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" alt="Sluchátka" />
+      <div class="bonus-desc">Bezplatná sluchátka R47 (dárek zdarma)</div>
+      <div class="bonus-price">ZDARMA</div>
     </div>
-    <button class="continue-btn" onclick="applyBonus()">✅ Pokračovat s bonusem</button>
-    <div id="bonus-timer" style="text-align: center; margin-top: 15px; color: #ff0;"></div>
+
+    <button class="continue-btn" onclick="applyBonus()">Pokračovat v objednávce</button>
+    <div id="bonus-timer" style="color:#ffcc00; font-weight:bold; margin-top: 15px;"></div>
   </div>
 
-  <audio id="popup-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.wav"></audio>
-
   <script>
-    function toggleAccount() {
-      const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+    // Открыть первое окно
+    function showPopupForm() {
+      document.getElementById("popupForm").style.display = "block";
+      startCountdown();
+      toggleAccountInfo();
     }
 
+    // Закрыть окно
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    // Показать/скрыть блок с информацией о счете в зависимости от выбора города
+    function toggleAccountInfo() {
+      const location = document.getElementById("location").value;
+      const accInfo = document.getElementById("account-info");
+      if (location === "nepraha") {
+        accInfo.style.display = "block";
+      } else {
+        accInfo.style.display = "none";
+      }
+    }
+
+    // Таймер обратного отсчёта (24 часа)
     function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const deadline = Date.now() + 24 * 60 * 60 * 1000;
-      function update() {
-        const left = deadline - Date.now();
-        if (left <= 0) {
+      const timerDisplay = document.getElementById("timer");
+      const now = Date.now();
+      const storedDeadline = localStorage.getItem("deadline");
+      let deadline = storedDeadline ? parseInt(storedDeadline) : now + 24 * 60 * 60 * 1000;
+      localStorage.setItem("deadline", deadline);
+
+      function updateTimer() {
+        const remaining = deadline - Date.now();
+        if (remaining <= 0) {
           timerDisplay.innerText = "⏰ Čas vypršel!";
           return;
         }
-        const h = Math.floor(left / 3600000);
-        const m = Math.floor((left % 3600000) / 60000);
-        const s = Math.floor((left % 60000) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
-        setTimeout(update, 1000);
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        timerDisplay.innerText = `⏳ Zbývá čas: ${hours}h ${minutes}m ${seconds}s`;
+        setTimeout(updateTimer, 1000);
       }
-      update();
+      updateTimer();
     }
 
-    setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      document.getElementById('popup-sound').play();
-      startCountdown();
-    }, 5000);
+    // Второе окно с бонусами показывается через 10 сек после открытия формы
+    function showBonusPopup() {
+      document.getElementById("popupBonus").style.display = "block";
+      startBonusTimer();
+    }
 
-    setTimeout(() => {
-      document.getElementById('bonus-popup').style.display = 'block';
-      document.getElementById('popup-sound').play();
-      startBonusCountdown();
-    }, 10000);
+    // Выбранный бонус и цена
+    let selectedBonus = null;
+    let selectedBonusPrice = 0;
 
+    // Выбор бонуса — подсветка, установка цены
+    function selectBonus(element) {
+      // Снять выделение со всех
+      document.querySelectorAll(".bonus-item").forEach((el) => el.classList.remove("selected"));
+      element.classList.add("selected");
+      selectedBonus = element.dataset.bonus;
+      selectedBonusPrice = parseInt(element.dataset.price);
+    }
+
+    // Применить бонус, обновить данные в первом окне и закрыть бонусное окно
     function applyBonus() {
-      const selected = document.querySelector('input[name="bonus-option"]:checked');
-      if (!selected) return alert('Vyberte prosím dárek.');
-      document.getElementById('bonus-hidden').value = selected.value;
-
-      if (selected.value.includes('99')) {
-        document.getElementById('total-price').innerText = '1 098 Kč';
+      if (!selectedBonus) {
+        alert("Prosím, vyberte si bonus.");
+        return;
       }
-      document.getElementById('bonus-popup').style.display = 'none';
-      document.querySelector('.popup').scrollIntoView({ behavior: 'smooth' });
+      // Обновить цену на сайте и в форме
+      updatePrices(selectedBonusPrice);
+      closePopup("popupBonus");
     }
 
-    function startBonusCountdown() {
-      const display = document.getElementById('bonus-timer');
-      const deadline = Date.now() + 10 * 60 * 1000;
-      function update() {
-        const left = deadline - Date.now();
-        if (left <= 0) {
-          display.innerText = "🎁 Nabídka skončila";
+    // Обновить цены в форме
+    function updatePrices(bonusPrice) {
+      const basePrice = 899;
+      const prepayment = 250;
+      const totalPriceElem = document.getElementById("totalPrice");
+      const restPriceElem = document.getElementById("restPrice");
+      const accountInfo = document.getElementById("account-info");
+
+      let newTotal = basePrice + bonusPrice;
+      totalPriceElem.innerText = newTotal;
+
+      // Остаток = общая сумма - предоплата
+      restPriceElem.innerText = newTotal - prepayment;
+
+      // Показываем блок счета, если выбран не пражский город (как у тебя)
+      toggleAccountInfo();
+
+      // Запомним бонус в скрытом input для отправки вместе с формой
+      let bonusInput = document.getElementById("bonusInput");
+      if (!bonusInput) {
+        bonusInput = document.createElement("input");
+        bonusInput.type = "hidden";
+        bonusInput.name = "bonus";
+        bonusInput.id = "bonusInput";
+        document.getElementById("orderForm").appendChild(bonusInput);
+      }
+      bonusInput.value = selectedBonus;
+
+      // Обновим описание бонуса для получения (для тебя в почте)
+      let bonusDescInput = document.getElementById("bonusDescInput");
+      if (!bonusDescInput) {
+        bonusDescInput = document.createElement("input");
+        bonusDescInput.type = "hidden";
+        bonusDescInput.name = "bonus_description";
+        bonusDescInput.id = "bonusDescInput";
+        document.getElementById("orderForm").appendChild(bonusDescInput);
+      }
+      const desc = selectedBonus === "chess" ? "Šachová deska (+99 Kč)" : "Sluchátka R47 (zdarma)";
+      bonusDescInput.value = desc;
+    }
+
+    // Таймер обратного отсчёта для бонуса (пример 3 часа)
+    function startBonusTimer() {
+      const bonusTimer = document.getElementById("bonus-timer");
+      const now = Date.now();
+      const storedBonusDeadline = localStorage.getItem("bonusDeadline");
+      let bonusDeadline = storedBonusDeadline ? parseInt(storedBonusDeadline) : now + 3 * 60 * 60 * 1000;
+      localStorage.setItem("bonusDeadline", bonusDeadline);
+
+      function updateBonusTimer() {
+        const remaining = bonusDeadline - Date.now();
+        if (remaining <= 0) {
+          bonusTimer.innerText = "⏰ Akce na bonus skončila!";
           return;
         }
-        const m = Math.floor((left % 3600000) / 60000);
-        const s = Math.floor((left % 60000) / 1000);
-        display.innerText = `🕒 Sleva končí za: ${m}m ${s}s`;
-        setTimeout(update, 1000);
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        const minutes = Math.floor((remaining % (1000 * 60 * 60))
+                                   const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+        bonusTimer.innerText = `⏳ Akce končí za: ${hours}h ${minutes}m ${seconds}s`;
+        setTimeout(updateBonusTimer, 1000);
       }
-      update();
+      updateBonusTimer();
+    }
+
+    // Автоматически показать первое окно через 5 секунд с звуком
+    setTimeout(() => {
+      showPopupForm();
+      playSound('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg');
+    }, 5000);
+
+    // Второе окно с бонусом через 10 секунд с другим звуком (если первое окно открыто)
+    setTimeout(() => {
+      if (document.getElementById("popupForm").style.display === "block") {
+        showBonusPopup();
+        playSound('https://actions.google.com/sounds/v1/cartoon/woodpecker_peck.ogg');
+      }
+    }, 10000);
+
+    // Функция для проигрывания звука (3 секунды)
+    function playSound(url) {
+      const audio = new Audio(url);
+      audio.volume = 0.5;
+      audio.play();
+      setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }, 3000);
     }
   </script>
 </body>
