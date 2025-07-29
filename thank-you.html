@@ -107,6 +107,11 @@
       border-radius: 10px;
       display: none;
     }
+    #qr-code {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+    }
     #timer {
       margin-top: 10px;
       font-size: 16px;
@@ -114,35 +119,9 @@
       color: #ffcc00;
     }
     .bonus-options img {
-      width: 100px;
-      border-radius: 12px;
-      margin: 5px;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .bonus-options img:hover {
-      transform: scale(1.1);
-    }
-    .bonus-popup h2 {
-      font-size: 24px;
-      text-align: center;
-      color: #ff4444;
-      background: linear-gradient(90deg, #ffcc00, #ff4444);
-      padding: 10px;
-      border-radius: 10px;
-    }
-    .big-submit {
-      margin-top: 20px;
-      background: #00cc00;
-      color: white;
-      padding: 15px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 10px;
-      cursor: pointer;
-      border: none;
       width: 100%;
+      border-radius: 12px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -184,6 +163,12 @@
         <br><br>
         📎 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*">
+        <br><br>
+        <button type="button" onclick="document.getElementById('qr-code').style.display='block'">📷 Zobrazit QR kód pro platbu</button>
+        <div id="qr-code">
+          <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR kód pro platbu" style="width: 200px; margin: 10px auto; display: block;">
+          <button type="button" onclick="document.getElementById('qr-code').style.display='none'">Zavřít QR</button>
+        </div>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
@@ -193,16 +178,16 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2>🎉 Gratulujeme! Jste 50. zákazník — Získejte BONUS!</h2>
-    <p style="text-align:center; font-size:18px;">Vyberte si jeden z bonusových dárků:</p>
-    <div class="bonus-options" style="text-align:center">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src, '_blank')">
-      <br><br>
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src, '_blank')">
+    <h2 style="color: #ff4444">🎁 L I K V I D A C E  - Bonus k objednávce!</h2>
+    <p>Vyberte si jeden z bonusů:</p>
+    <div class="bonus-options">
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label>
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg">
+
+      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label>
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp">
     </div>
-    <button class="big-submit" onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
+    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
   <script>
@@ -249,4 +234,4 @@
     }, 10000);
   </script>
 </body>
-  </html>
+</html>
