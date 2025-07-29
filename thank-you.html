@@ -56,13 +56,13 @@
       top: 15%;
       left: 50%;
       transform: translate(-50%, -15%);
-      width: 70%;
+      width: 90%;
       background-color: #222;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 80vh;
+      max-height: 90vh;
       overflow-y: auto;
     }
     .popup h2 {
@@ -79,11 +79,11 @@
     }
     form input, form select, form textarea {
       width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
+      margin-bottom: 12px;
+      padding: 8px;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 15px;
     }
     form textarea {
       resize: vertical;
@@ -98,6 +98,17 @@
       cursor: pointer;
       border-radius: 10px;
       width: 100%;
+    }
+    #submitBtn {
+      position: sticky;
+      bottom: 0;
+      background: #00cc00;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      width: 100%;
+      z-index: 10;
     }
     #account-info {
       font-size: 16px;
@@ -120,7 +131,7 @@
     Uspěj koupit za 899 Kč
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
-  
+
   <div class="images">
     <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
     <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
@@ -136,34 +147,36 @@
 
   <div class="popup">
     <span class="close" onclick="document.querySelector('.popup').style.display='none'">×</span>
-    <h2>Objednávkový formulář</h2>
+    <h2>Objednávkový formulář / Форма заказа</h2>
     <form action="https://getform.io/f/bgdlekoa" method="POST">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
+      <input type="text" name="name" placeholder="Vaše jméno / Ваше имя" required>
+      <input type="tel" name="phone" placeholder="Telefon / Телефон" required>
       <input type="email" name="email" placeholder="Email" required>
       <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha" selected>Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
+        <option value="praha" selected>Jsem z Prahy / Я из Праги</option>
+        <option value="nepraha">Nejsem z Prahy / Я не из Праги</option>
       </select>
       <div id="account-info">
         <p>Celková cena: <strong>999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet: <br><strong>ČSOB 354037257/0300</strong><br>
-        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.</p>
-        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu 250 Kč na účet</label>
+        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.<br>
+        Общая цена: <strong>999 Kč</strong>, из них <strong>250 Kč</strong> предоплата на счёт,<br>
+        Остальное (<strong>749 Kč</strong>) — при получении в Zásilkovně.</p>
+        <label><input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes"> Potvrzuji platbu / Подтверждаю оплату</label>
         <div id="qr-payment" style="margin-top: 15px; text-align: center; display: none;">
           <button onclick="document.getElementById('qr-box').style.display = 'block'; this.style.display='none';"
                   style="padding: 10px 16px; font-size: 15px; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">
-            📷 Otevřít QR platbu
+            📷 Otevřít QR platbu / Открыть QR для оплаты
           </button>
           <div id="qr-box" style="display: none; margin-top: 15px;">
             <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR platba"
                  style="max-width: 100%; border-radius: 10px; box-shadow: 0 0 10px rgba(255,255,255,0.2);">
-            <p style="margin-top: 10px; font-size: 13px; color: #ccc;">Skenujte QR v aplikaci vaší banky</p>
+            <p style="margin-top: 10px; font-size: 13px; color: #ccc;">Skenujte QR v aplikaci vaší banky / Отсканируйте в банковском приложении</p>
           </div>
         </div>
       </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit" id="submitBtn">Odeslat objednávku</button>
+      <textarea name="comment" placeholder="Poznámka nebo výdejní místo / Комментарий или пункт выдачи"></textarea>
+      <button type="submit" id="submitBtn">Odeslat objednávku / Отправить заказ</button>
       <div id="timer"></div>
     </form>
   </div>
@@ -197,13 +210,13 @@
       function update() {
         const remaining = deadline - Date.now();
         if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
+          timerDisplay.innerText = "⏰ Čas vypršel! / Время вышло!";
           return;
         }
         const h = Math.floor(remaining / (1000 * 60 * 60));
         const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
+        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s / Осталось: ${h}ч ${m}м ${s}с`;
         setTimeout(update, 1000);
       }
       update();
@@ -214,4 +227,4 @@
     }, 7000);
   </script>
 </body>
-              </html>
+</html>
