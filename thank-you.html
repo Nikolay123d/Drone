@@ -50,7 +50,7 @@
       margin: -10px 20px 30px;
       color: #ccc;
     }
-    .popup, .bonus-popup {
+    .popup, .bonus-popup, #music-popup {
       display: none;
       position: fixed;
       top: 10%;
@@ -64,6 +64,30 @@
       z-index: 10000;
       max-height: 90vh;
       overflow-y: auto;
+    }
+    #music-popup {
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      max-height: none;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+    }
+    #music-popup button {
+      background-color: #00cc00;
+      border: none;
+      color: white;
+      font-size: 20px;
+      padding: 12px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00cc00aa;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+    #music-popup button:hover {
+      background-color: #009900;
     }
     .popup h2, .bonus-popup h2 {
       margin-top: 0;
@@ -127,6 +151,7 @@
       flex-direction: column;
       gap: 10px;
       z-index: 15000;
+      font-weight: bold;
     }
     .chat-buttons a {
       background-color: #00cc00;
@@ -134,7 +159,6 @@
       padding: 10px 15px;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: bold;
       text-align: center;
       font-size: 16px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
@@ -228,6 +252,12 @@
   <!-- Аудио -->
   <audio id="promo-audio" src="https://voca.ro/15nPLJYTAaBj" preload="auto"></audio>
 
+  <!-- Окно для включения музыки -->
+  <div id="music-popup">
+    <div>Для прослушивания музыкального сопровождения нажмите кнопку ниже:</div>
+    <button id="start-music-btn">Включить музыку</button>
+  </div>
+
   <script>
     // Показать/скрыть инфо об оплате
     function toggleAccount() {
@@ -276,20 +306,20 @@
       document.querySelector('.bonus-popup').style.display = 'block';
     }, 10000);
 
-    // Запрос разрешения и воспроизведение музыки через 3 сек
+    // Показать окно включения музыки через 3 сек
     setTimeout(() => {
-      const audio = document.getElementById('promo-audio');
-      const playAudio = () => {
-        audio.play().catch(() => {
-          // Если автозапуск заблокирован, покажем подсказку
-          alert('Klikněte kamkoli na stránku pro přehrání zvuku 🎵');
-          document.body.addEventListener('click', () => {
-            audio.play();
-          }, { once: true });
-        });
-      };
-      playAudio();
+      document.getElementById('music-popup').style.display = 'block';
     }, 3000);
+
+    // Запуск музыки при нажатии на кнопку
+    document.getElementById('start-music-btn').addEventListener('click', () => {
+      const audio = document.getElementById('promo-audio');
+      audio.play().then(() => {
+        document.getElementById('music-popup').style.display = 'none';
+      }).catch(() => {
+        alert('Не удалось запустить музыку, попробуйте ещё раз.');
+      });
+    });
   </script>
 </body>
 </html>
