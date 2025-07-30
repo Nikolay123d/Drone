@@ -62,7 +62,7 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 80vh;
+      max-height: 90vh;
       overflow-y: auto;
     }
     .popup h2, .bonus-popup h2 {
@@ -115,38 +115,9 @@
     }
     .bonus-options img {
       width: 40%;
-      max-width: 150px;
       border-radius: 12px;
-      margin: 10px;
+      margin-bottom: 10px;
       cursor: pointer;
-    }
-    .chat-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25d366;
-      color: white;
-      padding: 15px;
-      border-radius: 50px;
-      font-size: 18px;
-      z-index: 9999;
-      cursor: pointer;
-    }
-    .chat-links {
-      display: none;
-      position: fixed;
-      bottom: 70px;
-      right: 20px;
-      background: #222;
-      padding: 10px;
-      border-radius: 12px;
-      z-index: 9999;
-    }
-    .chat-links a {
-      display: block;
-      color: #fff;
-      margin-bottom: 5px;
-      text-decoration: none;
     }
   </style>
 </head>
@@ -184,16 +155,9 @@
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet:<br>
         <strong>ČSOB 354037257/0300</strong><br>
-        <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR Platba" width="100%" style="border-radius:10px;margin:10px 0;">
-        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label>
-        <br><br>
         📎 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*">
-      </div>
-      <div>
-        <p><strong>Vyberte bonus:</strong></p>
-        <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-        <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label>
+        </p>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
@@ -203,26 +167,16 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎉 Gratulujeme! Jste 50. zákazník 🎉</h2>
-    <p><strong>LIKVIDACE TOVARU</strong> – Vyberte si bonus:</p>
+    <h2 style="color: #ff4444">🎁 L I K V I D A C E  - Bonus k objednávce!</h2>
+    <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
-      <label><input type="radio" name="bonus2" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label>
-      <a href="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" target="_blank">
-        <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg">
-      </a>
-      <label><input type="radio" name="bonus2" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label>
-      <a href="https://i.ibb.co/xKxdGMW4/289748005.webp" target="_blank">
-        <img src="https://i.ibb.co/xKxdGMW4/289748005.webp">
-      </a>
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
+
+      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
     </div>
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
-  </div>
-
-  <div class="chat-button" onclick="toggleChat()">💬 Napište nám</div>
-  <div class="chat-links" id="chat-links">
-    <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank">WhatsApp</a>
-    <a href="https://t.me/darausoan" target="_blank">Telegram</a>
-    <a href="viber://add?number=380968700835">Viber</a>
   </div>
 
   <script>
@@ -231,6 +185,7 @@
       const accInfo = document.getElementById('account-info');
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
     }
+
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
       const deadline = Date.now() + 24 * 60 * 60 * 1000;
@@ -248,6 +203,7 @@
       }
       updateTimer();
     }
+
     function setBonus(bonus) {
       const priceText = document.getElementById('price');
       if (bonus === 'sachy') {
@@ -255,10 +211,6 @@
       } else {
         priceText.innerText = '999 Kč';
       }
-    }
-    function toggleChat() {
-      const links = document.getElementById('chat-links');
-      links.style.display = (links.style.display === 'block') ? 'none' : 'block';
     }
 
     setTimeout(() => {
@@ -272,4 +224,3 @@
   </script>
 </body>
 </html>
-
