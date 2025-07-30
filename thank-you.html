@@ -50,7 +50,7 @@
       margin: -10px 20px 30px;
       color: #ccc;
     }
-    .popup, .bonus-popup, #music-popup {
+    .popup, .bonus-popup {
       display: none;
       position: fixed;
       top: 10%;
@@ -64,30 +64,6 @@
       z-index: 10000;
       max-height: 90vh;
       overflow-y: auto;
-    }
-    #music-popup {
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      max-height: none;
-      text-align: center;
-      color: white;
-      font-size: 18px;
-    }
-    #music-popup button {
-      background-color: #00cc00;
-      border: none;
-      color: white;
-      font-size: 20px;
-      padding: 12px 30px;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 0 15px #00cc00aa;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
-    }
-    #music-popup button:hover {
-      background-color: #009900;
     }
     .popup h2, .bonus-popup h2 {
       margin-top: 0;
@@ -159,6 +135,7 @@
       padding: 10px 15px;
       border-radius: 50px;
       text-decoration: none;
+      font-weight: bold;
       text-align: center;
       font-size: 16px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
@@ -180,6 +157,48 @@
       font-size: 16px;
       display: block;
       margin: 10px 0;
+    }
+    /* Окно подтверждения музыки */
+    #music-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      background-color: #222;
+      padding: 25px 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 204, 0, 0.7);
+      z-index: 11000;
+      color: #fff;
+      text-align: center;
+      font-size: 18px;
+      user-select: none;
+    }
+    #music-popup button {
+      margin-top: 20px;
+      background-color: #00cc00;
+      color: white;
+      border: none;
+      padding: 12px 35px;
+      font-size: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 10px #00cc00aa;
+    }
+    #music-popup button:hover {
+      background-color: #009900;
+    }
+    #music-popup .close {
+      position: absolute;
+      top: 8px;
+      right: 15px;
+      font-size: 26px;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
     }
   </style>
 </head>
@@ -249,14 +268,15 @@
     <a href="viber://add?number=380968700835" target="_blank" rel="noopener noreferrer">Viber – Napište nám</a>
   </div>
 
-  <!-- Аудио -->
-  <audio id="promo-audio" src="https://voca.ro/15nPLJYTAaBj" preload="auto"></audio>
-
-  <!-- Окно для включения музыки -->
+  <!-- Окно подтверждения музыки -->
   <div id="music-popup">
-    <div>Для прослушивания музыкального сопровождения нажмите кнопку ниже:</div>
-    <button id="start-music-btn">Включить музыку</button>
+    <span class="close" title="Закрыть">&times;</span>
+    <div>Подтвердите музыкальное сопровождение</div>
+    <button id="confirm-music-btn">Подтвердить</button>
   </div>
+
+  <!-- Твой аудиофайл -->
+  <audio id="promo-audio" src="https://voca.ro/15nPLJYTAaBj" preload="auto"></audio>
 
   <script>
     // Показать/скрыть инфо об оплате
@@ -306,18 +326,24 @@
       document.querySelector('.bonus-popup').style.display = 'block';
     }, 10000);
 
-    // Показать окно включения музыки через 3 сек
+    // Показать окно подтверждения музыки через 3 секунды
     setTimeout(() => {
       document.getElementById('music-popup').style.display = 'block';
     }, 3000);
 
-    // Запуск музыки при нажатии на кнопку
-    document.getElementById('start-music-btn').addEventListener('click', () => {
+    // Закрытие окна подтверждения музыки
+    document.querySelector('#music-popup .close').addEventListener('click', () => {
+      document.getElementById('music-popup').style.display = 'none';
+    });
+
+    // Запуск музыки при нажатии "Подтвердить"
+    document.getElementById('confirm-music-btn').addEventListener('click', () => {
       const audio = document.getElementById('promo-audio');
       audio.play().then(() => {
+        // Если музыка запустилась — скрываем окно
         document.getElementById('music-popup').style.display = 'none';
       }).catch(() => {
-        alert('Не удалось запустить музыку, попробуйте ещё раз.');
+        alert('Не удалось запустить музыку. Пожалуйста, попробуйте ещё раз.');
       });
     });
   </script>
