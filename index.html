@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Prodej Dronů</title>
   <style>
     body {
@@ -120,6 +119,44 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
+    .chat-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 15000;
+    }
+    .chat-buttons a {
+      background-color: #00cc00;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      transition: background-color 0.3s ease;
+    }
+    .chat-buttons a:hover {
+      background-color: #009900;
+    }
+    label.checkbox-label {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    label.checkbox-label input[type="checkbox"] {
+      transform: scale(1.5);
+    }
+    label.radio-label {
+      font-size: 16px;
+      display: block;
+      margin: 10px 0;
+    }
   </style>
 </head>
 <body>
@@ -129,15 +166,15 @@
   </div>
 
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1" />
     <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2" />
     <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3" />
     <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4" />
     <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5" />
     <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
@@ -145,19 +182,20 @@
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
     <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="name" placeholder="Vaše jméno" required />
+      <input type="tel" name="phone" placeholder="Telefon" required />
+      <input type="email" name="email" placeholder="Email" required />
       <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
       <div id="account-info">
-        <p>Celková cena: <strong id="price">999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet:<br>
-        <strong>ČSOB 354037257/0300</strong><br>
-        📎 Přiložte screenshot potvrzení:
-        <input type="file" name="payment_proof" accept="image/*">
+        <p>
+          Celková cena: <strong id="price">999 Kč</strong><br />
+          Z toho <strong>250 Kč</strong> předem na účet:<br />
+          <strong>ČSOB 354037257/0300</strong><br />
+          📎 Přiložte screenshot potvrzení:
+          <input type="file" name="payment_proof" accept="image/*" />
         </p>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
@@ -171,22 +209,34 @@
     <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')" /> 🧩 Šachová deska za 99 Kč</label><br />
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" alt="Šachová deska" onclick="window.open(this.src)" />
 
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
+      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')" /> 🎧 Sluchátka P47 ZDARMA</label><br />
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" alt="Sluchátka" onclick="window.open(this.src)" />
     </div>
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
+  <!-- Кнопки связи -->
+  <div class="chat-buttons" style="font-weight:bold;">
+    <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank" rel="noopener noreferrer">WhatsApp – Napište nám</a>
+    <a href="https://t.me/darausoan" target="_blank" rel="noopener noreferrer">Telegram – Napište nám</a>
+    <a href="viber://add?number=380968700835" target="_blank" rel="noopener noreferrer">Viber – Napište nám</a>
+  </div>
+
+  <!-- Аудио -->
+  <audio id="promo-audio" src="https://voca.ro/15nPLJYTAaBj" preload="auto"></audio>
+
   <script>
+    // Показать/скрыть инфо об оплате
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+      accInfo.style.display = location === 'nepraha' ? 'block' : 'none';
     }
 
+    // Таймер обратного отсчёта 24 часа
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
       const deadline = Date.now() + 24 * 60 * 60 * 1000;
@@ -205,6 +255,7 @@
       updateTimer();
     }
 
+    // Обновление цены с бонусом
     function setBonus(bonus) {
       const priceText = document.getElementById('price');
       if (bonus === 'sachy') {
@@ -214,14 +265,31 @@
       }
     }
 
+    // Показать первое всплывающее окно через 5 сек
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
       startCountdown();
     }, 5000);
 
+    // Показать второе всплывающее окно через 10 сек
     setTimeout(() => {
       document.querySelector('.bonus-popup').style.display = 'block';
     }, 10000);
+
+    // Запрос разрешения и воспроизведение музыки через 3 сек
+    setTimeout(() => {
+      const audio = document.getElementById('promo-audio');
+      const playAudio = () => {
+        audio.play().catch(() => {
+          // Если автозапуск заблокирован, покажем подсказку
+          alert('Klikněte kamkoli na stránku pro přehrání zvuku 🎵');
+          document.body.addEventListener('click', () => {
+            audio.play();
+          }, { once: true });
+        });
+      };
+      playAudio();
+    }, 3000);
   </script>
 </body>
-</html>
+      </html
