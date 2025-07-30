@@ -1,274 +1,306 @@
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prodej Dronů</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-    }
-    .banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #e60000;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-      font-size: 20px;
-      font-weight: bold;
-      z-index: 9999;
-    }
-    .banner button {
-      background: #fff;
-      color: #e60000;
-      border: none;
-      padding: 10px 15px;
-      margin-left: 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-    .images {
-      margin-top: 60px;
-    }
-    .images img {
-      width: 100%;
-      max-width: 100%;
-      display: block;
-      margin: 20px auto;
-      border-radius: 12px;
-    }
-    .description {
-      text-align: center;
-      font-size: 18px;
-      margin: -10px 20px 30px;
-      color: #ccc;
-    }
-    .popup, .bonus-popup {
-      display: none;
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translate(-50%, -10%);
-      width: 90%;
-      background-color: #222;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      z-index: 10000;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    .popup h2, .bonus-popup h2 {
-      margin-top: 0;
-      color: #fff;
-    }
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    form input, form select, form textarea {
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    form textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-    form button {
-      background: #00cc00;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 100%;
-    }
-    #account-info {
-      font-size: 16px;
-      color: #fff;
-      background: #333;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
-    }
-    #timer {
-      margin-top: 10px;
-      font-size: 16px;
-      text-align: center;
-      color: #ffcc00;
-    }
-    .bonus-options img {
-      width: 40%;
-      max-width: 150px;
-      border-radius: 12px;
-      margin: 10px;
-      cursor: pointer;
-    }
-    .chat-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25d366;
-      color: white;
-      padding: 15px;
-      border-radius: 50px;
-      font-size: 18px;
-      z-index: 9999;
-      cursor: pointer;
-    }
-    .chat-links {
-      display: none;
-      position: fixed;
-      bottom: 70px;
-      right: 20px;
-      background: #222;
-      padding: 10px;
-      border-radius: 12px;
-      z-index: 9999;
-    }
-    .chat-links a {
-      display: block;
-      color: #fff;
-      margin-bottom: 5px;
-      text-decoration: none;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prodej Dronů</title>
+<style>
+  body {
+    margin: 0; font-family: Arial, sans-serif; background: #111; color: #fff;
+  }
+  .banner {
+    position: fixed; top: 0; left: 0; width: 100%; background: #e60000;
+    color: white; text-align: center; padding: 10px 0; font-size: 20px;
+    font-weight: bold; z-index: 9999;
+  }
+  .banner button {
+    background: #fff; color: #e60000; border: none;
+    padding: 10px 15px; margin-left: 20px; font-size: 16px;
+    cursor: pointer; border-radius: 8px;
+  }
+  .images {
+    margin-top: 60px;
+  }
+  .images img {
+    width: 100%; max-width: 100%; display: block;
+    margin: 20px auto; border-radius: 12px;
+  }
+  .description {
+    text-align: center; font-size: 18px; margin: -10px 20px 30px;
+    color: #ccc;
+  }
+  /* Всплывающие окна */
+  .popup, .promo-popup {
+    display: none;
+    position: fixed; top: 10%; left: 50%;
+    transform: translate(-50%, -10%);
+    width: 85%; max-width: 480px;
+    background: #222; padding: 20px;
+    border-radius: 15px; box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    z-index: 10000;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .popup h2, .promo-popup h2 {
+    margin-top: 0; color: #fff; text-align: center;
+  }
+  .close {
+    position: absolute; top: 10px; right: 20px;
+    color: #fff; font-size: 24px; cursor: pointer;
+  }
+  form input, form select, form textarea {
+    width: 100%; margin-bottom: 15px; padding: 10px;
+    border: none; border-radius: 8px; font-size: 16px;
+    box-sizing: border-box;
+  }
+  form textarea { resize: vertical; min-height: 80px; }
+  form button {
+    background: #00cc00; color: white; border: none;
+    padding: 12px 20px; font-size: 18px; cursor: pointer;
+    border-radius: 10px; width: 100%;
+    position: sticky; bottom: 10px; z-index: 10001;
+  }
+  #account-info {
+    font-size: 16px; color: #fff; background: #333;
+    padding: 15px; border-radius: 10px; display: none;
+  }
+  #timer {
+    margin-top: 10px; font-size: 16px; text-align: center;
+    color: #ffcc00;
+  }
+  .bonus-options label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 16px; margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .bonus-options img {
+    width: 80px; border-radius: 12px;
+    cursor: pointer;
+  }
+  .chat-buttons {
+    position: fixed; bottom: 20px; right: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 100000;
+  }
+  .chat-buttons a {
+    background-color: #00cc00; color: white;
+    padding: 10px 20px; border-radius: 50px;
+    text-decoration: none; font-weight: bold;
+    font-size: 16px; text-align: center;
+  }
+  /* Модальное большое изображение */
+  #imageModal {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.8); z-index:15000;
+    justify-content:center; align-items:center;
+  }
+  #imageModal img {
+    max-width:90%; max-height:90%; border-radius:12px;
+  }
+</style>
 </head>
 <body>
-  <div class="banner">
-    Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
-  </div>
 
-  <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
-  </div>
+<div class="banner">
+  Uspěj koupit za 899 Kč
+  <button onclick="showOrderPopup()">Odeslat objednávku</button>
+</div>
 
-  <div class="popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha" selected>Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
-      </select>
-      <div id="account-info">
-        <p>Celková cena: <strong id="price">999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet:<br>
-        <strong>ČSOB 354037257/0300</strong><br>
-        <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR Platba" width="100%" style="border-radius:10px;margin:10px 0;">
-        <label><input type="checkbox" name="payment_confirmed" value="yes" style="transform: scale(1.5);"> Potvrzuji platbu 250 Kč na účet</label>
-        <br><br>
-        📎 Přiložte screenshot potvrzení:
-        <input type="file" name="payment_proof" accept="image/*">
-      </div>
-      <div>
-        <p><strong>Vyberte bonus:</strong></p>
-        <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-        <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label>
-      </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit">Odeslat objednávku</button>
-      <div id="timer"></div>
-    </form>
-  </div>
+<div class="images">
+  <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1" />
+  <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+  <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2" />
+  <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+  <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3" />
+  <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+  <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4" />
+  <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+  <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5" />
+  <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+</div>
 
-  <div class="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎉 Gratulujeme! Jste 50. zákazník 🎉</h2>
-    <p><strong>LIKVIDACE TOVARU</strong> – Vyberte si bonus:</p>
-    <div class="bonus-options">
-      <label><input type="radio" name="bonus2" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label>
-      <a href="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" target="_blank">
-        <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg">
-      </a>
-      <label><input type="radio" name="bonus2" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label>
-      <a href="https://i.ibb.co/xKxdGMW4/289748005.webp" target="_blank">
-        <img src="https://i.ibb.co/xKxdGMW4/289748005.webp">
-      </a>
+<!-- Окно заказа -->
+<div class="popup" id="orderPopup">
+  <span class="close" onclick="closePopup('orderPopup')">×</span>
+  <h2>Objednávkový formulář</h2>
+  <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data" id="orderForm">
+    <input type="text" name="name" placeholder="Vaše jméno" required />
+    <input type="tel" name="phone" placeholder="Telefon" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <select id="location" name="location" onchange="toggleAccountInfo()">
+      <option value="praha" selected>Jsem z Prahy</option>
+      <option value="nepraha">Nejsem z Prahy</option>
+    </select>
+
+    <div id="account-info">
+      <p>
+        Celková cena: <strong id="totalPrice">999 Kč</strong><br/>
+        Z toho <strong>250 Kč</strong> předem na účet:<br/>
+        <strong>ČSOB 354037257/0300</strong><br/>
+        Zbytek (<strong>749 Kč</strong>) při převzetí v Zásilkovně.
+      </p>
+      <label class="checkbox-label">
+        <input type="checkbox" id="confirm-payment" name="payment_confirmed" value="yes" required />
+        Potvrzuji platbu 250 Kč na účet
+      </label>
+      <label>
+        Zde nahrajte potvrzení platby (screenshot):
+        <input type="file" name="payment_screenshot" accept="image/*" required />
+      </label>
     </div>
-    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
-  </div>
 
-  <div class="chat-button" onclick="toggleChat()">💬 Napište nám</div>
-  <div class="chat-links" id="chat-links">
-    <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank">WhatsApp</a>
-    <a href="https://t.me/darausoan" target="_blank">Telegram</a>
-    <a href="viber://add?number=380968700835">Viber</a>
-  </div>
+    <div class="bonus-options">
+      <p>Vyberte bonus (můžete vybrat pouze jeden):</p>
+      <label>
+        <input type="radio" name="bonus" value="chess" onchange="updatePrice()" />
+        Šachová deska +99 Kč
+        <img src="https://i.ibb.co/JFwSZ7FN/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" alt="Šachová deska" onclick="openImage(this.src)" />
+      </label>
+      <label>
+        <input type="radio" name="bonus" value="headphones" onchange="updatePrice()" />
+        Bezplatné sluchátka R47
+        <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" alt="Sluchátka" onclick="openImage(this.src)" />
+      </label>
+    </div>
 
-  <script>
-    function toggleAccount() {
-      const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+    <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+    <button type="submit">Odeslat objednávku</button>
+    <div id="timer"></div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <p>Pro platbu použijte QR kód:</p>
+      <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR kód platby" style="max-width:150px; cursor:pointer;" onclick="openImage(this.src)" />
+    </div>
+  </form>
+</div>
+
+<!-- Всплывающее окно акции -->
+<div class="promo-popup" id="promoPopup">
+  <span class="close" onclick="closePopup('promoPopup')">×</span>
+  <h2>Speciální akce!</h2>
+  <p>Objednejte nyní a získejte dopravu zdarma + bonus navíc!</p>
+  <button onclick="closePopup('promoPopup')">Zavřít</button>
+</div>
+
+<!-- Модальное окно для увеличения изображений -->
+<div id="imageModal" onclick="closeImage()" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:15000;justify-content:center;align-items:center;">
+  <img id="modalImage" src="" style="max-width:90%; max-height:90%; border-radius:12px;" />
+</div>
+
+<!-- Кнопки связи -->
+<div class="chat-buttons">
+  <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank" rel="noopener"><strong>WhatsApp – Napište nám</strong></a>
+  <a href="https://t.me/darausoan" target="_blank" rel="noopener"><strong>Telegram – Napište nám</strong></a>
+  <a href="viber://add?number=380968700835" target="_blank" rel="noopener"><strong>Viber – Napište nám</strong></a>
+</div>
+
+<!-- Аудио -->
+<audio id="backgroundMusic" src="https://voca.ro/15nPLJYTAaBj" preload="auto"></audio>
+
+<script>
+  // Показать окно заказа
+  function showOrderPopup() {
+    document.getElementById('orderPopup').style.display = 'block';
+    startCountdown();
+    toggleAccountInfo();
+  }
+  // Закрыть любое всплывающее окно по id
+  function closePopup(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+  // Показать большое изображение
+  function openImage(src) {
+    const modal = document.getElementById('imageModal');
+    const img = document.getElementById('modalImage');
+    img.src = src;
+    modal.style.display = 'flex';
+  }
+  // Закрыть модальное изображение
+  function closeImage() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+  // Показать или скрыть инфо оплаты
+  function toggleAccountInfo() {
+    const loc = document.getElementById('location').value;
+    const acc = document.getElementById('account-info');
+    acc.style.display = loc === 'nepraha' ? 'block' : 'none';
+  }
+  // Обновить цену с учетом бонуса
+  function updatePrice() {
+    const radios = document.getElementsByName('bonus');
+    let bonusPrice = 0;
+    radios.forEach(r => { if (r.checked && r.value === 'chess') bonusPrice = 99; });
+    const basePrice = 999;
+    document.getElementById('totalPrice').textContent = (basePrice + bonusPrice) + ' Kč';
+  }
+  // Таймер обратного отсчета 24 часа
+  function startCountdown() {
+    const timerDisplay = document.getElementById('timer');
+    let deadline = localStorage.getItem('deadline');
+    if (!deadline || isNaN(deadline)) {
+      deadline = Date.now() + 24*60*60*1000; // 24 часа с текущего времени
+      localStorage.setItem('deadline', deadline);
+    } else {
+      deadline = parseInt(deadline);
     }
-    function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const deadline = Date.now() + 24 * 60 * 60 * 1000;
-      function updateTimer() {
-        const remaining = deadline - Date.now();
-        if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
-          return;
-        }
-        const h = Math.floor(remaining / (1000 * 60 * 60));
-        const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
-        setTimeout(updateTimer, 1000);
+    function updateTimer() {
+      const remaining = deadline - Date.now();
+      if (remaining <= 0) {
+        timerDisplay.innerText = "⏰ Čas vypršel!";
+        return;
       }
-      updateTimer();
+      const h = Math.floor(remaining / (1000*60*60));
+      const m = Math.floor((remaining % (1000*60*60)) / (1000*60));
+      const s = Math.floor((remaining % (1000*60)) / 1000);
+      timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
+      setTimeout(updateTimer, 1000);
     }
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
-      }
-    }
-    function toggleChat() {
-      const links = document.getElementById('chat-links');
-      links.style.display = (links.style.display === 'block') ? 'none' : 'block';
-    }
+    updateTimer();
+  }
 
+  // Автоматически показать окно акции через 10 секунд после загрузки сайта
+  window.addEventListener('load', () => {
     setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
-    }, 5000);
-
-    setTimeout(() => {
-      document.querySelector('.bonus-popup').style.display = 'block';
+      const promo = document.getElementById('promoPopup');
+      promo.style.display = 'block';
     }, 10000);
-  </script>
+  });
+
+  // Запустить аудио через 3 секунды с запросом разрешения
+  setTimeout(() => {
+    const audio = document.getElementById('backgroundMusic');
+    if (!audio) return;
+    let playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Автоматическое воспроизведение заблокировано
+        if (!document.getElementById('playAudioBtn')) {
+          const btn = document.createElement('button');
+          btn.id = 'playAudioBtn';
+          btn.textContent = 'Přehrát hudbu 🎵';
+          Object.assign(btn.style, {
+            position: 'fixed',
+            bottom: '100px',
+            right: '20px',
+            zIndex: '20000',
+            padding: '12px 20px',
+            fontSize: '16px',
+            borderRadius: '10px',
+            background: '#00cc00',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer'
+          });
+          btn.onclick = () => {
+            audio.play();
+            btn.style.display = 'none';
+          };
+          document.body.appendChild(btn);
+        }
+      });
+    }
+  }, 3000);
+</script>
+
 </body>
 </html>
