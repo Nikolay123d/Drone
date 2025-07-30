@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prodej Dronů</title>
   <style>
     body {
@@ -37,17 +37,21 @@
     .images {
       margin-top: 60px;
     }
-    .images img {
-      width: 100%;
+    .slideshow-container {
       max-width: 100%;
-      display: block;
-      margin: 20px auto;
+      position: relative;
+      margin: auto;
+    }
+    .slideshow-container img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
       border-radius: 12px;
     }
     .description {
       text-align: center;
       font-size: 18px;
-      margin: -10px 20px 30px;
+      margin: 10px 20px 30px;
       color: #ccc;
     }
     .popup, .bonus-popup {
@@ -62,7 +66,7 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 90vh;
+      max-height: 95vh;
       overflow-y: auto;
     }
     .popup h2, .bonus-popup h2 {
@@ -107,6 +111,14 @@
       border-radius: 10px;
       display: none;
     }
+    #qr-payment {
+      text-align: center;
+      margin: 10px 0;
+    }
+    #qr-payment img {
+      max-width: 200px;
+      border-radius: 12px;
+    }
     #timer {
       margin-top: 10px;
       font-size: 16px;
@@ -114,9 +126,9 @@
       color: #ffcc00;
     }
     .bonus-options img {
-      width: 40%;
+      width: 35%;
       border-radius: 12px;
-      margin-bottom: 10px;
+      margin: 10px;
       cursor: pointer;
     }
     .chat-buttons {
@@ -126,79 +138,17 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      z-index: 15000;
-      font-weight: bold;
+      z-index: 100000;
     }
     .chat-buttons a {
       background-color: #00cc00;
       color: white;
-      padding: 10px 15px;
+      padding: 10px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: bold;
       text-align: center;
       font-size: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      transition: background-color 0.3s ease;
-    }
-    .chat-buttons a:hover {
-      background-color: #009900;
-    }
-    label.checkbox-label {
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    label.checkbox-label input[type="checkbox"] {
-      transform: scale(1.5);
-    }
-    label.radio-label {
-      font-size: 16px;
-      display: block;
-      margin: 10px 0;
-    }
-    /* Окно подтверждения музыки */
-    #music-popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 320px;
-      background-color: #222;
-      padding: 25px 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0, 204, 0, 0.7);
-      z-index: 11000;
-      color: #fff;
-      text-align: center;
-      font-size: 18px;
-      user-select: none;
-    }
-    #music-popup button {
-      margin-top: 20px;
-      background-color: #00cc00;
-      color: white;
-      border: none;
-      padding: 12px 35px;
-      font-size: 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 0 10px #00cc00aa;
-    }
-    #music-popup button:hover {
-      background-color: #009900;
-    }
-    #music-popup .close {
-      position: absolute;
-      top: 8px;
-      right: 15px;
-      font-size: 26px;
-      color: #fff;
-      cursor: pointer;
-      user-select: none;
     }
   </style>
 </head>
@@ -208,38 +158,32 @@
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
 
-  <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron 1" />
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Dron 2" />
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Dron 3" />
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Dron 4" />
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Dron 5" />
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+  <div class="slideshow-container">
+    <img id="slide" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron">
   </div>
+  <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem. 📷 Ostrý obraz i při letu díky stabilizaci. 🚀 Rychlý vzlet, ovládání jedním tlačítkem. 🎮 Snadné ovládání přes mobil nebo ovladač. 🔋 Výdrž až 20 minut letu s náhradní baterií.</div>
 
   <div class="popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
     <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Vaše jméno" required />
-      <input type="tel" name="phone" placeholder="Telefon" required />
-      <input type="email" name="email" placeholder="Email" required />
+      <input type="text" name="name" placeholder="Vaše jméno" required>
+      <input type="tel" name="phone" placeholder="Telefon" required>
+      <input type="email" name="email" placeholder="Email" required>
       <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
       <div id="account-info">
-        <p>
-          Celková cena: <strong id="price">999 Kč</strong><br />
-          Z toho <strong>250 Kč</strong> předem na účet:<br />
-          <strong>ČSOB 354037257/0300</strong><br />
-          📎 Přiložte screenshot potvrzení:
-          <input type="file" name="payment_proof" accept="image/*" />
+        <p>Celková cena: <strong id="price">999 Kč</strong><br>
+        Z toho <strong>250 Kč</strong> předem na účet:<br>
+        <strong>ČSOB 354037257/0300</strong><br>
+        📎 Přiložte screenshot potvrzení:
+        <input type="file" name="payment_proof" accept="image/*">
         </p>
+        <div id="qr-payment">
+          <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR Platba">
+        </div>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
@@ -249,44 +193,53 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
+    <h2 style="color: #ff4444">🎁 Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')" /> 🧩 Šachová deska za 99 Kč</label><br />
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" alt="Šachová deska" onclick="window.open(this.src)" />
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
 
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')" /> 🎧 Sluchátka P47 ZDARMA</label><br />
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" alt="Sluchátka" onclick="window.open(this.src)" />
+      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
     </div>
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
-  <!-- Кнопки связи -->
-  <div class="chat-buttons" style="font-weight:bold;">
-    <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank" rel="noopener noreferrer">WhatsApp – Napište nám</a>
-    <a href="https://t.me/darausoan" target="_blank" rel="noopener noreferrer">Telegram – Napište nám</a>
-    <a href="viber://add?number=380968700835" target="_blank" rel="noopener noreferrer">Viber – Napište nám</a>
+  <div class="chat-buttons">
+    <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank">WhatsApp – Napište nám</a>
+    <a href="https://t.me/darausoan" target="_blank">Telegram – Napište nám</a>
+    <a href="viber://add?number=380968700835" target="_blank">Viber – Napište nám</a>
   </div>
-
-  <!-- Окно подтверждения музыки -->
-  <div id="music-popup">
-    <span class="close" title="Закрыть">&times;</span>
-    <div>Подтвердите музыкальное сопровождение</div>
-    <button id="confirm-music-btn">Подтвердить</button>
-  </div>
-
-  <!-- Твой аудиофайл -->
-  <audio id="promo-audio" src="https://voca.ro/15nPLJYTAaBj" preload="auto"></audio>
 
   <script>
-    // Показать/скрыть инфо об оплате
+    const images = [
+      "https://i.ibb.co/zHZy0g5M/images-3.jpg",
+      "https://i.ibb.co/B2b8YsRr/images-4.jpg",
+      "https://i.ibb.co/gMCpwwxT/3-14.jpg",
+      "https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp",
+      "https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp"
+    ];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      document.getElementById('slide').src = images[index];
+    }, 4000);
+
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
       accInfo.style.display = location === 'nepraha' ? 'block' : 'none';
     }
 
-    // Таймер обратного отсчёта 24 часа
+    function setBonus(bonus) {
+      const priceText = document.getElementById('price');
+      if (bonus === 'sachy') {
+        priceText.innerText = '1098 Kč';
+      } else {
+        priceText.innerText = '999 Kč';
+      }
+    }
+
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
       const deadline = Date.now() + 24 * 60 * 60 * 1000;
@@ -305,47 +258,14 @@
       updateTimer();
     }
 
-    // Обновление цены с бонусом
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
-      }
-    }
-
-    // Показать первое всплывающее окно через 5 сек
     setTimeout(() => {
       document.querySelector('.popup').style.display = 'block';
       startCountdown();
     }, 5000);
 
-    // Показать второе всплывающее окно через 10 сек
     setTimeout(() => {
       document.querySelector('.bonus-popup').style.display = 'block';
     }, 10000);
-
-    // Показать окно подтверждения музыки через 3 секунды
-    setTimeout(() => {
-      document.getElementById('music-popup').style.display = 'block';
-    }, 3000);
-
-    // Закрытие окна подтверждения музыки
-    document.querySelector('#music-popup .close').addEventListener('click', () => {
-      document.getElementById('music-popup').style.display = 'none';
-    });
-
-    // Запуск музыки при нажатии "Подтвердить"
-    document.getElementById('confirm-music-btn').addEventListener('click', () => {
-      const audio = document.getElementById('promo-audio');
-      audio.play().then(() => {
-        // Если музыка запустилась — скрываем окно
-        document.getElementById('music-popup').style.display = 'none';
-      }).catch(() => {
-        alert('Не удалось запустить музыку. Пожалуйста, попробуйте ещё раз.');
-      });
-    });
   </script>
 </body>
 </html>
