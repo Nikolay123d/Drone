@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prodej Dronů</title>
   <style>
     body {
@@ -37,21 +38,17 @@
     .images {
       margin-top: 60px;
     }
-    .slideshow-container {
-      max-width: 100%;
-      position: relative;
-      margin: auto;
-    }
-    .slideshow-container img {
+    .images img {
       width: 100%;
-      max-height: 400px;
-      object-fit: cover;
+      max-width: 100%;
+      display: block;
+      margin: 20px auto;
       border-radius: 12px;
     }
     .description {
       text-align: center;
       font-size: 18px;
-      margin: 10px 20px 30px;
+      margin: -10px 20px 30px;
       color: #ccc;
     }
     .popup, .bonus-popup {
@@ -66,7 +63,7 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       z-index: 10000;
-      max-height: 95vh;
+      max-height: 90vh;
       overflow-y: auto;
     }
     .popup h2, .bonus-popup h2 {
@@ -111,14 +108,6 @@
       border-radius: 10px;
       display: none;
     }
-    #qr-payment {
-      text-align: center;
-      margin: 10px 0;
-    }
-    #qr-payment img {
-      max-width: 200px;
-      border-radius: 12px;
-    }
     #timer {
       margin-top: 10px;
       font-size: 16px;
@@ -126,29 +115,10 @@
       color: #ffcc00;
     }
     .bonus-options img {
-      width: 35%;
+      width: 40%;
       border-radius: 12px;
-      margin: 10px;
+      margin-bottom: 10px;
       cursor: pointer;
-    }
-    .chat-buttons {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 100000;
-    }
-    .chat-buttons a {
-      background-color: #00cc00;
-      color: white;
-      padding: 10px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-      font-size: 16px;
     }
   </style>
 </head>
@@ -158,10 +128,18 @@
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
 
-  <div class="slideshow-container">
-    <img id="slide" src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Dron">
+  <div class="images">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
-  <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem. 📷 Ostrý obraz i při letu díky stabilizaci. 🚀 Rychlý vzlet, ovládání jedním tlačítkem. 🎮 Snadné ovládání přes mobil nebo ovladač. 🔋 Výdrž až 20 minut letu s náhradní baterií.</div>
 
   <div class="popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
@@ -181,9 +159,6 @@
         📎 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*">
         </p>
-        <div id="qr-payment">
-          <img src="https://i.ibb.co/Df2NvK2q/Screenshot-20250729-150049.jpg" alt="QR Platba">
-        </div>
       </div>
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
@@ -193,7 +168,7 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎁 Bonus k objednávce!</h2>
+    <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
       <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
@@ -205,39 +180,11 @@
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
-  <div class="chat-buttons">
-    <a href="https://wa.me/qr/AC5H7XGGM26SA1" target="_blank">WhatsApp – Napište nám</a>
-    <a href="https://t.me/darausoan" target="_blank">Telegram – Napište nám</a>
-    <a href="viber://add?number=380968700835" target="_blank">Viber – Napište nám</a>
-  </div>
-
   <script>
-    const images = [
-      "https://i.ibb.co/zHZy0g5M/images-3.jpg",
-      "https://i.ibb.co/B2b8YsRr/images-4.jpg",
-      "https://i.ibb.co/gMCpwwxT/3-14.jpg",
-      "https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp",
-      "https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp"
-    ];
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      document.getElementById('slide').src = images[index];
-    }, 4000);
-
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      accInfo.style.display = location === 'nepraha' ? 'block' : 'none';
-    }
-
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
-      }
+      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
     }
 
     function startCountdown() {
@@ -256,6 +203,15 @@
         setTimeout(updateTimer, 1000);
       }
       updateTimer();
+    }
+
+    function setBonus(bonus) {
+      const priceText = document.getElementById('price');
+      if (bonus === 'sachy') {
+        priceText.innerText = '1098 Kč';
+      } else {
+        priceText.innerText = '999 Kč';
+      }
     }
 
     setTimeout(() => {
