@@ -124,7 +124,7 @@
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
+    <button id="orderBtn">Odeslat objednávku</button>
   </div>
 
   <div class="images">
@@ -143,7 +143,7 @@
   <div class="popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/bgdlekoa" method="POST" enctype="multipart/form-data">
+    <form action="https://formspree.io/f/xldlwrow" method="POST" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Vaše jméno" required>
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
@@ -159,6 +159,7 @@
         <input type="file" name="payment_proof" accept="image/*">
         </p>
       </div>
+      <input type="hidden" name="bonus_choice" id="bonus_choice">
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
@@ -187,7 +188,14 @@
 
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
-      const deadline = Date.now() + 24 * 60 * 60 * 1000;
+      let deadline = localStorage.getItem('droneTimerDeadline');
+      if (!deadline) {
+        deadline = Date.now() + 24 * 60 * 60 * 1000;
+        localStorage.setItem('droneTimerDeadline', deadline);
+      } else {
+        deadline = parseInt(deadline);
+      }
+
       function updateTimer() {
         const remaining = deadline - Date.now();
         if (remaining <= 0) {
@@ -205,6 +213,9 @@
 
     function setBonus(bonus) {
       const priceText = document.getElementById('price');
+      const bonusField = document.getElementById('bonus_choice');
+      bonusField.value = bonus;
+
       if (bonus === 'sachy') {
         priceText.innerText = '1098 Kč';
       } else {
@@ -212,17 +223,31 @@
       }
     }
 
-    setTimeout(() => {
+    let userOpenedPopup = false;
+
+    document.getElementById('orderBtn').addEventListener('click', () => {
       document.querySelector('.popup').style.display = 'block';
       startCountdown();
-    }, 5000);
+      userOpenedPopup = true;
+      document.querySelector('.popup').scrollIntoView({ behavior: 'smooth' });
+    });
 
     setTimeout(() => {
-      document.querySelector('.bonus-popup').style.display = 'block';
-    }, 10000);
+      if (!userOpenedPopup) {
+        document.querySelector('.popup').style.display = 'block';
+        startCountdown();
+      }
+    }, 5000);
+
+    if (!sessionStorage.getItem('bonusShown')) {
+      setTimeout(() => {
+        document.querySelector('.bonus-popup').style.display = 'block';
+        sessionStorage.setItem('bonusShown', 'true');
+      }, 10000);
+    }
   </script>
 
-  <!-- ✅ Скрипт Plausible для отслеживания -->
+  <!-- ✅ Скрипт Plausible pro sledování -->
   <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 </body>
 </html>
