@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prodej Dronů</title>
   <style>
     body {
@@ -124,7 +124,7 @@
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
-    <button id="orderBtn">Odeslat objednávku</button>
+    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
 
   <div class="images">
@@ -159,7 +159,6 @@
         <input type="file" name="payment_proof" accept="image/*">
         </p>
       </div>
-      <input type="hidden" name="bonus_choice" id="bonus_choice">
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
@@ -179,6 +178,11 @@
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
+  <!-- 🎵 Zvuk bonusu -->
+  <audio id="bonus-sound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     function toggleAccount() {
       const location = document.getElementById('location').value;
@@ -188,14 +192,7 @@
 
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
-      let deadline = localStorage.getItem('droneTimerDeadline');
-      if (!deadline) {
-        deadline = Date.now() + 24 * 60 * 60 * 1000;
-        localStorage.setItem('droneTimerDeadline', deadline);
-      } else {
-        deadline = parseInt(deadline);
-      }
-
+      const deadline = Date.now() + 24 * 60 * 60 * 1000;
       function updateTimer() {
         const remaining = deadline - Date.now();
         if (remaining <= 0) {
@@ -213,33 +210,28 @@
 
     function setBonus(bonus) {
       const priceText = document.getElementById('price');
-      const bonusField = document.getElementById('bonus_choice');
-      bonusField.value = bonus;
-      priceText.innerText = bonus === 'sachy' ? '1098 Kč' : '999 Kč';
+      if (bonus === 'sachy') {
+        priceText.innerText = '1098 Kč';
+      } else {
+        priceText.innerText = '999 Kč';
+      }
     }
-
-    let userOpenedPopup = false;
-
-    document.getElementById('orderBtn').addEventListener('click', () => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
-      userOpenedPopup = true;
-      document.querySelector('.popup').scrollIntoView({ behavior: 'smooth' });
-    });
 
     setTimeout(() => {
-      if (!userOpenedPopup) {
-        document.querySelector('.popup').style.display = 'block';
-        startCountdown();
-      }
+      document.querySelector('.popup').style.display = 'block';
+      startCountdown();
     }, 5000);
 
-    if (!sessionStorage.getItem('bonusShown')) {
-      setTimeout(() => {
-        document.querySelector('.bonus-popup').style.display = 'block';
-        sessionStorage.setItem('bonusShown', 'true');
-      }, 10000);
-    }
+    setTimeout(() => {
+      const bonusPopup = document.querySelector('.bonus-popup');
+      const sound = document.getElementById("bonus-sound");
+      if (bonusPopup) {
+        bonusPopup.style.display = 'block';
+        if (sound) {
+          sound.play().catch(e => console.warn("Zvuk se nespustil:", e));
+        }
+      }
+    }, 10000);
   </script>
 
   <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
