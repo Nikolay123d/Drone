@@ -107,6 +107,12 @@
       border-radius: 10px;
       display: none;
     }
+    #praha-info {
+      display: block;
+      color: #90ee90;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
     #timer {
       margin-top: 10px;
       font-size: 16px;
@@ -162,6 +168,10 @@
         <input type="file" name="payment_proof" accept="image/*"></p>
       </div>
 
+      <div id="praha-info">
+        🎉 Gratulujeme! Využijte bezplatnou dopravu kurýrem po celé Praze do 24 hodin. Stačí potvrdit níže!
+      </div>
+
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
@@ -170,7 +180,7 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
-    <h2 style="color: #ff4444">🏱 L I K V I D A C E - Bonus k objednávce!</h2>
+    <h2 style="color: #ff4444">🏡 L I K V I D A C E - Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
       <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧹 Šachová deska za 99 Kč</label><br>
@@ -189,8 +199,18 @@
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+      const prahaInfo = document.getElementById('praha-info');
+
+      if (location === 'nepraha') {
+        accInfo.style.display = 'block';
+        prahaInfo.style.display = 'none';
+      } else {
+        accInfo.style.display = 'none';
+        prahaInfo.style.display = 'block';
+      }
     }
+
+    toggleAccount();
 
     function setBonus(bonus) {
       const priceText = document.getElementById('price');
@@ -214,22 +234,32 @@
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
       let deadline = localStorage.getItem("deadline");
+
       if (!deadline) {
         deadline = Date.now() + 24 * 60 * 60 * 1000;
         localStorage.setItem("deadline", deadline);
+      } else {
+        deadline = parseInt(deadline);
       }
+
       function updateTimer() {
-        const remaining = deadline - Date.now();
+        const now = Date.now();
+        const remaining = deadline - now;
+
         if (remaining <= 0) {
           timerDisplay.innerText = "⏰ Čas vypršel!";
+          localStorage.removeItem("deadline");
           return;
         }
+
         const h = Math.floor(remaining / (1000 * 60 * 60));
         const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
+
+        timerDisplay.innerText = `⏳ Zbývá čas: ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
         setTimeout(updateTimer, 1000);
       }
+
       updateTimer();
     }
 
