@@ -99,7 +99,7 @@
       border-radius: 10px;
       width: 100%;
     }
-    #account-info, #praha-benefit {
+    #account-info {
       font-size: 16px;
       color: #fff;
       background: #333;
@@ -133,7 +133,7 @@
     <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
     <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
     <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítke</div>
     <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
     <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
     <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
@@ -141,30 +141,25 @@
   </div>
 
   <div class="popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+    <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
     <h2>Objednávkový formulář</h2>
     <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Vaše jméno" required>
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="city" placeholder="Město / Город" required>
+      <input type="text" name="city" placeholder="Město nebo obec" required>
 
-      <p>Jste z Prahy?</p>
-      <label><input type="radio" name="from_praha" value="yes" onclick="handlePraha(true)"> Ano</label>
-      <label><input type="radio" name="from_praha" value="no" onclick="handlePraha(false)"> Ne</label>
-
-      <div id="praha-benefit">
-        🎉 Gratulujeme! Využijte <strong>dopravu zdarma po celé Praze</strong> kurýrem během 24 hodin.<br>
-        <label><input type="checkbox" name="confirm_free_delivery" required> ✅ Potvrzuji objednávku s kurýrem zdarma</label>
-      </div>
+      <select id="location" name="location" onchange="toggleAccount()">
+        <option value="praha" selected>Jsem z Prahy</option>
+        <option value="nepraha">Nejsem z Prahy</option>
+      </select>
 
       <div id="account-info">
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet:<br>
         <strong>ČSOB 354037257/0300</strong><br>
-        📎 Přiložte screenshot potvrzení:
-        <input type="file" name="payment_proof" accept="image/*">
-        </p>
+        📌 Přiložte screenshot potvrzení:
+        <input type="file" name="payment_proof" accept="image/*"></p>
       </div>
 
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
@@ -174,11 +169,11 @@
   </div>
 
   <div class="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
+    <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
+    <h2 style="color: #ff4444">🏱 L I K V I D A C E - Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧹 Šachová deska za 99 Kč</label><br>
       <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
       <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
       <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
@@ -191,28 +186,38 @@
   </audio>
 
   <script>
-    function handlePraha(isFromPraha) {
+    function toggleAccount() {
+      const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      const prahaBenefit = document.getElementById('praha-benefit');
-      if (isFromPraha) {
-        accInfo.style.display = 'none';
-        prahaBenefit.style.display = 'block';
+      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+    }
+
+    function setBonus(bonus) {
+      const priceText = document.getElementById('price');
+      if (bonus === 'sachy') {
+        priceText.innerText = '1098 Kč';
       } else {
-        accInfo.style.display = 'block';
-        prahaBenefit.style.display = 'none';
+        priceText.innerText = '999 Kč';
+      }
+    }
+
+    let popupShown = false;
+
+    function showPopup() {
+      if (!popupShown) {
+        document.querySelector('.popup').style.display = 'block';
+        startCountdown();
+        popupShown = true;
       }
     }
 
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
-      let deadline = localStorage.getItem("droneSaleDeadline");
+      let deadline = localStorage.getItem("deadline");
       if (!deadline) {
         deadline = Date.now() + 24 * 60 * 60 * 1000;
-        localStorage.setItem("droneSaleDeadline", deadline);
-      } else {
-        deadline = parseInt(deadline);
+        localStorage.setItem("deadline", deadline);
       }
-
       function updateTimer() {
         const remaining = deadline - Date.now();
         if (remaining <= 0) {
@@ -225,23 +230,16 @@
         timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
         setTimeout(updateTimer, 1000);
       }
-
       updateTimer();
     }
 
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
-      }
-    }
+    setTimeout(showPopup, 5000);
 
-    setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
-    }, 5000);
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 150) {
+        showPopup();
+      }
+    });
 
     setTimeout(() => {
       const bonusPopup = document.querySelector('.bonus-popup');
