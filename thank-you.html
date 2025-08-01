@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Prodej Dronů</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background-color: #111; color: #fff; }
@@ -54,6 +54,10 @@
       display: block; padding: 10px; background: #333; color: #00ccff;
       text-align: center; margin: 10px 0; border-radius: 8px; text-decoration: none;
     }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -61,34 +65,40 @@
   Uspěj koupit za 899 Kč
   <button onclick="showPopup()">Odeslat objednávku</button>
   <button onclick="triggerBonusManually()">🎁 Získat bonus</button>
+  <!-- Кнопка сброса бонуса и таймера для теста -->
+  <button onclick="resetBonusAndTimer()" style="background:#555;color:#fff; margin-left:10px;">Reset</button>
 </div>
 <div class="images">
-  <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+  <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" />
   <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-  <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+  <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" />
   <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-  <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+  <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" />
   <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-  <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+  <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" />
   <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-  <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+  <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" />
   <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
 </div>
 <div class="popup">
   <span class="close" onclick="this.parentElement.style.display='none'">×</span>
   <h2>Objednávkový formulář</h2>
   <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="Vaše jméno" required>
-    <input type="tel" name="phone" placeholder="Telefon" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="hidden" name="bonus_choice" id="bonus_choice">
+    <input type="text" name="name" placeholder="Vaše jméno" required />
+    <input type="tel" name="phone" placeholder="Telefon" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="hidden" name="bonus_choice" id="bonus_choice" />
     <div id="account-info">
-      <p>Celková cena: <strong id="price">999 Kč</strong><br>
-      Z toho <strong>250 Kč</strong> předem na účet:<br>
-      <strong>ČSOB 354037257/0300</strong><br>
-      📎 Přiložte screenshot potvrzení:
-      <input type="file" name="payment_proof" accept="image/*">
-      <small>💡 Platbu vybíráme pouze po potvrzení odeslání. Slouží jako záruka, že objednávka byla skutečně vytvořena. Po přijetí platby Vás ihned kontaktujeme 📦</small>
+      <p>
+        Celková cena: <strong id="price">999 Kč</strong><br />
+        Z toho <strong>250 Kč</strong> předem na účet:<br />
+        <strong>ČSOB 354037257/0300</strong><br />
+        📎 Přiložte screenshot potvrzení:
+        <input type="file" name="payment_proof" accept="image/*" />
+        <small
+          >💡 Platbu vybíráme pouze po potvrzení odeslání. Slouží jako záruka, že objednávka
+          byla skutečně vytvořena. Po přijetí platby Vás ihned kontaktujeme 📦</small
+        >
       </p>
     </div>
     <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
@@ -123,15 +133,39 @@
   <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
   <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
   <div class="bonus-options">
-    <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-    <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
-    <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
-    <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
-    <button onclick="closeBonusPopup()">✅ Pokračovat k objednávce</button>
+    <label
+      ><input
+        type="radio"
+        name="bonus"
+        value="sachy"
+        onchange="setBonus('sachy')"
+      />
+      🧩 Šachová deska za 99 Kč</label
+    ><br />
+    <img
+      src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg"
+      onclick="window.open(this.src)"
+    />
+    <label
+      ><input
+        type="radio"
+        name="bonus"
+        value="sluchatka"
+        onchange="setBonus('sluchatka')"
+      />
+      🎧 Sluchátka P47 ZDARMA</label
+    ><br />
+    <img
+      src="https://i.ibb.co/xKxdGMW4/289748005.webp"
+      onclick="window.open(this.src)"
+    />
+    <button id="bonus-confirm-btn" onclick="closeBonusPopup()" disabled>
+      ✅ Pokračovat k objednávce
+    </button>
   </div>
 </div>
 <div class="messenger-popup" id="messengerPopup">
-  <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+  <span class="close" onclick="this.parentElement.style.display = 'none'">×</span>
   <h2>💬 Vyberte messenger pro spojení</h2>
   <a href="viber://add?number=380968700835">📲 Viber</a>
   <a href="https://wa.me/qr/G55T2UCT5BCPD1">💬 WhatsApp</a>
@@ -139,17 +173,54 @@
 </div>
 <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 <script>
+  // Вспомогательная функция включения/отключения кнопки "Продолжить"
+  function updateBonusConfirmButton() {
+    const bonusConfirmBtn = document.getElementById("bonus-confirm-btn");
+    const selectedBonus = document.querySelector('input[name="bonus"]:checked');
+    bonusConfirmBtn.disabled = !selectedBonus;
+  }
+
+  // Восстанавливаем выбранный бонус из localStorage при загрузке
+  function restoreBonusChoice() {
+    const savedBonus = localStorage.getItem("bonus_choice");
+    if (savedBonus) {
+      const bonusRadio = document.querySelector(
+        `input[name="bonus"][value="${savedBonus}"]`
+      );
+      if (bonusRadio) {
+        bonusRadio.checked = true;
+        setBonus(savedBonus);
+        updateBonusConfirmButton();
+      }
+    }
+  }
+
+  // Сохраняем бонус при выборе
+  function setBonus(bonus) {
+    localStorage.setItem("bonus_choice", bonus);
+    document.getElementById("price").innerText =
+      bonus === "sachy" ? "1098 Kč" : "999 Kč";
+    document.getElementById("bonus_choice").value = bonus;
+    updateBonusConfirmButton();
+  }
+
+  // Показываем форму заказа и запускаем таймер
   function showPopup() {
-    document.querySelector('.popup').style.display = 'block';
+    document.querySelector(".popup").style.display = "block";
     startCountdown();
   }
+
+  // Таймер обратного отсчёта 24 часа с сохранением дедлайна в localStorage
   function startCountdown() {
-    const timerDisplay = document.getElementById('timer');
-    let deadline = localStorage.getItem('orderDeadline');
+    const timerDisplay = document.getElementById("timer");
+    let deadline = localStorage.getItem("orderDeadline");
     if (!deadline) {
       deadline = Date.now() + 24 * 60 * 60 * 1000;
-      localStorage.setItem('orderDeadline', deadline);
+      localStorage.setItem("orderDeadline", deadline);
+    } else {
+      deadline = parseInt(deadline, 10);
     }
+
     function updateTimer() {
       const remaining = deadline - Date.now();
       if (remaining <= 0) {
@@ -164,36 +235,67 @@
     }
     updateTimer();
   }
+
+  // Закрываем бонусный попап, открываем форму заказа
   function closeBonusPopup() {
-    document.querySelector('.bonus-popup').style.display = 'none';
+    document.querySelector(".bonus-popup").style.display = "none";
     showPopup();
   }
+
+  // Вручную показать бонусный попап (только 1 раз)
   function triggerBonusManually() {
-    if (!localStorage.getItem('bonusShown')) {
-      document.querySelector('.bonus-popup').style.display = 'block';
-      localStorage.setItem('bonusShown', 'true');
+    if (!localStorage.getItem("bonusShown")) {
+      document.querySelector(".bonus-popup").style.display = "block";
+      localStorage.setItem("bonusShown", "true");
     }
   }
+
+  // Показать попап мессенджера
   function showMessengerPopup() {
     document.getElementById("messengerPopup").style.display = "block";
   }
-  function setBonus(bonus) {
-    document.getElementById('price').innerText = bonus === 'sachy' ? '1098 Kč' : '999 Kč';
-    document.getElementById('bonus_choice').value = bonus;
+
+  // Сброс бонуса и таймера (для тестирования или если нужно начать заново)
+  function resetBonusAndTimer() {
+    localStorage.removeItem("bonus_choice");
+    localStorage.removeItem("bonusShown");
+    localStorage.removeItem("orderDeadline");
+    localStorage.removeItem("scrollTriggered");
+    document.getElementById("bonus_choice").value = "";
+    document.getElementById("price").innerText = "999 Kč";
+    document.querySelectorAll('input[name="bonus"]').forEach((el) => (el.checked = false));
+    updateBonusConfirmButton();
+    alert("Bonus a timer byly resetovány.");
   }
-  window.addEventListener('scroll', () => {
-    if (!localStorage.getItem('scrollTriggered')) {
-      document.querySelector('.bonus-popup').style.display = 'block';
-      localStorage.setItem('bonusShown', 'true');
-      localStorage.setItem('scrollTriggered', 'true');
+
+  // При загрузке страницы восстанавливаем выбор бонуса и цену
+  window.addEventListener("load", () => {
+    restoreBonusChoice();
+
+    // Автоматически показать бонус, если он еще не показывался
+    if (!localStorage.getItem("bonusShown")) {
+      setTimeout(() => {
+        document.querySelector(".bonus-popup").style.display = "block";
+        localStorage.setItem("bonusShown", "true");
+      }, 10000);
     }
   });
-  setTimeout(() => {
-    if (!localStorage.getItem('bonusShown')) {
-      document.querySelector('.bonus-popup').style.display = 'block';
-      localStorage.setItem('bonusShown', 'true');
+
+  // Показать бонус при прокрутке, если не показывали раньше
+  window.addEventListener("scroll", () => {
+    if (!localStorage.getItem("scrollTriggered")) {
+      document.querySelector(".bonus-popup").style.display = "block";
+      localStorage.setItem("bonusShown", "true");
+      localStorage.setItem("scrollTriggered", "true");
     }
-  }, 10000);
+  });
+
+  // Следим за изменениями радиокнопок, чтобы включать/выключать кнопку "Продолжить"
+  document.querySelectorAll('input[name="bonus"]').forEach((el) =>
+    el.addEventListener("change", (e) => {
+      setBonus(e.target.value);
+    })
+  );
 </script>
 </body>
-</html>
+          </html>
