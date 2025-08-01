@@ -5,235 +5,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prodej Dronů</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #111; color: #fff; }
     .banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #e60000;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-      font-size: 20px;
-      font-weight: bold;
-      z-index: 9999;
+      position: fixed; top: 0; left: 0; width: 100%; background: #e60000; color: white;
+      text-align: center; padding: 10px 0; font-size: 20px; font-weight: bold; z-index: 9999;
     }
     .banner button {
-      background: #fff;
-      color: #e60000;
-      border: none;
-      padding: 10px 15px;
-      margin-left: 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
+      background: #fff; color: #e60000; border: none; padding: 10px 15px; margin-left: 20px;
+      font-size: 16px; cursor: pointer; border-radius: 8px;
     }
-    .images {
-      margin-top: 60px;
-    }
+    .images { margin-top: 60px; }
     .images img {
-      width: 100%;
-      max-width: 100%;
-      display: block;
-      margin: 20px auto;
-      border-radius: 12px;
+      width: 100%; max-width: 100%; display: block; margin: 20px auto; border-radius: 12px;
     }
     .description {
-      text-align: center;
-      font-size: 18px;
-      margin: -10px 20px 30px;
-      color: #ccc;
+      text-align: center; font-size: 18px; margin: -10px 20px 30px; color: #ccc;
     }
-    .popup, .bonus-popup {
-      display: none;
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translate(-50%, -10%);
-      width: 90%;
-      background-color: #222;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      z-index: 10000;
-      max-height: 90vh;
-      overflow-y: auto;
+    .popup, .bonus-popup, .messenger-popup {
+      display: none; position: fixed; top: 10%; left: 50%; transform: translate(-50%, -10%);
+      width: 90%; background-color: #222; padding: 20px; border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); z-index: 10000; max-height: 90vh; overflow-y: auto;
     }
-    .popup h2, .bonus-popup h2 {
-      margin-top: 0;
-      color: #fff;
-    }
+    .popup h2, .bonus-popup h2, .messenger-popup h2 { margin-top: 0; color: #fff; }
     .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
+      position: absolute; top: 10px; right: 20px; color: #fff; font-size: 24px; cursor: pointer;
     }
     form input, form select, form textarea {
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      width: 100%; margin-bottom: 15px; padding: 10px; border: none;
+      border-radius: 8px; font-size: 16px;
     }
-    form textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
+    form textarea { resize: vertical; min-height: 80px; }
     form button {
-      background: #00cc00;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 100%;
+      background: #00cc00; color: white; border: none; padding: 12px 20px;
+      font-size: 18px; cursor: pointer; border-radius: 10px; width: 100%;
     }
     #account-info {
-      font-size: 16px;
-      color: #fff;
-      background: #333;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
+      font-size: 15px; color: #fff; background: #333; padding: 15px;
+      border-radius: 10px; display: none;
     }
-    #timer {
-      margin-top: 10px;
-      font-size: 16px;
-      text-align: center;
-      color: #ffcc00;
+    #account-info small {
+      color: #bbb; display: block; margin-top: 10px; font-size: 13px;
     }
+    #timer { margin-top: 10px; font-size: 16px; text-align: center; color: #ffcc00; }
     .bonus-options img {
-      width: 40%;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      cursor: pointer;
+      width: 40%; border-radius: 12px; margin-bottom: 10px; cursor: pointer;
+    }
+    .messenger-popup a {
+      display: block; padding: 10px; background: #333; color: #00ccff;
+      text-align: center; margin: 10px 0; border-radius: 8px; text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="banner">
-    Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
-  </div>
-
-  <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
-  </div>
-
-  <div class="popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha" selected>Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
-      </select>
-      <div id="account-info">
-        <p>Celková cena: <strong id="price">999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet:<br>
-        <strong>ČSOB 354037257/0300</strong><br>
-        📎 Přiložte screenshot potvrzení:
-        <input type="file" name="payment_proof" accept="image/*">
-        </p>
-      </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit">Odeslat objednávku</button>
-      <div id="timer"></div>
-    </form>
-  </div>
-
-  <div class="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
-    <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
-    <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
+<div class="banner">
+  Uspěj koupit za 899 Kč
+  <button onclick="showPopup()">Odeslat objednávku</button>
+  <button onclick="triggerBonusManually()">🎁 Získat bonus</button>
+</div>
+<div class="images">
+  <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+  <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+  <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+  <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+  <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+  <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+  <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+  <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+  <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+  <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+</div>
+<div class="popup">
+  <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+  <h2>Objednávkový formulář</h2>
+  <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Vaše jméno" required>
+    <input type="tel" name="phone" placeholder="Telefon" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="hidden" name="bonus_choice" id="bonus_choice">
+    <div id="account-info">
+      <p>Celková cena: <strong id="price">999 Kč</strong><br>
+      Z toho <strong>250 Kč</strong> předem na účet:<br>
+      <strong>ČSOB 354037257/0300</strong><br>
+      📎 Přiložte screenshot potvrzení:
+      <input type="file" name="payment_proof" accept="image/*">
+      <small>💡 Platbu vybíráme pouze po potvrzení odeslání. Slouží jako záruka, že objednávka byla skutečně vytvořena. Po přijetí platby Vás ihned kontaktujeme 📦</small>
+      </p>
     </div>
-    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
+    <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
+    <div id="location-block">
+      <label>Země:</label>
+      <select name="country" id="country-select" required>
+        <option value="">Vyberte zemi</option>
+        <option value="Česká republika">Česká republika</option>
+      </select>
+      <label>Město:</label>
+      <select name="city" id="city-select" required>
+        <option value="">Vyberte město</option>
+        <option value="Praha">Praha</option>
+        <option value="Brno">Brno</option>
+        <option value="Ostrava">Ostrava</option>
+        <option value="Plzeň">Plzeň</option>
+        <option value="Liberec">Liberec</option>
+      </select>
+    </div>
+    <button type="submit">Odeslat objednávku</button>
+    <button type="button" onclick="showMessengerPopup()">📨 Spojit se s námi</button>
+    <div id="timer"></div>
+    <script>
+      document.querySelector('form').addEventListener('submit', function () {
+        if (window.plausible) plausible('Objednavka-Odeslana');
+      });
+    </script>
+  </form>
+</div>
+<div class="bonus-popup">
+  <span class="close" onclick="closeBonusPopup()">×</span>
+  <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
+  <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
+  <div class="bonus-options">
+    <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
+    <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
+    <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
+    <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
+    <button onclick="closeBonusPopup()">✅ Pokračovat k objednávce</button>
   </div>
-
-  <!-- 🎵 Zvuk bonusu -->
-  <audio id="bonus-sound" preload="auto">
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    function toggleAccount() {
-      const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+</div>
+<div class="messenger-popup" id="messengerPopup">
+  <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+  <h2>💬 Vyberte messenger pro spojení</h2>
+  <a href="viber://add?number=380968700835">📲 Viber</a>
+  <a href="https://wa.me/qr/G55T2UCT5BCPD1">💬 WhatsApp</a>
+  <a href="https://t.me/darausoan">📩 Telegram</a>
+</div>
+<script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
+<script>
+  function showPopup() {
+    document.querySelector('.popup').style.display = 'block';
+    startCountdown();
+  }
+  function startCountdown() {
+    const timerDisplay = document.getElementById('timer');
+    let deadline = localStorage.getItem('orderDeadline');
+    if (!deadline) {
+      deadline = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem('orderDeadline', deadline);
     }
-
-    function startCountdown() {
-      const timerDisplay = document.getElementById('timer');
-      const deadline = Date.now() + 24 * 60 * 60 * 1000;
-      function updateTimer() {
-        const remaining = deadline - Date.now();
-        if (remaining <= 0) {
-          timerDisplay.innerText = "⏰ Čas vypršel!";
-          return;
-        }
-        const h = Math.floor(remaining / (1000 * 60 * 60));
-        const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((remaining % (1000 * 60)) / 1000);
-        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
-        setTimeout(updateTimer, 1000);
+    function updateTimer() {
+      const remaining = deadline - Date.now();
+      if (remaining <= 0) {
+        timerDisplay.innerText = "⏰ Čas vypršel!";
+        return;
       }
-      updateTimer();
+      const h = Math.floor(remaining / (1000 * 60 * 60));
+      const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((remaining % (1000 * 60)) / 1000);
+      timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
+      setTimeout(updateTimer, 1000);
     }
-
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
-      }
+    updateTimer();
+  }
+  function closeBonusPopup() {
+    document.querySelector('.bonus-popup').style.display = 'none';
+    showPopup();
+  }
+  function triggerBonusManually() {
+    if (!localStorage.getItem('bonusShown')) {
+      document.querySelector('.bonus-popup').style.display = 'block';
+      localStorage.setItem('bonusShown', 'true');
     }
-
-    setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
-    }, 5000);
-
-    setTimeout(() => {
-      const bonusPopup = document.querySelector('.bonus-popup');
-      const sound = document.getElementById("bonus-sound");
-      if (bonusPopup) {
-        bonusPopup.style.display = 'block';
-        if (sound) {
-          sound.play().catch(e => console.warn("Zvuk se nespustil:", e));
-        }
-      }
-    }, 10000);
-  </script>
-
-  <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
+  }
+  function showMessengerPopup() {
+    document.getElementById("messengerPopup").style.display = "block";
+  }
+  function setBonus(bonus) {
+    document.getElementById('price').innerText = bonus === 'sachy' ? '1098 Kč' : '999 Kč';
+    document.getElementById('bonus_choice').value = bonus;
+  }
+  window.addEventListener('scroll', () => {
+    if (!localStorage.getItem('scrollTriggered')) {
+      document.querySelector('.bonus-popup').style.display = 'block';
+      localStorage.setItem('bonusShown', 'true');
+      localStorage.setItem('scrollTriggered', 'true');
+    }
+  });
+  setTimeout(() => {
+    if (!localStorage.getItem('bonusShown')) {
+      document.querySelector('.bonus-popup').style.display = 'block';
+      localStorage.setItem('bonusShown', 'true');
+    }
+  }, 10000);
+</script>
 </body>
-      </html>
+</html>
