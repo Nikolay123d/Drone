@@ -21,18 +21,21 @@
     .description {
       text-align: center; font-size: 18px; margin: -10px 20px 30px; color: #ccc;
     }
-    .popup, .bonus-popup, .messenger-popup {
+    .popup, .bonus-popup, .delivery-popup, .messenger-popup {
       display: none; position: fixed; top: 10%; left: 50%; transform: translate(-50%, -10%);
-      width: 90%; background-color: #222; padding: 20px; border-radius: 15px;
+      width: 90%; max-width: 400px; background-color: #222; padding: 20px; border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); z-index: 10000; max-height: 90vh; overflow-y: auto;
     }
-    .popup h2, .bonus-popup h2, .messenger-popup h2 { margin-top: 0; color: #fff; }
+    .popup h2, .bonus-popup h2, .delivery-popup h2, .messenger-popup h2 {
+      margin-top: 0; color: #fff;
+    }
     .close {
       position: absolute; top: 10px; right: 20px; color: #fff; font-size: 24px; cursor: pointer;
     }
     form input, form select, form textarea {
       width: 100%; margin-bottom: 15px; padding: 10px; border: none;
       border-radius: 8px; font-size: 16px;
+      background: #333; color: #fff;
     }
     form textarea { resize: vertical; min-height: 80px; }
     form button {
@@ -58,6 +61,20 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+    label.checkbox-label {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      margin-top: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    label.checkbox-label input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -65,7 +82,6 @@
   Uspěj koupit za 899 Kč
   <button onclick="showPopup()">Odeslat objednávku</button>
   <button onclick="triggerBonusManually()">🎁 Získat bonus</button>
-  <!-- Кнопка сброса бонуса и таймера для теста -->
   <button onclick="resetBonusAndTimer()" style="background:#555;color:#fff; margin-left:10px;">Reset</button>
 </div>
 <div class="images">
@@ -80,10 +96,12 @@
   <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" />
   <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
 </div>
+
+<!-- Основная форма заказа -->
 <div class="popup">
   <span class="close" onclick="this.parentElement.style.display='none'">×</span>
   <h2>Objednávkový formulář</h2>
-  <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
+  <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data" id="order-form">
     <input type="text" name="name" placeholder="Vaše jméno" required />
     <input type="tel" name="phone" placeholder="Telefon" required />
     <input type="email" name="email" placeholder="Email" required />
@@ -95,75 +113,69 @@
         <strong>ČSOB 354037257/0300</strong><br />
         📎 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*" />
-        <small
-          >💡 Platbu vybíráme pouze po potvrzení odeslání. Slouží jako záruka, že objednávka
-          byla skutečně vytvořena. Po přijetí platby Vás ihned kontaktujeme 📦</small
-        >
+        <small>
+          💡 Platbu vybíráme pouze po potvrzení odeslání. Slouží jako záruka, že objednávka
+          byla skutečně vytvořena. Po přijetí platby Vás ihned kontaktujeme 📦
+        </small>
       </p>
     </div>
     <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-    <div id="location-block">
-      <label>Země:</label>
-      <select name="country" id="country-select" required>
-        <option value="">Vyberte zemi</option>
-        <option value="Česká republika">Česká republika</option>
-      </select>
-      <label>Město:</label>
-      <select name="city" id="city-select" required>
-        <option value="">Vyberte město</option>
-        <option value="Praha">Praha</option>
-        <option value="Brno">Brno</option>
-        <option value="Ostrava">Ostrava</option>
-        <option value="Plzeň">Plzeň</option>
-        <option value="Liberec">Liberec</option>
-      </select>
-    </div>
+
+    <label for="city">Město (napište prosím):</label>
+    <input type="text" name="city" id="city" placeholder="Napište město" value="Praha" required />
+
     <button type="submit">Odeslat objednávku</button>
     <button type="button" onclick="showMessengerPopup()">📨 Spojit se s námi</button>
     <div id="timer"></div>
-    <script>
-      document.querySelector('form').addEventListener('submit', function () {
-        if (window.plausible) plausible('Objednavka-Odeslana');
-      });
-    </script>
   </form>
 </div>
+
+<!-- Окно с бонусами -->
 <div class="bonus-popup">
   <span class="close" onclick="closeBonusPopup()">×</span>
   <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
   <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
   <div class="bonus-options">
-    <label
-      ><input
-        type="radio"
-        name="bonus"
-        value="sachy"
-        onchange="setBonus('sachy')"
-      />
-      🧩 Šachová deska za 99 Kč</label
-    ><br />
+    <label>
+      <input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')" />
+      🧩 Šachová deska za 99 Kč
+    </label>
+    <br />
     <img
       src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg"
       onclick="window.open(this.src)"
+      style="cursor:pointer"
     />
-    <label
-      ><input
-        type="radio"
-        name="bonus"
-        value="sluchatka"
-        onchange="setBonus('sluchatka')"
-      />
-      🎧 Sluchátka P47 ZDARMA</label
-    ><br />
+    <label>
+      <input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')" />
+      🎧 Sluchátka P47 ZDARMA
+    </label>
+    <br />
     <img
       src="https://i.ibb.co/xKxdGMW4/289748005.webp"
       onclick="window.open(this.src)"
+      style="cursor:pointer"
     />
-    <button id="bonus-confirm-btn" onclick="closeBonusPopup()" disabled>
-      ✅ Pokračovat k objednávce
-    </button>
+    <button id="bonus-confirm-btn" onclick="closeBonusPopup()" disabled>✅ Pokračovat k objednávce</button>
   </div>
 </div>
+
+<!-- Окно с вопросом про доставку по Праге -->
+<div class="delivery-popup">
+  <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+  <h2>🚚 Jste z Prahy?</h2>
+  <p>
+    Pokud ano, nabízíme <strong>bezplatnou možnost kurýrní dopravy po Praze</strong>.
+    Zaškrtněte prosím níže a pokračujte v objednávce.
+  </p>
+  <label class="checkbox-label">
+    <input type="checkbox" id="free-delivery-checkbox" name="free_delivery" form="order-form" />
+    ✅ Chci bezplatnou dopravu po Praze
+  </label>
+  <button onclick="closeDeliveryPopup()">Pokračovat k objednávce</button>
+</div>
+
+<!-- Мессенджеры -->
 <div class="messenger-popup" id="messengerPopup">
   <span class="close" onclick="this.parentElement.style.display = 'none'">×</span>
   <h2>💬 Vyberte messenger pro spojení</h2>
@@ -171,46 +183,54 @@
   <a href="https://wa.me/qr/G55T2UCT5BCPD1">💬 WhatsApp</a>
   <a href="https://t.me/darausoan">📩 Telegram</a>
 </div>
+
 <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
+
 <script>
-  // Вспомогательная функция включения/отключения кнопки "Продолжить"
+  let firstPopupShown = false;
+  let bonusPopupTimer = null;
+  let deliveryPopupTimer = null;
+
+  // Включение/отключение кнопки "Продолжить" в бонусах
   function updateBonusConfirmButton() {
-    const bonusConfirmBtn = document.getElementById("bonus-confirm-btn");
+    const btn = document.getElementById("bonus-confirm-btn");
     const selectedBonus = document.querySelector('input[name="bonus"]:checked');
-    bonusConfirmBtn.disabled = !selectedBonus;
+    btn.disabled = !selectedBonus;
   }
 
-  // Восстанавливаем выбранный бонус из localStorage при загрузке
-  function restoreBonusChoice() {
-    const savedBonus = localStorage.getItem("bonus_choice");
-    if (savedBonus) {
-      const bonusRadio = document.querySelector(
-        `input[name="bonus"][value="${savedBonus}"]`
-      );
-      if (bonusRadio) {
-        bonusRadio.checked = true;
-        setBonus(savedBonus);
-        updateBonusConfirmButton();
-      }
-    }
-  }
-
-  // Сохраняем бонус при выборе
+  // Сохранение выбора бонуса
   function setBonus(bonus) {
     localStorage.setItem("bonus_choice", bonus);
-    document.getElementById("price").innerText =
-      bonus === "sachy" ? "1098 Kč" : "999 Kč";
+    document.getElementById("price").innerText = bonus === "sachy" ? "1098 Kč" : "999 Kč";
     document.getElementById("bonus_choice").value = bonus;
     updateBonusConfirmButton();
   }
 
-  // Показываем форму заказа и запускаем таймер
-  function showPopup() {
-    document.querySelector(".popup").style.display = "block";
-    startCountdown();
+  // Закрыть бонусное окно и показать форму заказа
+  function closeBonusPopup() {
+    document.querySelector(".bonus-popup").style.display = "none";
+    showPopup();
+    // Запускаем таймер для окна доставки через 5 сек
+    if(deliveryPopupTimer) clearTimeout(deliveryPopupTimer);
+    deliveryPopupTimer = setTimeout(() => {
+      const cityInput = document.getElementById('city');
+      const cityVal = cityInput.value.trim().toLowerCase();
+      if(cityVal === 'praha') {
+        document.querySelector('.delivery-popup').style.display = 'block';
+      }
+    }, 5000);
   }
 
-  // Таймер обратного отсчёта 24 часа с сохранением дедлайна в localStorage
+  // Показать форму заказа
+  function showPopup() {
+    const popup = document.querySelector(".popup");
+    if (!popup.style.display || popup.style.display === "none") {
+      popup.style.display = "block";
+      startCountdown();
+    }
+  }
+
+  // Таймер 24 часа
   function startCountdown() {
     const timerDisplay = document.getElementById("timer");
     let deadline = localStorage.getItem("orderDeadline");
@@ -236,26 +256,27 @@
     updateTimer();
   }
 
-  // Закрываем бонусный попап, открываем форму заказа
-  function closeBonusPopup() {
-    document.querySelector(".bonus-popup").style.display = "none";
-    showPopup();
-  }
-
-  // Вручную показать бонусный попап (только 1 раз)
+  // Показать бонусное окно (если еще не показывали)
   function triggerBonusManually() {
     if (!localStorage.getItem("bonusShown")) {
       document.querySelector(".bonus-popup").style.display = "block";
       localStorage.setItem("bonusShown", "true");
+      // Запускаем таймер для окна доставки после закрытия бонусного окна
+      // Но таймер запускается именно при закрытии бонусного окна (см. closeBonusPopup)
     }
   }
 
-  // Показать попап мессенджера
+  // Показать мессенджер
   function showMessengerPopup() {
     document.getElementById("messengerPopup").style.display = "block";
   }
 
-  // Сброс бонуса и таймера (для тестирования или если нужно начать заново)
+  // Закрыть окно доставки
+  function closeDeliveryPopup() {
+    document.querySelector('.delivery-popup').style.display = 'none';
+  }
+
+  // Сброс данных для теста
   function resetBonusAndTimer() {
     localStorage.removeItem("bonus_choice");
     localStorage.removeItem("bonusShown");
@@ -263,39 +284,57 @@
     localStorage.removeItem("scrollTriggered");
     document.getElementById("bonus_choice").value = "";
     document.getElementById("price").innerText = "999 Kč";
-    document.querySelectorAll('input[name="bonus"]').forEach((el) => (el.checked = false));
+    document.querySelectorAll('input[name="bonus"]').forEach(el => (el.checked = false));
     updateBonusConfirmButton();
     alert("Bonus a timer byly resetovány.");
   }
 
-  // При загрузке страницы восстанавливаем выбор бонуса и цену
-  window.addEventListener("load", () => {
-    restoreBonusChoice();
+  // Восстановить бонусный выбор
+  function restoreBonusChoice() {
+    const savedBonus = localStorage.getItem("bonus_choice");
+    if (savedBonus) {
+      const bonusRadio = document.querySelector(`input[name="bonus"][value="${savedBonus}"]`);
+      if (bonusRadio) {
+        bonusRadio.checked = true;
+        setBonus(savedBonus);
+        updateBonusConfirmButton();
+      }
+    }
+  }
 
-    // Автоматически показать бонус, если он еще не показывался
-    if (!localStorage.getItem("bonusShown")) {
-      setTimeout(() => {
-        document.querySelector(".bonus-popup").style.display = "block";
-        localStorage.setItem("bonusShown", "true");
+  // Обработчик скролла — при первом скролле показываем первое окно, затем бонусное через 10 секунд
+  window.addEventListener("scroll", () => {
+    if (!firstPopupShown) {
+      firstPopupShown = true;
+      showPopup();
+
+      // Показываем бонусное окно через 10 секунд после первого окна
+      if (bonusPopupTimer) clearTimeout(bonusPopupTimer);
+      bonusPopupTimer = setTimeout(() => {
+        if (!localStorage.getItem("bonusShown")) {
+          document.querySelector(".bonus-popup").style.display = "block";
+          localStorage.setItem("bonusShown", "true");
+        }
       }, 10000);
     }
   });
 
-  // Показать бонус при прокрутке, если не показывали раньше
-  window.addEventListener("scroll", () => {
-    if (!localStorage.getItem("scrollTriggered")) {
-      document.querySelector(".bonus-popup").style.display = "block";
-      localStorage.setItem("bonusShown", "true");
-      localStorage.setItem("scrollTriggered", "true");
-    }
+  // Восстановление бонуса и выборки при загрузке
+  window.addEventListener("load", () => {
+    restoreBonusChoice();
   });
 
-  // Следим за изменениями радиокнопок, чтобы включать/выключать кнопку "Продолжить"
-  document.querySelectorAll('input[name="bonus"]').forEach((el) =>
+  // Следим за выбором бонуса, чтобы включать кнопку подтверждения
+  document.querySelectorAll('input[name="bonus"]').forEach(el => {
     el.addEventListener("change", (e) => {
       setBonus(e.target.value);
-    })
-  );
+    });
+  });
+
+  // При отправке формы — трекаем событие (Plausible)
+  document.getElementById("order-form").addEventListener("submit", () => {
+    if (window.plausible) plausible("Objednavka-Odeslana");
+  });
 </script>
 </body>
-</html>
+  </html>
