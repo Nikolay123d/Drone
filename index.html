@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -120,6 +119,34 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
+    .contact-toggle {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .contact-toggle button {
+      background-color: #00cc00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .contact-links {
+      display: none;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .contact-links a {
+      display: inline-block;
+      margin: 5px 10px;
+      padding: 10px 15px;
+      background-color: #007a00;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -164,6 +191,14 @@
       <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
     </form>
+    <div class="contact-toggle">
+      <button onclick="toggleContacts()">📲 Spojit se s námi</button>
+      <div class="contact-links" id="contacts">
+        <a href="https://wa.me/qr/G55T2UCT5BCPD1" target="_blank">WhatsApp</a>
+        <a href="viber://add?number=380968700835">Viber</a>
+        <a href="https://t.me/darausoan" target="_blank">Telegram</a>
+      </div>
+    </div>
   </div>
 
   <div class="bonus-popup">
@@ -179,7 +214,6 @@
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
-  <!-- 🎵 Zvuk bonusu -->
   <audio id="bonus-sound" preload="auto">
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
   </audio>
@@ -218,24 +252,31 @@
       }
     }
 
-    setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
-    }, 5000);
+    function toggleContacts() {
+      const links = document.getElementById('contacts');
+      links.style.display = links.style.display === 'block' ? 'none' : 'block';
+    }
 
-    setTimeout(() => {
-      const bonusPopup = document.querySelector('.bonus-popup');
-      const sound = document.getElementById("bonus-sound");
-      if (bonusPopup) {
-        bonusPopup.style.display = 'block';
-        if (sound) {
-          sound.play().catch(e => console.warn("Zvuk se nespustil:", e));
-        }
+    let popupShown = false;
+    window.addEventListener('scroll', function () {
+      if (!popupShown) {
+        document.querySelector('.popup').style.display = 'block';
+        startCountdown();
+        popupShown = true;
+        setTimeout(() => {
+          const bonusPopup = document.querySelector('.bonus-popup');
+          const sound = document.getElementById("bonus-sound");
+          if (bonusPopup) {
+            bonusPopup.style.display = 'block';
+            if (sound) {
+              sound.play().catch(e => console.warn("Zvuk se nespustil:", e));
+            }
+          }
+        }, 5000);
       }
-    }, 10000);
+    });
   </script>
 
   <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 </body>
-      </html>
-
+</html>
