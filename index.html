@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prodej Dronů</title>
-  <script defer data-domain="nikolay123d.github.io/drone" src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"></script>
-  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <style>
     body {
       margin: 0;
@@ -126,11 +124,20 @@
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'; startCountdown()">Odeslat objednávku</button>
+    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
 
   <div class="images">
-    <!-- изображения и описания -->
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Kompaktní dron">
+    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Stabilizace obrazu">
+    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Rychlý vzlet">
+    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítke</div>
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Ovládání dronu">
+    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Výdrž baterie">
+    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
   <div class="popup">
@@ -142,15 +149,12 @@
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="city" placeholder="Město nebo obec" required>
 
-      <label for="location">Vyberte variantu:</label>
       <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
 
-      <div id="praha-info">
-        <p>Doručení v rámci Prahy je zdarma. Platba při převzetí.</p>
-      </div>
+      <div id="praha-info">Zákazník z Prahy: platba při převzetí.</div>
 
       <div id="account-info">
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
@@ -168,10 +172,10 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
-    <h2 style="color: #ff4444">🏱 L I K V I D A C E - Bonus k objednávce!</h2>
+    <h2 style="color: #ff4444">🏡 L I K V I D A C E - Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧹 Šachová deska za 99 Kč</label><br>
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🪝 Šachová deska za 99 Kč</label><br>
       <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
       <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
       <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
@@ -183,30 +187,19 @@
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
   </audio>
 
+  <script defer data-domain="nikolay123d.github.io/drone" src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
   <script>
     function toggleAccount() {
       const location = document.getElementById('location').value;
-      const accInfo = document.getElementById('account-info');
-      const prahaInfo = document.getElementById('praha-info');
-
-      if (location === 'nepraha') {
-        accInfo.style.display = 'block';
-        prahaInfo.style.display = 'none';
-      } else {
-        accInfo.style.display = 'none';
-        prahaInfo.style.display = 'block';
-      }
+      document.getElementById('account-info').style.display = location === 'nepraha' ? 'block' : 'none';
+      document.getElementById('praha-info').style.display = location === 'praha' ? 'block' : 'none';
     }
-
-    toggleAccount();
 
     function setBonus(bonus) {
       const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
-      }
+      priceText.innerText = bonus === 'sachy' ? '1098 Kč' : '999 Kč';
     }
 
     let popupShown = false;
@@ -251,6 +244,7 @@
       updateTimer();
     }
 
+    toggleAccount();
     setTimeout(showPopup, 5000);
 
     window.addEventListener('scroll', () => {
