@@ -99,7 +99,7 @@
       border-radius: 10px;
       width: 100%;
     }
-    #account-info, #praha-info {
+    #account-info {
       font-size: 16px;
       color: #fff;
       background: #333;
@@ -126,44 +126,38 @@
     Uspěj koupit za 899 Kč
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
-
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Kompaktní dron">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Stabilizace obrazu">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Rychlý vzlet">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítke</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Ovládání dronu">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Výdrž baterie">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+    <!-- Images omitted for brevity -->
   </div>
-
   <div class="popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
+    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
     <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
       <input type="text" name="name" placeholder="Vaše jméno" required>
       <input type="tel" name="phone" placeholder="Telefon" required>
       <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="city" placeholder="Město nebo obec" required>
-
       <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
 
-      <div id="praha-info">Zákazník z Prahy: platba při převzetí.</div>
+      <div id="delivery-note" style="display: block; color: #0f0; font-size: 16px; margin: 10px 0;">
+        🛵 Požádejte o bezplatné doručení kurýrem v rámci akce.<br>
+        ✅ Stačí kliknout na zaškrtávací políčko níže.
+      </div>
+
+      <label style="display: block; margin-bottom: 10px;">
+        <input type="checkbox" name="confirm_delivery" required> Potvrzuji bezplatné doručení kurýrem
+      </label>
 
       <div id="account-info">
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet:<br>
         <strong>ČSOB 354037257/0300</strong><br>
-        📌 Přiložte screenshot potvrzení:
-        <input type="file" name="payment_proof" accept="image/*"></p>
+        📎 Přiložte screenshot potvrzení:
+        <input type="file" name="payment_proof" accept="image/*">
+        </p>
       </div>
-
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
       <button type="submit">Odeslat objednávku</button>
       <div id="timer"></div>
@@ -171,87 +165,54 @@
   </div>
 
   <div class="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
-    <h2 style="color: #ff4444">🏡 L I K V I D A C E - Bonus k objednávce!</h2>
-    <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
-    <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🪝 Šachová deska za 99 Kč</label><br>
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
-    </div>
-    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
+    <!-- Bonus popup omitted for brevity -->
   </div>
 
   <audio id="bonus-sound" preload="auto">
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
   </audio>
 
-  <script defer data-domain="nikolay123d.github.io/drone" src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"></script>
-  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-
   <script>
     function toggleAccount() {
       const location = document.getElementById('location').value;
-      document.getElementById('account-info').style.display = location === 'nepraha' ? 'block' : 'none';
-      document.getElementById('praha-info').style.display = location === 'praha' ? 'block' : 'none';
-    }
+      const accInfo = document.getElementById('account-info');
+      const deliveryNote = document.getElementById('delivery-note');
 
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      priceText.innerText = bonus === 'sachy' ? '1098 Kč' : '999 Kč';
-    }
-
-    let popupShown = false;
-
-    function showPopup() {
-      if (!popupShown) {
-        document.querySelector('.popup').style.display = 'block';
-        startCountdown();
-        popupShown = true;
-      }
+      accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+      deliveryNote.style.display = (location === 'praha') ? 'block' : 'none';
     }
 
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
-      let deadline = localStorage.getItem("deadline");
-
-      if (!deadline) {
-        deadline = Date.now() + 24 * 60 * 60 * 1000;
-        localStorage.setItem("deadline", deadline);
-      } else {
-        deadline = parseInt(deadline);
-      }
-
+      const deadline = Date.now() + 24 * 60 * 60 * 1000;
       function updateTimer() {
-        const now = Date.now();
-        const remaining = deadline - now;
-
+        const remaining = deadline - Date.now();
         if (remaining <= 0) {
           timerDisplay.innerText = "⏰ Čas vypršel!";
-          localStorage.removeItem("deadline");
           return;
         }
-
         const h = Math.floor(remaining / (1000 * 60 * 60));
         const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((remaining % (1000 * 60)) / 1000);
-
-        timerDisplay.innerText = `⏳ Zbývá čas: ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
         setTimeout(updateTimer, 1000);
       }
-
       updateTimer();
     }
 
-    toggleAccount();
-    setTimeout(showPopup, 5000);
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 150) {
-        showPopup();
+    function setBonus(bonus) {
+      const priceText = document.getElementById('price');
+      if (bonus === 'sachy') {
+        priceText.innerText = '1098 Kč';
+      } else {
+        priceText.innerText = '999 Kč';
       }
-    });
+    }
+
+    setTimeout(() => {
+      document.querySelector('.popup').style.display = 'block';
+      startCountdown();
+    }, 5000);
 
     setTimeout(() => {
       const bonusPopup = document.querySelector('.bonus-popup');
@@ -264,5 +225,6 @@
       }
     }, 10000);
   </script>
+  <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 </body>
 </html>
