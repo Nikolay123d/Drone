@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Prodej Dronů</title>
   <style>
     body {
@@ -25,12 +24,12 @@
       font-weight: bold;
       z-index: 9999;
     }
-    .banner button {
+    .banner button, .contact-btn {
       background: #fff;
       color: #e60000;
       border: none;
       padding: 10px 15px;
-      margin-left: 20px;
+      margin: 5px;
       font-size: 16px;
       cursor: pointer;
       border-radius: 8px;
@@ -120,66 +119,48 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+    .contact-links a {
+      background-color: #444;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
+    <button class="contact-btn" onclick="document.getElementById('contact-section').scrollIntoView({ behavior: 'smooth' });">Kontaktujte nás</button>
   </div>
 
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+    <!-- ... (твой список картинок без изменений) -->
   </div>
 
   <div class="popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2>Objednávkový formulář</h2>
-    <form action="https://getform.io/f/aoloxzrb" method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Vaše jméno" required>
-      <input type="tel" name="phone" placeholder="Telefon" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <select id="location" name="location" onchange="toggleAccount()">
-        <option value="praha" selected>Jsem z Prahy</option>
-        <option value="nepraha">Nejsem z Prahy</option>
-      </select>
-      <div id="account-info">
-        <p>Celková cena: <strong id="price">999 Kč</strong><br>
-        Z toho <strong>250 Kč</strong> předem na účet:<br>
-        <strong>ČSOB 354037257/0300</strong><br>
-        📎 Přiložte screenshot potvrzení:
-        <input type="file" name="payment_proof" accept="image/*">
-        </p>
-      </div>
-      <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
-      <button type="submit">Odeslat objednávku</button>
-      <div id="timer"></div>
-    </form>
+    <!-- ... (форма без изменений) -->
   </div>
 
   <div class="bonus-popup">
-    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
-    <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
-    <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
-    <div class="bonus-options">
-      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
-      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
-      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
-      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
-    </div>
-    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
+    <!-- ... (бонусное окно без изменений) -->
   </div>
 
-  <!-- 🎵 Zvuk bonusu -->
+  <div id="contact-section" class="contact-links">
+    <a href="https://wa.me/qr/G55T2UCT5BCPD1" target="_blank">WhatsApp</a>
+    <a href="viber://add?number=380968700835">Viber</a>
+    <a href="https://t.me/darausoan" target="_blank">Telegram</a>
+  </div>
+
   <audio id="bonus-sound" preload="auto">
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
   </audio>
@@ -193,7 +174,8 @@
 
     function startCountdown() {
       const timerDisplay = document.getElementById('timer');
-      const deadline = Date.now() + 24 * 60 * 60 * 1000;
+      const deadline = parseInt(localStorage.getItem('droneDeadline')) || (Date.now() + 24 * 60 * 60 * 1000);
+      localStorage.setItem('droneDeadline', deadline);
       function updateTimer() {
         const remaining = deadline - Date.now();
         if (remaining <= 0) {
@@ -209,18 +191,21 @@
       updateTimer();
     }
 
-    function setBonus(bonus) {
-      const priceText = document.getElementById('price');
-      if (bonus === 'sachy') {
-        priceText.innerText = '1098 Kč';
-      } else {
-        priceText.innerText = '999 Kč';
+    let popupShown = false;
+    window.addEventListener('scroll', () => {
+      if (!popupShown && window.scrollY > 100) {
+        document.querySelector('.popup').style.display = 'block';
+        startCountdown();
+        popupShown = true;
       }
-    }
+    });
 
     setTimeout(() => {
-      document.querySelector('.popup').style.display = 'block';
-      startCountdown();
+      if (!popupShown) {
+        document.querySelector('.popup').style.display = 'block';
+        startCountdown();
+        popupShown = true;
+      }
     }, 5000);
 
     setTimeout(() => {
@@ -237,5 +222,4 @@
 
   <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 </body>
-      </html>
-
+</html>
