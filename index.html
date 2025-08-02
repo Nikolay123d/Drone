@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -126,9 +127,20 @@
     Uspěj koupit za 899 Kč
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
   </div>
+
   <div class="images">
-    <!-- Images omitted for brevity -->
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
+    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
+    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
+    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
+    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
+    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
+
   <div class="popup">
     <span class="close" onclick="this.parentElement.style.display='none'">×</span>
     <h2>Objednávkový formulář</h2>
@@ -140,16 +152,6 @@
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
-
-      <div id="delivery-note" style="display: block; color: #0f0; font-size: 16px; margin: 10px 0;">
-        🛵 Požádejte o bezplatné doručení kurýrem v rámci akce.<br>
-        ✅ Stačí kliknout na zaškrtávací políčko níže.
-      </div>
-
-      <label style="display: block; margin-bottom: 10px;">
-        <input type="checkbox" name="confirm_delivery" required> Potvrzuji bezplatné doručení kurýrem
-      </label>
-
       <div id="account-info">
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
         Z toho <strong>250 Kč</strong> předem na účet:<br>
@@ -165,9 +167,19 @@
   </div>
 
   <div class="bonus-popup">
-    <!-- Bonus popup omitted for brevity -->
+    <span class="close" onclick="this.parentElement.style.display='none'">×</span>
+    <h2 style="color: #ff4444">🎁 L I K V I D A C E - Bonus k objednávce!</h2>
+    <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
+    <div class="bonus-options">
+      <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧩 Šachová deska za 99 Kč</label><br>
+      <img src="https://i.ibb.co/5xgJZ8xd/IMG-2ef862afc33e2c3f5eaaa94a5a52f82f-V.jpg" onclick="window.open(this.src)">
+      <label><input type="radio" name="bonus" value="sluchatka" onchange="setBonus('sluchatka')"> 🎧 Sluchátka P47 ZDARMA</label><br>
+      <img src="https://i.ibb.co/xKxdGMW4/289748005.webp" onclick="window.open(this.src)">
+    </div>
+    <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
+  <!-- 🎵 Zvuk bonusu -->
   <audio id="bonus-sound" preload="auto">
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
   </audio>
@@ -176,10 +188,7 @@
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
-      const deliveryNote = document.getElementById('delivery-note');
-
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
-      deliveryNote.style.display = (location === 'praha') ? 'block' : 'none';
     }
 
     function startCountdown() {
@@ -225,6 +234,8 @@
       }
     }, 10000);
   </script>
+
   <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 </body>
-</html>
+      </html>
+
