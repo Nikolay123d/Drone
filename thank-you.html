@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -119,39 +120,24 @@
       margin-bottom: 10px;
       cursor: pointer;
     }
-    .contact-links {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .contact-links a {
-      display: inline-block;
-      background: #00ff84;
-      color: black;
-      padding: 10px 20px;
-      margin: 10px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
     <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
-    <button onclick="window.open('https://wa.me/qr/G55T2UCT5BCPD1')">Kontaktujte nás</button>
   </div>
 
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg" alt="Kompaktní dron">
+    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
     <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg" alt="Stabilizace obrazu">
+    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
     <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg" alt="Snadné ovládání">
+    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
     <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítkem</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp" alt="Ovládání mobilem">
+    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
     <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp" alt="Výdrž letu">
+    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
     <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
   </div>
 
@@ -193,73 +179,34 @@
     <button onclick="document.querySelector('.bonus-popup').style.display='none'">✅ Pokračovat k objednávce</button>
   </div>
 
-  <div class="contact-links">
-    <a href="https://wa.me/qr/G55T2UCT5BCPD1">WhatsApp</a>
-    <a href="viber://add?number=380968700835">Viber</a>
-    <a href="https://t.me/darausoan">Telegram</a>
-  </div>
-
+  <!-- 🎵 Zvuk bonusu -->
   <audio id="bonus-sound" preload="auto">
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1ef03b4f54.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const FIRST_POPUP_KEY = 'firstPopupShown';
-    const BONUS_POPUP_KEY = 'bonusPopupShown';
-
-    const firstPopup = document.querySelector('.popup');
-    const bonusPopup = document.querySelector('.bonus-popup');
-
-    let firstPopupShown = localStorage.getItem(FIRST_POPUP_KEY) === 'true';
-    let bonusPopupShown = localStorage.getItem(BONUS_POPUP_KEY) === 'true';
-
-    const pageLoadTime = Date.now();
-    let firstPopupTimeout = null;
-
-    function showFirstPopup() {
-      if (firstPopupShown) return;
-      firstPopup.style.display = 'block';
-      localStorage.setItem(FIRST_POPUP_KEY, 'true');
-      firstPopupShown = true;
-      startCountdown();
-
-      // Показать бонус через 5 секунд после первого окна
-      if (!bonusPopupShown) {
-        setTimeout(showBonusPopup, 5000);
-      }
-    }
-
-    function showBonusPopup() {
-      if (bonusPopupShown) return;
-      bonusPopup.style.display = 'block';
-      localStorage.setItem(BONUS_POPUP_KEY, 'true');
-      bonusPopupShown = true;
-
-      const sound = document.getElementById('bonus-sound');
-      if (sound) sound.play().catch(() => {});
-    }
-
-    // При скролле — показать первое окно, если прошло 5 секунд
-    window.addEventListener('scroll', () => {
-      if (!firstPopupShown) {
-        const elapsed = Date.now() - pageLoadTime;
-        if (elapsed >= 5000) {
-          showFirstPopup();
-        } else if (!firstPopupTimeout) {
-          firstPopupTimeout = setTimeout(showFirstPopup, 5000 - elapsed);
-        }
-      }
-    });
-
-    // Если не скроллит — всё равно показать через 5 сек
-    setTimeout(() => {
-      if (!firstPopupShown) showFirstPopup();
-    }, 5000);
-
     function toggleAccount() {
       const location = document.getElementById('location').value;
       const accInfo = document.getElementById('account-info');
       accInfo.style.display = (location === 'nepraha') ? 'block' : 'none';
+    }
+
+    function startCountdown() {
+      const timerDisplay = document.getElementById('timer');
+      const deadline = Date.now() + 24 * 60 * 60 * 1000;
+      function updateTimer() {
+        const remaining = deadline - Date.now();
+        if (remaining <= 0) {
+          timerDisplay.innerText = "⏰ Čas vypršel!";
+          return;
+        }
+        const h = Math.floor(remaining / (1000 * 60 * 60));
+        const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((remaining % (1000 * 60)) / 1000);
+        timerDisplay.innerText = `⏳ Zbývá čas: ${h}h ${m}m ${s}s`;
+        setTimeout(updateTimer, 1000);
+      }
+      updateTimer();
     }
 
     function setBonus(bonus) {
@@ -271,14 +218,24 @@
       }
     }
 
-    // Закрытие окон по кнопкам .close
-    document.querySelectorAll('.close').forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.parentElement.style.display = 'none';
-      });
-    });
+    setTimeout(() => {
+      document.querySelector('.popup').style.display = 'block';
+      startCountdown();
+    }, 5000);
+
+    setTimeout(() => {
+      const bonusPopup = document.querySelector('.bonus-popup');
+      const sound = document.getElementById("bonus-sound");
+      if (bonusPopup) {
+        bonusPopup.style.display = 'block';
+        if (sound) {
+          sound.play().catch(e => console.warn("Zvuk se nespustil:", e));
+        }
+      }
+    }, 10000);
   </script>
 
   <script defer data-domain="surl.li/ertngt" src="https://plausible.io/js/script.js"></script>
 </body>
-</html>
+      </html>
+
