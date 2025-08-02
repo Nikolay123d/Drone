@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prodej Dronů</title>
+  <script defer data-domain="nikolay123d.github.io/drone" src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <style>
     body {
       margin: 0;
@@ -99,19 +101,13 @@
       border-radius: 10px;
       width: 100%;
     }
-    #account-info {
+    #account-info, #praha-info {
       font-size: 16px;
       color: #fff;
       background: #333;
       padding: 15px;
       border-radius: 10px;
       display: none;
-    }
-    #praha-info {
-      display: block;
-      color: #90ee90;
-      margin-bottom: 15px;
-      font-size: 16px;
     }
     #timer {
       margin-top: 10px;
@@ -130,20 +126,11 @@
 <body>
   <div class="banner">
     Uspěj koupit za 899 Kč
-    <button onclick="document.querySelector('.popup').style.display='block'">Odeslat objednávku</button>
+    <button onclick="document.querySelector('.popup').style.display='block'; startCountdown()">Odeslat objednávku</button>
   </div>
 
   <div class="images">
-    <img src="https://i.ibb.co/zHZy0g5M/images-3.jpg">
-    <div class="description">✅ Kompaktní dron s HD kamerou a skládacím designem</div>
-    <img src="https://i.ibb.co/B2b8YsRr/images-4.jpg">
-    <div class="description">📷 Ostrý obraz i při letu díky stabilizaci</div>
-    <img src="https://i.ibb.co/gMCpwwxT/3-14.jpg">
-    <div class="description">🚀 Rychlý vzlet, ovládání jedním tlačítke</div>
-    <img src="https://i.ibb.co/rWvv543/E88-Pro-professional-Drone-with-camera-RC-Drone-4-K-Professinal-HD-Camera-Foldable-Dron-Helicopter-W.webp">
-    <div class="description">🎮 Snadné ovládání přes mobil nebo ovladač</div>
-    <img src="https://i.ibb.co/4RCNfC6L/4444502663-kvadrokopter-s-hd.webp">
-    <div class="description">🔋 Výdrž až 20 minut letu s náhradní baterií</div>
+    <!-- изображения и описания -->
   </div>
 
   <div class="popup">
@@ -155,10 +142,15 @@
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="city" placeholder="Město nebo obec" required>
 
+      <label for="location">Vyberte variantu:</label>
       <select id="location" name="location" onchange="toggleAccount()">
         <option value="praha" selected>Jsem z Prahy</option>
         <option value="nepraha">Nejsem z Prahy</option>
       </select>
+
+      <div id="praha-info">
+        <p>Doručení v rámci Prahy je zdarma. Platba při převzetí.</p>
+      </div>
 
       <div id="account-info">
         <p>Celková cena: <strong id="price">999 Kč</strong><br>
@@ -166,10 +158,6 @@
         <strong>ČSOB 354037257/0300</strong><br>
         📌 Přiložte screenshot potvrzení:
         <input type="file" name="payment_proof" accept="image/*"></p>
-      </div>
-
-      <div id="praha-info">
-        🎉 Gratulujeme! Využijte bezplatnou dopravu kurýrem po celé Praze do 24 hodin. Stačí potvrdit níže!
       </div>
 
       <textarea name="comment" placeholder="Poznámka nebo výdejní místo"></textarea>
@@ -180,7 +168,7 @@
 
   <div class="bonus-popup">
     <span class="close" onclick="this.parentElement.style.display='none'">&times;</span>
-    <h2 style="color: #ff4444">🏡 L I K V I D A C E - Bonus k objednávce!</h2>
+    <h2 style="color: #ff4444">🏱 L I K V I D A C E - Bonus k objednávce!</h2>
     <p><strong>Vyberte pouze jeden bonus a potvrďte zaškrtnutím:</strong></p>
     <div class="bonus-options">
       <label><input type="radio" name="bonus" value="sachy" onchange="setBonus('sachy')"> 🧹 Šachová deska za 99 Kč</label><br>
@@ -283,4 +271,4 @@
     }, 10000);
   </script>
 </body>
-</html>
+    </html>
